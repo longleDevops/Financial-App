@@ -7,7 +7,9 @@ const StockCard = () => {
     <>
       {stocks.map((stock)=>(
         <div key={stock.name} className="h-28 w-48 bg-white flex flex-col p-4 shadow-lg">
-          <div className="flex space-x-2 items-center">
+          <div 
+          key={stock.name}
+          className="flex space-x-2 items-center">
             <Image
               src={stock.imageUrl}
               alt={"company logo"}

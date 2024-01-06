@@ -27,9 +27,12 @@ const StockList = () => {
         {watchlist.map((stock)=>(
           <div key={stock.name}className="pt-1 ">
             <button 
+              key={stock.name}
               onClick={()=>handleClick(stock.name)}
               className="w-full py-2 flex items-center justify-between hover:bg-slate-300">
-              <div className="flex items-center">
+              <div 
+                key={stock.name}
+                className="flex items-center">
                 <Image
                   src={stock.imageUrl}
                   alt="stock watch list"
