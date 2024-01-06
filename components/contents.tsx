@@ -41,7 +41,7 @@ const Contents = () => {
       </div>
       <div className="flex flex-col pt-4">
         {watchlist.map((stock)=>(
-          <div className="pt-1 ">
+          <div key={stock.name} className="pt-1 ">
             <button 
               onClick={()=>handleClick(stock.name)}
               className="w-full py-2 flex items-center justify-between hover:bg-slate-300">
