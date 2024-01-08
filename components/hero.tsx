@@ -17,7 +17,7 @@ const Hero = () => {
       <p className="text-[30px] font-bold">in one <span className="text-blue-800">DynamiteTrade</span></p>
       <div className="flex items-center flex-col text-black/85 mt-10">
         <p>Browse all stocks, keep track of any stock changes</p> 
-        <p>and get immediate financial advice from StockX advisors</p>
+        <p>and get immediate financial advice from DT advisors</p>
       </div>
       <div className="space-x-2 mt-8">
         <Button

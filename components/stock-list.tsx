@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { watchlist } from "@/constants/data"
+import { watchlist } from "@/constants"
 import Image from "next/image"
 import { Separator } from "./ui/separator"
 import { Plus } from "lucide-react"
@@ -23,6 +23,7 @@ const StockList = () => {
           <Plus className="w-6 h-6"/>
         </button>
       </div>
+
       <div className="flex flex-col pt-4">
         {watchlist.map((stock)=>(
           <div key={stock.name}className="pt-1 ">
@@ -52,6 +53,7 @@ const StockList = () => {
           </div>
         ))}
       </div>
+
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import Image from "next/image"
-import { stocks } from "@/constants/data"
+import { stocks } from "@/constants"
 
 const StockCard = () => {
   return (
@@ -15,6 +15,7 @@ const StockCard = () => {
               alt={"company logo"}
               width={22}
               height={22}
+              className="object-contains"
             />
 
             <p className="font-bold">
