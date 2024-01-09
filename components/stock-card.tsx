@@ -6,7 +6,7 @@ const StockCard = () => {
   return (
     <>
       {stocks.map((stock)=>(
-        <div key={stock.name} className="h-28 w-48 bg-white flex flex-col p-4 shadow-lg">
+        <div key={stock.name} className="h-28 min-w-48 bg-white flex flex-col p-4 shadow-lg">
           <div 
           key={stock.name}
           className="flex space-x-2 items-center">

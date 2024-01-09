@@ -29,35 +29,48 @@ export const stocks = [
     value:400,
     imageUrl:"google-logo.svg"
   },
+  
 ]
 export const watchlist = [
   {
-    name:"TWTR",
-    value:100,
+    symbol:"TWTR",
+    name:"Twitter",
+    percentChange:-10,
+    value:100.07,
     imageUrl:"twitter-logo.svg"
   },
   {
-    name:"ABNB",
+    symbol:"ABNB",
+    name:"AirBnb",
+    percentChange:-10,
     value:200,
     imageUrl:"airbnb-logo.svg"
   },
   {
-    name:"EBAY",
+    symbol:"EBAY",
+    name:"Ebay",
+    percentChange:-10,
     value:300,
     imageUrl:"ebay-logo.svg"
   },
   {
-    name:"AMZN",
+    symbol:"AMZN",
+    name:"Amazon",
+    percentChange:-10,
     value:400,
     imageUrl:"amazon-logo.svg"
   },
   {
-    name:"KO",
+    symbol:"KO",
+    name:"Coca Cola",
+    percentChange:-10,
     value:400,
     imageUrl:"coca-cola-logo.svg"
   },
   {
-    name:"AAPL",
+    symbol:"AAPL",
+    name:"Apple",
+    percentChange:-10,
     value:400,
     imageUrl:"apple-logo.svg"
   },

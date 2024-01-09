@@ -22,3 +22,7 @@ export interface YahooFinanceStock {
   }
 }
 
+export interface SearchStockProps{
+  ticker:string,
+  setTicker:(ticker:string)=> void;
+}

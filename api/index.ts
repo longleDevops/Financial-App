@@ -25,3 +25,5 @@ export const fetchStocks = async (name:string) => {
     console.error('Error fetching data', error)
   }
 }
+
+
