@@ -12,17 +12,17 @@ const StockInfo = ({ticker}:Ticker) => {
         <div className="w-full flex justify-between items-center">
           <div className="flex gap-4 justify-center">
             <Image
-              src={watchlist[0].imageUrl}
+              src={watchlist[5].imageUrl}
               alt="logo"
               width={38}
               height={38}
             />
             <div className="flex flex-col justify-start">
               <h1 className="font-bold text-xl">
-                {watchlist[0].name}
+                {dataArr[0]}
               </h1>
               <h3 className="text-slate-600 text-sm">
-                {watchlist[0].symbol}
+                {dataArr[1]}
               </h3>
             </div>
           </div>
