@@ -45,20 +45,3 @@ export const fetchRealTimePrice = async(symbol:string) => {
     console.error("errorrr",error);
   }
 }
-
-export const fetchChart = async (symbol:string) => {
-  const url = 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-chart?interval=5m&symbol=AAPL&range=1d&region=US&includePrePost=false&useYfid=true&includeAdjustedClose=true&events=capitalGain%2Cdiv%2Csplit';
-  const options = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': '8f54d4c5c3msh2a085748e236832p1f8830jsndd3103bf567c',
-    'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
-  }
-};
-  try {
-    const response = await fetch(url, options);
-
-  } catch (error) {
-    console.error(error)
-  }
-}
