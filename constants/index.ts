@@ -8,6 +8,16 @@ export const headers = [
 
 ]
 
+export const tickers = [
+  "AAPL",
+  "TSLA",
+  "AMZN",
+  "PYPL",
+  "TWTR",
+  "ABNB",
+  "KO",
+]
+
 export const stocks = [
   {
     name:"Apple",

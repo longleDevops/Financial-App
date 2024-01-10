@@ -7,12 +7,12 @@ import Image from "next/image"
 import { Separator } from "./ui/separator"
 import { Plus } from "lucide-react"
 import StockInfo from "./stock-info"
-import { YahooFinanceStock } from '@/types';
+import { Price, Ticker, YahooFinanceStock } from '@/types';
 import { WatchList } from '@/components/watch-list';
 import SearchBar from './search-bar';
 import CustomFilter from './custom-filter';
 
-const Contents = () => {
+const Contents = ({ticker}:Ticker) => {
 
   return (
     <div id="stock-content" className="h-full min-h-screen w-full bg-slate-200 px-16 py-8">
@@ -32,7 +32,7 @@ const Contents = () => {
       <div className="mt-8 flex w-full">
         {/*left section*/}
         <div className="bg-white mr-auto w-full px-10 py-6 rounded-2xl">
-         <StockInfo/>
+         <StockInfo ticker={ticker} />
         </div>
 
         <div className="bg-white w-[350px] ml-8 p-6 rounded-2xl ">
