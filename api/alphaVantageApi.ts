@@ -8,7 +8,7 @@ export interface AlphavantageData {
 
 export const getAlphaVantageData = async (symbol:string): Promise<AlphavantageData> => {
   try {
-    const apiKey = process.env.ALPHA_VANTAGE_API_KEY; 
+    const apiKey = 'RY5I9BM8UZ5NCKUO'; 
     const url = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`;
 
     const response = await fetch(url);

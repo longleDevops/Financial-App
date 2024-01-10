@@ -1,7 +1,7 @@
 export const fetchStocks = async (symbol:string) => {
   try {
     const headers = {
-      'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY || '',
+      'X-RapidAPI-Key': '8f54d4c5c3msh2a085748e236832p1f8830jsndd3103bf567c',
       'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
     }
   
