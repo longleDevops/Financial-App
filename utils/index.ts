@@ -1,16 +1,12 @@
-import { fetchStocks } from "@/api";
 
-export const getData = async (symbol:string) => {
-  const stockData = await fetchStocks(symbol);
-  
-  const dataArr=[
-    stockData?.price.longName,
-    stockData?.symbol,
-    stockData?.financialData.currentPrice.fmt, 
-    stockData?.summaryProfile.longBusinessSummary,
-    stockData?.price.exchange,
-    stockData?.price.marketCap.fmt
-  ]
-  
-  return dataArr;
+import { watchlist } from "@/constants";
+
+
+export const getCompanyLogo = (symbol: string) => {
+  const matchingSymbol = watchlist.find((item)=>item.symbol === symbol);
+  if (matchingSymbol) {
+    return matchingSymbol.imageUrl
+  } else {
+    return "tsla-logo.svg";
+  }
 }

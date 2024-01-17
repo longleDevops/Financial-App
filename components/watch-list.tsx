@@ -4,8 +4,15 @@ import { watchlist } from "@/constants"
 import Image from "next/image"
 import { Separator } from "./ui/separator"
 import { Plus } from "lucide-react"
+import { useState } from "react"
 
 export const WatchList = () => {
+  const [chosenTicker, setChosenTicker] = useState('');
+
+  const handleClick = () => {
+    setChosenTicker(watchlist[0].symbol)
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -13,24 +20,24 @@ export const WatchList = () => {
           My watchlist
         </h3>
         <button>
-          <Plus className="w-6 h-6"/>
+          <Plus className="w-6 h-6" />
         </button>
       </div>
 
       <div className="flex flex-col pt-4 overflow-y-auto small-scrollbar max-h-[50vh]">
-        {watchlist.map((stock)=>(
-          <div key={stock.symbol}className="pt-1 ">
-            <button 
-              onClick={()=>{}}
+        {watchlist.map((stock) => (
+          <div key={stock.symbol} className="pt-1 ">
+            <button
+              onClick={handleClick}
               className="w-full py-2 flex items-center justify-between hover:bg-slate-300">
-              <div 
+              <div
                 className="flex items-center">
                 <Image
                   src={stock.imageUrl}
                   alt="stock watch list"
                   width={30}
                   height={28}
-            
+
                 />
 
                 <div className="flex flex-col items-start ml-3 justify-between">
@@ -43,7 +50,7 @@ export const WatchList = () => {
                 </div>
 
               </div>
-    
+
               <div className="flex flex-col justify-between items-end">
                 <p className="font-bold">
                   ${stock.value}
@@ -53,11 +60,10 @@ export const WatchList = () => {
                 </p>
               </div>
             </button>
-            <Separator className="mt-[10px]"/>
+            <Separator className="mt-[10px]" />
           </div>
         ))}
       </div>
-
     </div>
   )
 }

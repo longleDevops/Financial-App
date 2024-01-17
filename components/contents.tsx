@@ -1,18 +1,19 @@
 "use client"
 
-import StockCard from '@/components/stock-card';
-import { useState } from "react"
-import { watchlist } from "@/constants"
-import Image from "next/image"
-import { Separator } from "./ui/separator"
-import { Plus } from "lucide-react"
 import StockInfo from "./stock-info"
-import { Price, Ticker, YahooFinanceStock } from '@/types';
 import { WatchList } from '@/components/watch-list';
 import SearchBar from './search-bar';
 import CustomFilter from './custom-filter';
+import { AlphaVantageGlobalQuoteProps, AlphaVantageOverviewProps } from "@/types";
 
-const Contents = ({ticker}:Ticker) => {
+export interface Ticker {
+  ticker:AlphaVantageOverviewProps;
+}
+export interface Price {
+  price:AlphaVantageGlobalQuoteProps;
+}
+
+const Contents:React.FC<Ticker & Price> = ({ticker,price}) => {
 
   return (
     <div id="stock-content" className="h-full min-h-screen w-full bg-slate-200 px-16 py-8">
@@ -32,7 +33,7 @@ const Contents = ({ticker}:Ticker) => {
       <div className="mt-8 flex w-full">
         {/*left section*/}
         <div className="bg-white mr-auto w-full px-10 py-6 rounded-2xl">
-         <StockInfo ticker={ticker} />
+         <StockInfo ticker={ticker} price={price}/>
         </div>
 
         <div className="bg-white w-[350px] ml-8 p-6 rounded-2xl ">

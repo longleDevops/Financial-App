@@ -1,37 +1,39 @@
 "use client"
 
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import React from 'react'
 import { Button } from './ui/button'
+import { useRouter } from 'next/navigation';
 
 const Hero = () => {
-  const scrollToSection = (sectionId:string) => {
-    const section = document.getElementById(sectionId)
-    if (section) {
-      section.scrollIntoView({behavior: 'smooth'})
-    }
+  const router = useRouter();
+  const onNavigate = () => {
+    router.push("/dashboard")
   }
 
   return (
-    <div className="h-screen flex flex-col items-center pt-48 px-16">
-      <p className="text-[35px] font-bold">Make easy money with financial investment</p>
-      <p className="text-[30px] font-bold">in one <span className="text-blue-800">DynamiteTrade</span></p>
-      <div className="flex items-center flex-col text-black/85 mt-10">
-        <p>Browse all stocks, keep track of any stock changes</p> 
+    <div className="h-screen flex flex-col items-center justify-center px-16">
+      <p className="text-[42px] font-semibold">Make easy money with financial investment</p>
+      <p className="text-[30px] font-bold">in one <span className="text-[#500480]">DynamiteTrade</span></p>
+      <div className="flex items-center flex-col text-muted-foreground mt-6">
+        <p>Browse all stocks, keep track of any stock changes</p>
         <p>and get immediate financial advice from DT advisors</p>
       </div>
       <div className="space-x-2 mt-8">
         <Button
-          onClick={() => scrollToSection("stock-content")} 
-          variant="default" 
-          className="rounded-[60px]">
-            Get started
+          onClick={onNavigate}
+          variant="default"
+          className="rounded-md pl-5 pr-3">
+          <p>Get started</p>
+          <ChevronRight className="h-4 w-4 ml-2" />
         </Button>
 
-        <Button variant="secondary">
-          Ask any questions
+        <Button variant="ghost">
+          <p>Ask any questions</p>
+          <ChevronRight className="h-4 w-4 ml-2" />
         </Button>
       </div>
-     
+
     </div>
   )
 }
