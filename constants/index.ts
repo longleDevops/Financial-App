@@ -20,7 +20,7 @@ export const tickers = [
   "XOM"
 ]
 
-export const watchlist = [
+export const stocks = [
   {
     symbol: "ABNB",
     name: "AirBnb",
