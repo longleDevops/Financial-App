@@ -27,6 +27,7 @@ export const Trending = () => {
       <div className="flex flex-col mt-6 gap-3">
         {stocks.slice(0, 4).map((item) => (
           <Button
+            key={item.symbol}
             onClick={() => handleClick(item.symbol)}
             className="px-2 py-3 rounded-md"
           >
