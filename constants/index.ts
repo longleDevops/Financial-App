@@ -1,13 +1,3 @@
-export const headers = [
-  "Company Name:",
-  "Ticker Symbol:",
-  "Current Price:",
-  "Company Summary:",
-  "Exchange:",
-  "Market Cap:"
-
-]
-
 export const tickers = [
   "AAPL",
   "TSLA",

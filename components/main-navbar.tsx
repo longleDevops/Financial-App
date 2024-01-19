@@ -21,7 +21,7 @@ export const MainNavbar = () => {
           <Mail />
         </div>
         <div>
-          ava
+          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
     </div>
