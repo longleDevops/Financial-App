@@ -1,7 +1,5 @@
 import Hero from "@/components/hero";
 import HomeNavbar from "@/components/home-navbar";
-import { fetchStocks } from "@/utils";
-import { stocks } from "@/constants";
 //export const revalidate = 0; 
 
 export default async function Home() {
@@ -9,7 +7,7 @@ export default async function Home() {
   
   return (
     <div>
-      <HomeNavbar />
+      <HomeNavbar  />
       <Hero />
     </div>
   )
