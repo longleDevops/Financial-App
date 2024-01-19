@@ -24,3 +24,6 @@ export const fetchStocks = async (funcName: string, symbol: string) => {
 
 
 
+
+
+

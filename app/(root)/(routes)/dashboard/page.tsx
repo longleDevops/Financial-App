@@ -3,24 +3,15 @@ import { Banner } from "./components/banner"
 import { Portfolio } from "./components/portfolio"
 import { Statistics } from "./components/statistics"
 import { Trending } from "./components/trending"
-import { auth } from "@clerk/nextjs"
-import { redirect } from "next/navigation"
 
 interface DashboardPageProps {
   searchParams: {
-    symbol: string;
+    name: string;
   }
 }
 
 const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
-  const { userId } = auth();
-  if (!userId) {
-    redirect('/sign-in')
-  }
-
-  const data = await fetchStocks('OVERVIEW', 'AAPL');
-  const { symbol, Name, Description } = data;
-  console.log("second fetch" + data)
+  const data = await fetchStocks('OVERVIEW', searchParams.name);
 
   return (
     <div className="w-full flex gap-6 px-8 h-full ">

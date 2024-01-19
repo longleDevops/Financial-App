@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 const Hero = () => {
   const router = useRouter();
+ 
   const onNavigate = () => {
     router.push("/dashboard")
   }

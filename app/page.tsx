@@ -1,28 +1,29 @@
 import Hero from "@/components/hero";
 import HomeNavbar from "@/components/home-navbar";
-import { HomeProps } from "@/types";
 import { fetchStocks } from "@/utils";
+import { stocks } from "@/constants";
 //export const revalidate = 0; 
 
-export default async function Home({ searchParams }: HomeProps) {
-  // const GLOBAL_QUOTE = "GLOBAL_QUOTE";
-  // const OVERVIEW = "OVERVIEW";
-  // if (!searchParams.ticker) {
-  //   searchParams.ticker = "AAPL";
-  // }
-  // const ticker = await fetchStocks(OVERVIEW, searchParams.ticker);
-  // const price = await fetchStocks(GLOBAL_QUOTE, searchParams.ticker);
-
-  // const realTime = await fetchYahooFinance('AAPL');
-  //TODO: check case where data is empty
-  const data = await fetchStocks('OVERVIEW', 'AAPL');
-  const { symbol, Name, Description } = data;
-  console.log("first fetch" + data)
-
+export default async function Home() {
+  // Use Promise.all to concurrently fetch stock data for multiple symbols
+  getData();
   return (
     <div>
       <HomeNavbar />
       <Hero />
     </div>
   )
+}
+
+export const getData = async () => {
+  const allStockData = await Promise.all(
+    stocks.map(async (item) => {
+      const overviewData = await fetchStocks('OVERVIEW', item.symbol);
+      // Process overviewData as needed
+      return {
+        overview: overviewData,
+      };
+    })
+  );
+  return allStockData;
 }
