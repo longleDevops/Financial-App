@@ -1,4 +1,5 @@
 import { AlphaVantageOverviewProps } from "@/types"
+import { fetchStocks } from "@/utils"
 
 const headers = [
   "Company Name:",
@@ -9,10 +10,11 @@ const headers = [
 ]
 
 interface StatisticsProps {
-  data: AlphaVantageOverviewProps
+  symbol:string;
 }
 
-export const Statistics = ({ data }: StatisticsProps) => {
+export const Statistics = async ({ symbol }: StatisticsProps) => {
+  const data = await fetchStocks("OVERVIEW", symbol)
 
   const { Symbol, Name, Description, Exchange, MarketCapitalization } = data;
 
