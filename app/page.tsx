@@ -6,15 +6,7 @@ import { stocks } from "@/constants";
 
 export default async function Home() {
   // Use Promise.all to concurrently fetch stock data for multiple symbols
-  const allStockData = await Promise.all(
-    stocks.map(async (item) => {
-      const overviewData = await fetchStocks('OVERVIEW', item.symbol);
-      // Process overviewData as needed
-      return {
-        overview: overviewData,
-      };
-    })
-  );
+  
   return (
     <div>
       <HomeNavbar />
