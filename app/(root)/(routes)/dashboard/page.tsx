@@ -20,7 +20,7 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
 
   const data = await fetchStocks('OVERVIEW', 'AAPL');
   const { symbol, Name, Description } = data;
-  console.log(data)
+  console.log("second fetch" + data)
 
   return (
     <div className="w-full flex gap-6 px-8 h-full ">
