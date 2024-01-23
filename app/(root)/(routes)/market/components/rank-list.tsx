@@ -44,7 +44,7 @@ const stockList = [
     symbol: "AMD",
     category: "Credit Card",
     price: "200.00",
-    url: "/products/aapl-img.png",
+    url: "/products/amd-img.png",
     isActive: false
   }, {
     rank: "5",
@@ -52,7 +52,7 @@ const stockList = [
     symbol: "VISA",
     category: "Credit Card",
     price: "300.00",
-    url: "/products/aapl-img.png",
+    url: "/products/visa.png",
     isActive: false
   },
 ]
