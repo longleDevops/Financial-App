@@ -2,12 +2,12 @@ import Hero from "@/components/hero";
 import HomeNavbar from "@/components/home-navbar";
 //export const revalidate = 0; 
 
-export default async function Home() {
+export default function Home() {
   // Use Promise.all to concurrently fetch stock data for multiple symbols
-  
+
   return (
     <div>
-      <HomeNavbar  />
+      <HomeNavbar />
       <Hero />
     </div>
   )

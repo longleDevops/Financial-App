@@ -6,14 +6,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
 
-    <div className="h-screen w-full bg-primary-foreground flex flex-col">
-      <MainNavbar />
-      <div className="mt-12 w-[200px] flex-col fixed inset-y-0 left-8">
+    <div className="flex h-screen bg-primary-foreground">
+      <aside className="w-[200px] h-full fixed">
         <Sidebar />
-      </div>
-      <main className="flex-1 pl-[220px]  w-full py-8">
+      </aside>
+      <main className="flex-1 ml-[200px] py-8 px-4">
         {children}
-        <SpeedInsights/>
+        <SpeedInsights />
       </main>
     </div>
   )

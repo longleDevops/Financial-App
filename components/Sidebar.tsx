@@ -1,12 +1,10 @@
-"use client"
-
 import { AlignEndHorizontal, ArrowRightLeft, BadgeCheck, BarChart2, Bot, LayoutGrid, MessageCircleCode, PieChart, Settings, Wallet } from "lucide-react"
 
 import { Button } from "./ui/button"
-import { useParams, usePathname, useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { useState } from "react"
 
-const sidebarItems = [
+export const sidebarItems = [
   {
     name: "Dashboard",
     href: "/dashboard",
@@ -40,34 +38,31 @@ const sidebarItems = [
 ]
 
 export const Sidebar = () => {
-  const pathName = usePathname();
-  const router = useRouter();
-
-  const onNavigate = (url: string) => {
-    return router.push(url);
-  }
-
   return (
-    <div className="flex flex-col h-full pb-8">
-      <div className="flex flex-col space-y-8 pt-12 pr-8 border-black border-2">
+    <div className="flex flex-col w-full h-full px-4 py-8 border border-red-600">
+      <h1 className="ml-3 text-lg font-semibold">
+        DynamiteTrade.
+      </h1>
+
+      <div className="mt-12 space-y-8 border-2 border-black">
         {sidebarItems.map((item) => (
-          <Button
-            onClick={() => onNavigate(item.href)}
-            variant="ghost"
-            className=" w-full pl-0 justify-start group"
+          <Link
+            href={item.href}
+            className="flex items-center justify-start w-full p-2 group hover:bg-red-200"
             key={item.name}>
-            <div className={cn("w-8 h-8 rounded-md bg-white flex items-center justify-center max-w-8 max-h-8 mr-3", pathName === item.href && "bg-purple-600")}>
-              <item.icon className={cn("w-4 h-4", pathName === item.href ? "fill-white stroke-white" : "fill-back")} />
+            <div className="flex items-center justify-center w-6 h-6 mr-2 bg-red-500 rounded-md">
+              <item.icon className="w-4 h-4" />
             </div>
-            <p className={cn("text-muted-foreground", pathName === item.href && "text-black font-semibold text-lg")}>{item.name}</p>
-          </Button>
+            <p className="text-muted-foreground">{item.name}</p>
+
+          </Link>
         ))}
       </div>
 
-      <div className="mt-auto flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4 mt-auto">
         <p className="font-semibold text-md ">Upgrade Pro</p>
         <p className="text-sm text-muted-foreground">Experiencing  explosive </p>
-        <p className="text-sm text-muted-foreground -mt-4 mb-2">features</p>
+        <p className="mb-2 -mt-4 text-sm text-muted-foreground">features</p>
         <Button className="px-16 rounded-2xl">
           Explore Pro
         </Button>
