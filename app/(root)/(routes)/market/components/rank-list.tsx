@@ -94,6 +94,7 @@ export const RankList = ({ product, setProduct }: RankListProps) => {
         item.isActive = true :
         stock.isActive = false;
     })
+
     setTimeout(() => {
       setIsDisable(false)
     }, 500)

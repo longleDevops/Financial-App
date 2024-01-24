@@ -5,9 +5,9 @@ import { useState } from "react"
 
 const MartketPage = () => {
   const [product, setProduct] = useState({
-    imgUrl: "/products/tsla-img.png",
+    imgUrl: "/products/tsla-img.webp",
     price: "200",
-    symbol:"TSLA",
+    symbol: "TSLA",
   })
 
   return (
