@@ -48,6 +48,7 @@ export const FeaturedProduct = ({ product }: FeaturedProductProps) => {
           width={350}
           height={350}
           ref={scope}
+          priority={true}
           onLoad={handleImageLoad}
         />
       </div>
