@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/sidebar"
+import Sidebar from "@/components/sidebar"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

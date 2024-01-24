@@ -37,7 +37,7 @@ export const sidebarItems = [
   }
 ]
 
-export const Sidebar = () => {
+const Sidebar = () => {
   return (
     <div className="flex flex-col w-full h-full px-4 py-8 border border-red-600">
       <h1 className="ml-3 text-lg font-semibold">
@@ -70,3 +70,4 @@ export const Sidebar = () => {
     </div>
   )
 }
+export default Sidebar;
