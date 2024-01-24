@@ -20,9 +20,9 @@ export const FeaturedProduct = ({ product }: FeaturedProductProps) => {
 
   useEffect(() => {
     if (imageLoadedRef.current) {
-      animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 })
+      animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 });
+      imageLoadedRef.current = false;
     }
-    imageLoadedRef.current = false;
   }, [symbol])
 
   const handleImageLoad = () => {
