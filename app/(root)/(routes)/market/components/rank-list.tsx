@@ -19,7 +19,7 @@ const stockList = [
     symbol: "NVDA",
     category: "Chip",
     price: "1000.00",
-    url: "/products/nvda-img.png",
+    url: "/products/nvda-img.webp",
     isActive: false
   },
   {
@@ -28,7 +28,7 @@ const stockList = [
     symbol: "TSLA",
     category: "Automotive",
     price: "33,000.00",
-    url: "/products/tsla-img.png",
+    url: "/products/tsla-img.webp",
     isActive: false
   },
   {
@@ -37,7 +37,7 @@ const stockList = [
     symbol: "AAPL",
     category: "Electronics",
     price: "800.00",
-    url: "/products/aapl-img.png",
+    url: "/products/aapl-img.webp",
     isActive: false
   }, {
     rank: "4",
@@ -45,7 +45,7 @@ const stockList = [
     symbol: "AMD",
     category: "Credit Card",
     price: "320.00",
-    url: "/products/amd-img.png",
+    url: "/products/amd-img.webp",
     isActive: false
   }, {
     rank: "5",
@@ -53,7 +53,7 @@ const stockList = [
     symbol: "VISA",
     category: "Credit Card",
     price: "600.00",
-    url: "/products/visa.png",
+    url: "/products/visa.webp",
     isActive: false
   },
 ]
@@ -96,7 +96,7 @@ export const RankList = ({ product, setProduct }: RankListProps) => {
     })
     setTimeout(() => {
       setIsDisable(false)
-    }, 300)
+    }, 500)
   }
 
   return (
