@@ -9,7 +9,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import { useState } from "react";
 
 const stockList = [
   {
@@ -17,7 +18,7 @@ const stockList = [
     name: "Nvidia",
     symbol: "NVDA",
     category: "Chip",
-    price: "200.00",
+    price: "1000.00",
     url: "/products/nvda-img.png",
     isActive: false
   },
@@ -26,7 +27,7 @@ const stockList = [
     name: "Tesla",
     symbol: "TSLA",
     category: "Automotive",
-    price: "200.00",
+    price: "33,000.00",
     url: "/products/tsla-img.png",
     isActive: false
   },
@@ -35,7 +36,7 @@ const stockList = [
     name: "Apple",
     symbol: "AAPL",
     category: "Electronics",
-    price: "150.00",
+    price: "800.00",
     url: "/products/aapl-img.png",
     isActive: false
   }, {
@@ -43,7 +44,7 @@ const stockList = [
     name: "Advanced Micro Devices",
     symbol: "AMD",
     category: "Credit Card",
-    price: "200.00",
+    price: "320.00",
     url: "/products/amd-img.png",
     isActive: false
   }, {
@@ -51,7 +52,7 @@ const stockList = [
     name: "VISA",
     symbol: "VISA",
     category: "Credit Card",
-    price: "300.00",
+    price: "600.00",
     url: "/products/visa.png",
     isActive: false
   },
@@ -68,20 +69,34 @@ interface StockItem {
 }
 
 interface RankListProps {
-  imgUrl: string,
-  setImgUrl: (imgUrl: string) => void
+  product: {
+    imgUrl: string,
+    price: string,
+    symbol: string
+  },
+  setProduct: ({ imgUrl, price, symbol }: { imgUrl: string, price: string, symbol: string }) => void
 }
 
-export const RankList = ({ imgUrl, setImgUrl }: RankListProps) => {
+export const RankList = ({ product, setProduct }: RankListProps) => {
+  const [isDisable, setIsDisable] = useState(false)
 
   const handleClick = (item: StockItem) => {
-    setImgUrl(item.url);
+    // Call back func
+    setProduct({
+      imgUrl: item.url,
+      price: item.price,
+      symbol: item.symbol
+    });
 
+    setIsDisable(true)
     stockList.map((stock) => {
       stock.symbol === item.symbol ?
         item.isActive = true :
         stock.isActive = false;
     })
+    setTimeout(() => {
+      setIsDisable(false)
+    }, 300)
   }
 
   return (
@@ -89,9 +104,9 @@ export const RankList = ({ imgUrl, setImgUrl }: RankListProps) => {
       <TableCaption>A list of top ranked companies.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="border border-red-500 w-[50px]">Rank</TableHead>
-          <TableHead className="border border-red-400">Symbol</TableHead>
-          <TableHead className="border border-red-400 w-[200px]">Company</TableHead>
+          <TableHead className=" w-[50px]">Rank</TableHead>
+          <TableHead className="">Symbol</TableHead>
+          <TableHead className=" w-[200px]">Company</TableHead>
           <TableHead className="">Category</TableHead>
           <TableHead className="">Price</TableHead>
         </TableRow>
@@ -101,7 +116,8 @@ export const RankList = ({ imgUrl, setImgUrl }: RankListProps) => {
           <TableRow
             key={item.symbol}
             onClick={() => handleClick(item)}
-            className={`hover:cursor-pointer hover:bg-slate-200 ${item.url === imgUrl && 'bg-slate-200'}`}
+            className={`hover:cursor-pointer hover:bg-slate-200 ${item.url === product.imgUrl && 'bg-slate-200'} ${isDisable &&
+              'pointer-events-none'}`}
           >
             <TableCell className="font-medium">{item.rank}</TableCell>
             <TableCell>{item.symbol}</TableCell>
@@ -111,12 +127,6 @@ export const RankList = ({ imgUrl, setImgUrl }: RankListProps) => {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   )
 }

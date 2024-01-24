@@ -4,7 +4,11 @@ import { FeaturedProduct } from "./components/featured-product"
 import { useState } from "react"
 
 const MartketPage = () => {
-  const [imgUrl, setImgUrl] = useState("/products/tsla-img.png");
+  const [product, setProduct] = useState({
+    imgUrl: "/products/tsla-img.png",
+    price: "200",
+    symbol:"TSLA",
+  })
 
   return (
     <div className="flex flex-col h-full">
@@ -12,11 +16,11 @@ const MartketPage = () => {
 
       <div className="flex flex-1 mt-8">
         <div className="w-[40%] border border-red-700 p-8">
-          <FeaturedProduct imgUrl={imgUrl} />
+          <FeaturedProduct product={product} />
         </div>
 
         <div className="w-[60%]  border border-red-700 p-8">
-          <RankList imgUrl={imgUrl} setImgUrl={setImgUrl} />
+          <RankList product={product} setProduct={setProduct} />
         </div>
       </div>
     </div>
