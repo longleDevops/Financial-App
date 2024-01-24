@@ -22,13 +22,14 @@ export const FeaturedProduct = ({ imgUrl }: FeaturedProductProps) => {
     <div className="flex flex-col h-full">
       <h1>Tesla Inc. </h1>
       <div className="relative flex items-center justify-center flex-1 ">
-        <Image
-          ref={scope}
-          src={imgUrl}
-          alt="tsla product"
-          width={350}
-          height={350}
-        />
+        <div ref={scope}>
+          <Image
+            src={imgUrl}
+            alt="tsla product"
+            width={350}
+            height={350}
+          />
+        </div>
       </div>
     </div>
   )
