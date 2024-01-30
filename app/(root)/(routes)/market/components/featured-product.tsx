@@ -3,11 +3,10 @@
 import { useAnimate } from "framer-motion"
 import Image from "next/image"
 import { useEffect, useRef } from "react"
-
 import { ProductDialog } from "./product-dialog"
 interface FeaturedProductProps {
   product: {
-    imgUrl: string,
+    productUrl: string,
     price: string,
     symbol: string
   }
@@ -15,43 +14,37 @@ interface FeaturedProductProps {
 
 export const FeaturedProduct = ({ product }: FeaturedProductProps) => {
   const [scope, animate] = useAnimate();
-  const { imgUrl, price, symbol } = product;
-  const imageLoadedRef = useRef(true)
+  const { productUrl, price, symbol } = product;
 
   useEffect(() => {
-    if (imageLoadedRef.current) {
-      setTimeout(() => {
-        animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 });
-        imageLoadedRef.current = false;
-      }, .1)
-    }
+    animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 });
+
   }, [symbol])
 
-  const handleImageLoad = () => {
-    imageLoadedRef.current = true;
-  }
   return (
     <div className="flex flex-col h-full">
       <div className="flex justify-between">
         <div>
-          <ProductDialog symbol={symbol} imgUrl={imgUrl} />
-          <p className="text-xl font-semibold">SUV Model S</p>
+          <p className="text-lg font-semibold">SUV Model S</p>
+          <ProductDialog symbol={symbol} productUrl={productUrl} />
         </div>
         <div className="flex flex-col items-end">
-          <h1 className="text-muted-foreground">Price </h1>
-          <p className="text-xl font-semibold ">${price}</p>
+          <h1 className="flex text-xl font-semibold ">
+            ${price}
+          </h1>
+          <p className="text-muted-foreground"></p>
+
         </div>
       </div>
 
       <div className="relative flex items-center justify-center flex-1 ">
         <Image
-          src={imgUrl}
+          src={productUrl}
           alt="tsla product"
-          width={350}
-          height={350}
+          width={340}
+          height={340}
           ref={scope}
           priority={true}
-          onLoad={handleImageLoad}
         />
       </div>
       <div className="flex flex-col items-center">

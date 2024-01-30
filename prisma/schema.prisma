@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Company {
+  id String @id @default(uuid())
+  name String @unique
+  symbol String @unique
+  imgSrc String @unique
+  price String 
+  rank String
+  sector String
+  products Product[]
+}
+
+// // cannot create a ticker without a company
+// model Ticker {
+//   id String @id @default(uuid())
+//   price String
+//   imgSrc String  
+//   symbol String @unique
+// }
+
+model Product {
+  id String @id @default(uuid())
+  name String
+  imgSrc String
+  company Company @relation(fields:[productSymbol],references: [symbol], onDelete: Cascade)
+  productSymbol String 
+}
+
+
+

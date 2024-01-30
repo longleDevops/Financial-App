@@ -11,6 +11,7 @@ import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
 
 
+
 const productList = [
   "Tesla Model Y",
   "USA",
@@ -41,15 +42,15 @@ const horizontalImage = [
 
 interface ProductDialogProps {
   symbol: string,
-  imgUrl: string
+  productUrl: string
 }
 
-export const ProductDialog = ({ symbol, imgUrl }: ProductDialogProps) => {
+export const ProductDialog = ({ symbol, productUrl }: ProductDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button
-          className="flex gap-2 text-muted-foreground hover:underline"
+          className="flex gap-2 text-sm text-muted-foreground hover:underline"
         >
           <p>Feature</p>
           <ExternalLink
@@ -64,7 +65,7 @@ export const ProductDialog = ({ symbol, imgUrl }: ProductDialogProps) => {
         <div className="flex">
           <div className="w-[400px] flex flex-col items-center gap-8 pt-4 pr-8">
             <Image
-              src={imgUrl}
+              src={productUrl}
               alt="tsla car"
               width={250}
               height={250}
@@ -72,12 +73,16 @@ export const ProductDialog = ({ symbol, imgUrl }: ProductDialogProps) => {
             />
             <div className="flex gap-3">
               {horizontalImage.map((item) => (
-                <div className="px-2 py-3 border border-slate-200">
+                <div
+                  key={item}
+                  className="px-2 py-3 border border-slate-200"
+                >
                   <Image
-                    src={imgUrl}
+                    src={productUrl}
                     alt="product images"
                     width={100}
                     height={100}
+                    priority={true}
                   />
                 </div>
               ))}

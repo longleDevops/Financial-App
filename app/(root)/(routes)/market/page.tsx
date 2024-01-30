@@ -1,31 +1,18 @@
-"use client"
-import { RankList } from "./components/rank-list"
-import { FeaturedProduct } from "./components/featured-product"
-import { useState } from "react"
+import prismadb from "@/lib/prismadb"
+import MarketPlace from "./components/market-place"
 
-const MartketPage = () => {
-  const [product, setProduct] = useState({
-    imgUrl: "/products/tsla-img.webp",
-    price: "200",
-    symbol: "TSLA",
-  })
+export const revalidate = 0;
 
+const Market = async () => {
+  const companies = await prismadb.company.findMany()
+  const products = await prismadb.product.findMany()
+
+  console.log(companies)
   return (
-    <div className="flex flex-col h-full">
-      <p>MartketPage</p>
-
-      <div className="flex flex-1 mt-8">
-        <div className="w-[40%] border border-red-700 p-8">
-          <FeaturedProduct product={product} />
-        </div>
-
-        <div className="w-[60%]  border border-red-700 p-8">
-          <RankList product={product} setProduct={setProduct} />
-        </div>
-      </div>
-    </div>
-
+    <>
+      <MarketPlace companies={companies} products={products} />
+    </>
   )
 }
 
-export default MartketPage
+export default Market
