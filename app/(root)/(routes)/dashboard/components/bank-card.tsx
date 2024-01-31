@@ -1,18 +1,26 @@
+import { Plus } from "lucide-react"
 
 export const BankCard = () => {
   const handleClick = (symbol: string) => {
 
   }
   return (
-    <div className="w-full h-[280px] px-4 py-6">
-      <div className="flex flex-col justify-between h-full p-4 text-xs border rounded-lg shadow-lg border-muted-foreground/30">
+    <div className="w-full px-4 py-4">
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-semibold">My Cards</p>
+        <div className="flex">
+          <Plus size={12} />
+          <p className="ml-1 text-[10px]">Add Card</p>
+        </div>
+      </div>
+      <div className="flex flex-col justify-between h-[164px] p-4 mt-4 text-xs border rounded-lg shadow-lg border-muted-foreground/30 bg-[#256662] text-white font-normal">
         <p className="flex justify-between">
           Credit Card
-          <span>Logo</span>
+          <span className="text-xl font-bold">VISA</span>
         </p>
         <p>**** **** **** 3245</p>
         <div>
-          <p className="flex justify-between text-xs">
+          <p className="flex justify-between">
             CARD HOLDER NAME
             <span>EXP DATE</span>
           </p>

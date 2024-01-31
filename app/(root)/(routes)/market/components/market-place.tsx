@@ -22,6 +22,7 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
     productUrl: defaultProduct.imgSrc,
     price: defaultCompany.price,
     symbol: defaultProduct.productSymbol,
+    name:defaultProduct.name
   })
 
   const [isBack, setIsBack] = useState(false)
@@ -44,9 +45,8 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
   return (
     <div className="flex flex-1 pb-4 max-h-[748px]">
       <div className="w-[35%] p-8 border-r border-muted-foreground/30">
-        <FeaturedProduct product={product} />
+        <FeaturedProduct product={product} companies={companies}/>
       </div>
-
       <div className="w-[65%] overflow-hidden">
         <div
           className="flex w-[200%] h-full"
@@ -79,7 +79,6 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
               />
             </div>
           </div>
-
           <div
             className="flex-1 h-full bg-blue-100"
           >
@@ -89,7 +88,6 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
             />
           </div>
         </div>
-
       </div>
     </div>
   )

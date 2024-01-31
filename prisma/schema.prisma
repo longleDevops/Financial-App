@@ -11,6 +11,14 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model Account{
+  id String @id @default(uuid())
+  balance Int
+  portfolioVal Int
+  totalVal Int
+  companies Company[]
+}
+
 model Company {
   id String @id @default(uuid())
   name String @unique
@@ -19,7 +27,11 @@ model Company {
   price String 
   rank String
   sector String
+  sentimental String
   products Product[]
+
+  account Account? @relation(fields: [companyId], references: [id])
+  companyId String?
 }
 
 // // cannot create a ticker without a company

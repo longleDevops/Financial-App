@@ -24,7 +24,7 @@ export const Statistics = ({ symbol }: StatisticsProps) => {
   // from parents, avoid w-full or h-full for the parent
   return (
     <>
-      <div className="w-full h-full mt-8 text-lg font-semibold border rounded-lg border-muted-foreground/30">
+      <div className="w-full h-full mt-8 text-lg font-semibold border rounded-t-lg border-muted-foreground/30">
         {/* <p>Overview</p>
         <div className="flex flex-col gap-2">
           {headers.map((header, index) => (

@@ -113,13 +113,13 @@ export const Activity = ({ companies }: ActivityProps) => {
   // TODO: add a calendar option if possible
 
   return (
-    <div className="w-full h-full px-4 pt-4 pb-0 bg-white ">
-      <p className="text-lg font-bold">Recent Activity</p>
-      <div className="flex flex-col mt-6 gap-3 overflow-y-auto max-h-[390px]">
+    <div className="flex-1 w-full px-4 pt-4 pb-0">
+      <p className="text-sm font-semibold">Recent Activity</p>
+      <div className="flex flex-col mt-4 gap-3 overflow-y-auto max-h-[390px] 2xl:max-h-[500px]">
         {companies.map((company) => (
           <button
             key={company.name}
-            className="flex justify-between px-4 py-2 text-xs border rounded-md border-muted-foreground/30"
+            className="flex justify-between px-4 py-2 text-xs border-b rounded-md border-muted-foreground/30"
           >
             <div className="flex items-center gap-2 w-[150px]">
               <Image
@@ -130,14 +130,14 @@ export const Activity = ({ companies }: ActivityProps) => {
                 className="object-contain rounded-full max-h-[20px]"
               />
               <div className="flex flex-col items-start ml-1">
-                <p className="text-sm font-medium">{company.name}</p>
+                <p className="font-medium">{company.name}</p>
                 <p className="text-muted-foreground">just now</p>
               </div>
             </div>
 
             <div className="flex flex-col items-end">
-              <p className="">${company.price}.00</p>
-              <p className=" text-muted-foreground">Buy</p>
+              <p className="">${company.price}</p>
+              <p className="text-muted-foreground">Buy</p>
             </div>
 
           </button>

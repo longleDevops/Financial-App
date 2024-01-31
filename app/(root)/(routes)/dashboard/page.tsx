@@ -1,11 +1,11 @@
 import prismadb from "@/lib/prismadb";
+
 import {
   BankCard,
   Activity,
   BalanceCard,
   Statistics
 } from "./components/index"
-import { Separator } from "@/components/ui/separator"
 
 const headers = [
   {
@@ -36,7 +36,7 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
   const companies = await prismadb.company.findMany();
 
   return (
-    <div className="flex w-full gap-6 px-6 py-6">
+    <div className="flex w-full h-full gap-6 px-6 pt-6">
       <div className="flex flex-col w-[856px]">
         <div className="flex justify-between">
           {headers.map((item, index) =>
@@ -52,7 +52,7 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
         <Statistics symbol={searchParams.name} />
       </div>
 
-      <div className="flex flex-col flex-1 border border-muted-foreground/30 rounded-lg max-h-[700px]">
+      <div className="flex flex-col flex-1 border border-b-0 rounded-t-lg border-muted-foreground/30">
         <BankCard />
         <Activity companies={companies} />
       </div>

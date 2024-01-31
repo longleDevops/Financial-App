@@ -1,104 +1,156 @@
 "use client"
 
+import { useState } from "react";
 import Image from "next/image";
+import { MdOutlineLeaderboard } from "react-icons/md";
+import { GiRank3 } from "react-icons/gi";
+import { MdCorporateFare } from "react-icons/md";
+import { LiaIndustrySolid } from "react-icons/lia";
+import { MdCurrencyExchange } from "react-icons/md";
+import { BsPeople } from "react-icons/bs";
+
+
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table";
-import { useState } from "react";
-import { MarketPlaceProps } from "./market-place";
 import { Company, Product } from "@prisma/client";
-import { CompanyProfile } from "./company-profile";
-
-interface StockItem {
-  rank: string;
-  name: string;
-  symbol: string;
-  sector: string;
-  price: string;
-  productUrl: string;
-  isActive: boolean;
-}
 
 interface StockListProps {
   product: {
     productUrl: string,
     price: string,
-    symbol: string
+    symbol: string,
+    name: string
   },
-  setProduct: ({ productUrl, price, symbol }: { productUrl: string, price: string, symbol: string }) => void,
+  setProduct: ({
+    productUrl,
+    price,
+    symbol,
+    name
+  }: {
+    productUrl: string,
+    price: string,
+    symbol: string,
+    name: string
+  }) => void,
 
   companies: Company[]
   products: Product[]
 }
 
 
+const getSentimentalColor = (input: string) => {
+  switch (input) {
+    case "strong buy":
+      return "text-green-500";
+    case "buy":
+      return "text-green-600";
+    case "sell":
+      return "text-red-600";
+    case "strong sell":
+      return "text-red-500";
+    default:
+      return "";
+  }
+};
+
 export const StockList = ({ product, setProduct, companies, products }: StockListProps) => {
-  const [isDisable, setIsDisable] = useState(false)
-  
+
+
   const handleClick = (company: Company) => {
-    const foundProduct= products.find((product)=>product.productSymbol === company.symbol)
+    const foundProduct = products.find((product) => product.productSymbol === company.symbol)
     if (!foundProduct) return;
     // Call back func
     setProduct({
-      productUrl: foundProduct?.imgSrc,
+      productUrl: foundProduct.imgSrc,
       price: company.price,
-      symbol: foundProduct?.productSymbol
+      symbol: company.symbol,
+      name: foundProduct.name
     });
-
-    // setIsDisable(true)
-    // stockList.map((stock) => {
-    //   stock.symbol === item.symbol ?
-    //     item.isActive = true :
-    //     stock.isActive = false;
-    // })
-
-    // setTimeout(() => {
-    //   setIsDisable(false)
-    // }, 500)
   }
-
-  const bg = [
-    "bg-red-200",
-    "bg-blue-200",
-    "bg-green-200",
-    "bg-purple-200",
-    "bg-pink-200"
-  ]
 
   return (
     <Table>
       <TableCaption>A list of top ranked companies.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className=" w-[50px]">Rank</TableHead>
-          <TableHead className="">Company</TableHead>
-          <TableHead className="w-[150px]">Sector</TableHead>
-          <TableHead className="">Sentimental</TableHead>
-          <TableHead className="">Stock Price</TableHead>
+          <TableHead className=" w-[50px]">
+            <div className="flex items-start gap-0.5">
+              <GiRank3
+                size={16}
+                className="text-black"
+              />
+              <p>Rank</p>
+            </div>
+          </TableHead>
+          <TableHead className="">
+            <div className="flex items-start gap-0.5">
+              <MdCorporateFare
+                size={16}
+                className="text-black"
+              />
+              <p>Company</p>
+            </div>
+          </TableHead>
+          <TableHead className="w-[150px]">
+            <div className="flex items-start gap-0.5">
+              <LiaIndustrySolid
+                size={16}
+                className="text-black"
+              />
+              <p>Sector</p>
+            </div>
+          </TableHead>
+          <TableHead className="">
+            <div className="flex items-start gap-0.5">
+              <BsPeople
+                size={16}
+                className="text-black"
+              />
+              <p>Sentimental</p>
+            </div>
+          </TableHead>
+          <TableHead className="">
+            <div className="flex items-start gap-0.5">
+              <MdCurrencyExchange
+                size={16}
+                className="text-black"
+              />
+              <p>Stock Price</p>
+            </div>
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {companies.map((company, index) => (
+        {companies.map((item, index) => (
           <TableRow
-            key={company.id}
-            onClick={() => handleClick(company)}
-            className={`hover:cursor-pointer hover:bg-slate-200 ${company.symbol === product.symbol && 'bg-slate-200'} ${isDisable &&
-              'pointer-events-none'}`
-            }
+            onClick={() => handleClick(item)}
+            className={`
+                      border-t-2
+                      border-t-muted-foreground/20
+                        text-xs
+                        font-medium
+                        hover:bg-indigo-600/10
+                        hover:cursor-pointer
+                        ${item.symbol === product.symbol && 'border-2 border-indigo-600'}
+                        `}
           >
-            <TableCell className="flex justify-between font-medium">{company.rank}</TableCell>
+            <TableCell className="font-medium">
+              <div className="flex items-center justify-center">
+                {item.rank}
+              </div>
+            </TableCell>
             <TableCell>
               <div className="flex items-center gap-3">
                 <div className={`flex items-center justify-center w-[28px] h-[28px] rounded-full `}>
                   <Image
-                    src={company.imgSrc}
+                    src={item.imgSrc}
                     alt="logo"
                     width={18}
                     height={18}
@@ -106,17 +158,20 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
                   />
                 </div>
                 <p className="flex flex-col justify-between">
-                  {company.symbol}
-                  <span className="flex flex-wrap text-xs text-muted-foreground max-w-[100px]">{company.name}</span>
+                  {item.symbol}
+                  <span className="flex flex-wrap text-[10px] text-muted-foreground max-w-[100px]">{item.name}</span>
                 </p>
               </div>
-
             </TableCell>
             <TableCell className="flex flex-wrap">
-              <p>{company.sector}</p>
+              <p>{item.sector}</p>
             </TableCell>
-            <TableCell className="">"Strong buy"</TableCell>
-            <TableCell className="">{company.price}</TableCell>
+            <TableCell className={getSentimentalColor(item.sentimental)}>
+              {item.sentimental}
+            </TableCell>
+            <TableCell className="">
+              ${item.price}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
