@@ -1,8 +1,5 @@
-import qs from "query-string"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 
-import { Separator } from "@/components/ui/separator"
 import { Company } from "@prisma/client"
 
 const activities = [
