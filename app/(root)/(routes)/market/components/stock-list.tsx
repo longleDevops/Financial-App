@@ -78,7 +78,7 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
   return (
     <Table>
       <TableCaption>A list of top ranked companies.</TableCaption>
-      <TableHeader>
+      <TableHeader >
         <TableRow>
           <TableHead className=" w-[50px]">
             <div className="flex items-start gap-0.5">

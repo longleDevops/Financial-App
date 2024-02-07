@@ -1,55 +1,22 @@
 import prismadb from "@/lib/prismadb";
-
 import {
   BankCard,
   Activity,
-  BalanceCard,
-  Statistics
+  Chart
 } from "./components/index"
+import AccountValue from "./components/AccountValue";
 
-const headers = [
-  {
-    title: "Account Value",
-    value: "250,000",
-    percentChange: "3.3"
-  },
-  {
-    title: "Remaining balance",
-    value: "55,000",
-    percentChange: "3.3"
-  },
-  {
-    title: "Portfolio Value",
-    value: "25,000",
-    percentChange: "3.3"
-  },
 
-]
-interface DashboardPageProps {
-  searchParams: {
-    name: string;
-  }
-}
-
-const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
-
+const DashboardPage = async () => {
   const companies = await prismadb.company.findMany();
 
+  const price = companies[0].yahooMarketV2Data.regularMarketPrice
+  console.log(price)
   return (
-    <div className="flex w-full h-full gap-6 px-6 pt-6">
-      <div className="flex flex-col w-[856px]">
-        <div className="flex justify-between">
-          {headers.map((item, index) =>
-            <BalanceCard
-              key={item.title}
-              title={item.title}
-              value={item.value}
-              percentChange={item.percentChange}
-              index={index}
-            />
-          )}
-        </div>
-        <Statistics symbol={searchParams.name} />
+    <div className="flex gap-6 px-6 pt-6">
+      <div className="flex flex-col w-[72%]">
+        <AccountValue />
+        <Chart />
       </div>
 
       <div className="flex flex-col flex-1 border border-b-0 rounded-t-lg border-muted-foreground/30">

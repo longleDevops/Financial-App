@@ -21,17 +21,28 @@ model Account{
 
 model Company {
   id String @id @default(uuid())
-  name String @unique
   symbol String @unique
-  imgSrc String @unique
-  price String 
-  rank String
-  sector String
-  sentimental String
-  products Product[]
+  price Float 
+  yahooMarketV2Data Json
+  resources Resource?
 
   account Account? @relation(fields: [companyId], references: [id])
   companyId String?
+}
+
+model Category{
+  int String @id @default(uuid())
+  name String 
+
+}
+model Ticker {
+  id String @id @default(uuid())
+  symbol String @unique
+}
+
+model AllTicker {
+  id String @id @default(uuid())
+  symbol String @unique
 }
 
 // // cannot create a ticker without a company
@@ -41,13 +52,37 @@ model Company {
 //   imgSrc String  
 //   symbol String @unique
 // }
+model Resource {
+  symbol String @unique
+  logoImg String
+  productImg String 
+
+  company Company @relation(fields: [symbol], references: [symbol])
+
+}
 
 model Product {
   id String @id @default(uuid())
+  symbol String @unique
   name String
   imgSrc String
-  company Company @relation(fields:[productSymbol],references: [symbol], onDelete: Cascade)
-  productSymbol String 
+}
+
+model ChatBot {
+  id String @id @default(uuid())
+  messages Message[]
+}
+
+enum Role {
+  system
+  user
+}
+model Message {
+  id String @id @default(uuid())
+  content String @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  chatBot  ChatBot @relation(fields: [id], references: [id])
 }
 
 

@@ -21,7 +21,7 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
   const [product, setProduct] = useState({
     productUrl: defaultProduct.imgSrc,
     price: defaultCompany.price,
-    symbol: defaultProduct.productSymbol,
+    symbol: defaultProduct.symbol,
     name:defaultProduct.name
   })
 

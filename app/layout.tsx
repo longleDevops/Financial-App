@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: 'Invest your money with DTrade',
 }
 
+// Implement third-party tools such as authentication, dark mode within this file
+// Do not adding any styles
 export default function RootLayout({
   children,
 }: {

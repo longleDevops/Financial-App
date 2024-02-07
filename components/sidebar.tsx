@@ -20,19 +20,14 @@ export const sidebarItems = [
     icon: PieChart
   },
   {
+    name: "Message",
+    href: "/message",
+    icon: MessageCircleCode
+  },
+  {
     name: "Transaction",
     href: "/transaction",
     icon: AlignEndHorizontal
-  },
-  {
-    name: "Wallet",
-    href: "/wallet",
-    icon: Wallet
-  },
-  {
-    name: "Message",
-    href: "/chat",
-    icon: MessageCircleCode
   },
   {
     name: "Setting",

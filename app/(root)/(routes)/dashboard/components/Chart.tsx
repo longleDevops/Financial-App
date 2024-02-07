@@ -1,19 +1,7 @@
-import { AlphaVantageOverviewProps } from "@/types"
 import Image from "next/image";
 
-const headers = [
-  "Company Name:",
-  "Symbol Ticker:",
-  "History:",
-  "Exchange:",
-  "Market Cap:",
-]
 
-interface StatisticsProps {
-  symbol: string;
-}
-
-export const Statistics = ({ symbol }: StatisticsProps) => {
+export const Chart = () => {
   // const data = await fetchStocks("OVERVIEW", symbol)
 
   // const { Symbol, Name, Description, Exchange, MarketCapitalization } = data;
@@ -24,7 +12,7 @@ export const Statistics = ({ symbol }: StatisticsProps) => {
   // from parents, avoid w-full or h-full for the parent
   return (
     <>
-      <div className="w-full h-full mt-8 text-lg font-semibold border rounded-t-lg border-muted-foreground/30">
+      <div className="w-full h-full p-4 mt-8 text-lg font-semibold border rounded-t-lg border-muted-foreground/30">
         {/* <p>Overview</p>
         <div className="flex flex-col gap-2">
           {headers.map((header, index) => (

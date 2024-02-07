@@ -1,11 +1,11 @@
-import { Activity } from "./activity";
-import { BalanceCard } from "./balance-card";
-import { BankCard } from "./bank-card";
-import { Statistics } from "./statistics";
+import { Activity } from "./Activity";
+import { BalanceCard } from "./balanceCard";
+import { BankCard } from "./BankCard";
+import { Chart } from "./Chart";
 
 export {
   Activity,
   BalanceCard,
   BankCard,
-  Statistics
+  Chart
 }

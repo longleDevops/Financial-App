@@ -17,3 +17,22 @@ export const bgColors = [
   "bg-purple-200",
   "bg-pink-200"
 ]
+
+export const dashboardHeaders = [
+  {
+    title: "Account Value",
+    value: "250,000",
+    percentChange: "3.3"
+  },
+  {
+    title: "Remaining balance",
+    value: "55,000",
+    percentChange: "3.3"
+  },
+  {
+    title: "Portfolio Value",
+    value: "25,000",
+    percentChange: "3.3"
+  },
+
+]

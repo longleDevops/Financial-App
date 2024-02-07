@@ -1,10 +1,8 @@
 import { AiOutlineRise } from "react-icons/ai";
-import { TiChartAreaOutline } from "react-icons/ti";
-import { MdAccountBalance } from "react-icons/md";
-import { MdCardTravel } from "react-icons/md";
+import { MdAccountBalance, MdCardTravel } from "react-icons/md";
 import { LuWallet } from "react-icons/lu";
 
-interface CardProps {
+interface BalanceCardProps {
   title: string,
   value: string,
   percentChange: string
@@ -23,7 +21,9 @@ const icons = [
   }
 ]
 
-export const BalanceCard = ({ title, value, percentChange, index }: CardProps) => {
+export const BalanceCard = (
+  { title, value, percentChange, index }: BalanceCardProps
+) => {
 
   const selectedIcon = icons[index]
 
@@ -48,10 +48,8 @@ export const BalanceCard = ({ title, value, percentChange, index }: CardProps) =
           />
           <p className="font-medium">+30.23%</p>
         </div>
-        <TiChartAreaOutline
-          size={20}
-        />
       </div>
     </div>
   )
 }
+
