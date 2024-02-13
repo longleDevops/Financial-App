@@ -49,7 +49,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
       </div>
       <div className="relative flex items-center justify-center flex-1 ">
         <Image
-          src={`/products/${ticker}.webp`}
+          src={`/products/${ticker.toLowerCase()}.webp`}
           alt="Product Image"
           width={300}
           height={300}
@@ -59,7 +59,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
         />
       </div>
       <div className="">
-        <ProgressBar company={foundCompany}/>
+        <ProgressBar company={foundCompany} />
       </div>
     </div>
   )

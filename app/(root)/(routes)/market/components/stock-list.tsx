@@ -143,7 +143,7 @@ export const StockList = ({ ticker, setTicker, companies, products }: StockListP
               <div className="flex items-center gap-3">
                 <div className={`flex items-center justify-center w-[28px] h-[28px] rounded-full `}>
                   <Image
-                    src={item.logo.logo}
+                    src={item.logo.logo.toLowerCase()}
                     alt="logo"
                     width={28}
                     height={28}
