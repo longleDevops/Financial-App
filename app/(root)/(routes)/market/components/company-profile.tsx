@@ -20,7 +20,7 @@ export const CompanyProfile = ({ isBack, setIsBack }: CompanyProfile) => {
         <Button
           onClick={handleClick}
         >
-          <ArrowLeft />
+          <ArrowLeft /> 
           Back
         </Button>
         <p className="text-base font-semibold underline text-muted-foreground">Tesla Inc.</p>
