@@ -7,23 +7,17 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Ghost, MoveRight } from "lucide-react"
 import { useAnimate } from "framer-motion"
 import { CompanyProfile } from "./company-profile"
-import { Company, Product } from "@prisma/client"
+import { Company, Logo, Product } from "@prisma/client"
 
 export interface MarketPlaceProps {
-  companies: Company[]
+  companies: Company[] & Logo
   products: Product[]
 }
 
 const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
   const defaultCompany = companies[0]
-  const defaultProduct = products[0]
 
-  const [product, setProduct] = useState({
-    productUrl: defaultProduct.imgSrc,
-    price: defaultCompany.price,
-    symbol: defaultProduct.symbol,
-    name:defaultProduct.name
-  })
+  const [ticker, setTicker] = useState("TSLA")
 
   const [isBack, setIsBack] = useState(false)
 
@@ -45,7 +39,7 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
   return (
     <div className="flex flex-1 pb-4 max-h-[748px]">
       <div className="w-[35%] p-8 border-r border-muted-foreground/30">
-        <FeaturedProduct product={product} companies={companies}/>
+        <FeaturedProduct ticker={ticker} companies={companies} products={products}/>
       </div>
       <div className="w-[65%] overflow-hidden">
         <div
@@ -72,8 +66,8 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
             </div>
             <div className="max-h-[600px] overflow-y-auto">
               <StockList
-                product={product}
-                setProduct={setProduct}
+                ticker={ticker}
+                setTicker={setTicker}
                 companies={companies}
                 products={products}
               />

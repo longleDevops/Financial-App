@@ -1,10 +1,8 @@
-// npx tsx scripts/seedCompany.ts
-
 import axios from "axios"
 import { db } from "@/scripts/index"
 
 // only allow 50 symbols
-async function fetchCompanies(symbols: String[]) {
+async function fetchMarketV2(symbols: String[]) {
   const options = {
     method: 'GET',
     url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
@@ -26,27 +24,8 @@ async function fetchCompanies(symbols: String[]) {
   }
 }
 
-function compareArrays(array1: string[], array2: { symbol: string }[]) {
-  const differences = [];
-  for (let i = 0; i < array2.length; i++) {
-    if (!array2[i].symbol) {
-      differences.push(array1[i])
-    }
-    if (array1[i] !== array2[i].symbol) {
-      differences.push({
-        valueInArray2: array2[i].symbol,
-      });
-    }
-  }
-  // console.log("total: " + symbols.length)
-  // console.log("found: " + yahooMarketV2Data.length)
-  // const differences = symbols.filter((symbol: string) => {
-  //   return !yahooMarketV2Data.some((item: { symbol: string }) => item.symbol === symbol);
-  // });
-  return differences;
-}
-
-async function getCompanies(symbols: string[]) {
+// This is the main fetch() that allows more than 50 symbols
+async function getMarketV2Quotes(symbols: string[]) {
   const chunkSize = 50;
   const numChunks = Math.ceil(symbols.length / chunkSize);
   const subArrays = [];
@@ -60,10 +39,41 @@ async function getCompanies(symbols: string[]) {
   const fetchedData = [];
 
   for (const subArray of subArrays) {
-    const data = await fetchCompanies(subArray);
+    const data = await fetchMarketV2(subArray);
     fetchedData.push(...data);
   }
   return fetchedData;
+}
+
+async function fetchStockV2Summary(symbol: string) {
+  const options = {
+    method: 'GET',
+    url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary',
+    params: {
+      symbol: symbol,
+      region: 'US'
+    },
+    headers: {
+      'X-RapidAPI-Key': '8f54d4c5c3msh2a085748e236832p1f8830jsndd3103bf567c',
+      'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getStockV2Summary(symbols: string[]) {
+  const result = []
+  for (let i = 0; i < symbols.length; i++) {
+    const summary = await fetchStockV2Summary(symbols[i]);
+    result.push(summary)
+  }
+  return result;
 }
 
 async function seedCompanies() {
@@ -76,10 +86,10 @@ async function seedCompanies() {
       }
     })
     const symbols = symbolList.map((item: { symbol: string }) => item.symbol)
-    const companies = await getCompanies(symbols)
-
+    const marketV2GetQuotes = await getMarketV2Quotes(symbols)
+    const stockV2GetSummary = await getStockV2Summary(symbols)
     console.log("total: " + symbols.length);
-    console.log("actual: " + companies.length)
+    console.log("actual: " + marketV2GetQuotes.length)
     await Promise.all(symbols.map(async (symbol: string, index: number) => (
       db.company.upsert({
         where: {
@@ -88,8 +98,14 @@ async function seedCompanies() {
         update: {},
         create: {
           symbol,
-          price: companies[index].regularMarketPrice,
-          yahooMarketV2Data: companies[index]
+          price: marketV2GetQuotes[index].regularMarketPrice,
+          yahooMarketV2Data: marketV2GetQuotes[index],
+          yahooStockV2Summary: stockV2GetSummary[index],
+          logo: {
+            create: {
+              logo: `/logos/${symbol}.svg`,
+            }
+          }
         }
       })
     )))

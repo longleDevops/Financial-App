@@ -5,6 +5,15 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com',
+        port: '',
+      },
+    ],
+  },
 }
 
 export default nextConfig

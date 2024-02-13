@@ -19,28 +19,13 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
-import { Company, Product } from "@prisma/client";
+import { Company, Logo, Product } from "@prisma/client";
 
 interface StockListProps {
-  product: {
-    productUrl: string,
-    price: string,
-    symbol: string,
-    name: string
-  },
-  setProduct: ({
-    productUrl,
-    price,
-    symbol,
-    name
-  }: {
-    productUrl: string,
-    price: string,
-    symbol: string,
-    name: string
-  }) => void,
+  ticker: string
+  setTicker: (ticker: string) => void
 
-  companies: Company[]
+  companies: Company[] & Logo
   products: Product[]
 }
 
@@ -56,23 +41,21 @@ const getSentimentalColor = (input: string) => {
     case "strong sell":
       return "text-red-500";
     default:
-      return "";
+      return "text-blue-500";
   }
 };
 
-export const StockList = ({ product, setProduct, companies, products }: StockListProps) => {
+const getChangeFormat = (percent: number) => {
+  if (percent < 0) return percent.toFixed(2) + '%'
+  return '+' + percent.toFixed(2) + '%'
+}
+
+export const StockList = ({ ticker, setTicker, companies, products }: StockListProps) => {
 
 
   const handleClick = (company: Company) => {
-    const foundProduct = products.find((product) => product.productSymbol === company.symbol)
-    if (!foundProduct) return;
     // Call back func
-    setProduct({
-      productUrl: foundProduct.imgSrc,
-      price: company.price,
-      symbol: company.symbol,
-      name: foundProduct.name
-    });
+    setTicker(company.symbol);
   }
 
   return (
@@ -80,7 +63,7 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
       <TableCaption>A list of top ranked companies.</TableCaption>
       <TableHeader >
         <TableRow>
-          <TableHead className=" w-[50px]">
+          {/* <TableHead className=" w-[50px]">
             <div className="flex items-start gap-0.5">
               <GiRank3
                 size={16}
@@ -88,8 +71,8 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
               />
               <p>Rank</p>
             </div>
-          </TableHead>
-          <TableHead className="">
+          </TableHead> */}
+          <TableHead className=" w-[150px]">
             <div className="flex items-start gap-0.5">
               <MdCorporateFare
                 size={16}
@@ -98,7 +81,7 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
               <p>Company</p>
             </div>
           </TableHead>
-          <TableHead className="w-[150px]">
+          <TableHead className="w-[200px]">
             <div className="flex items-start gap-0.5">
               <LiaIndustrySolid
                 size={16}
@@ -113,7 +96,7 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
                 size={16}
                 className="text-black"
               />
-              <p>Sentimental</p>
+              <p className="">Trend</p>
             </div>
           </TableHead>
           <TableHead className="">
@@ -122,14 +105,24 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
                 size={16}
                 className="text-black"
               />
-              <p>Stock Price</p>
+              <p>Price</p>
+            </div>
+          </TableHead>
+          <TableHead className="">
+            <div className="flex items-start gap-0.5">
+              <MdCurrencyExchange
+                size={16}
+                className="text-black"
+              />
+              <p>Chg</p>
             </div>
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {companies.map((item, index) => (
+        {companies.map((item: Company & Logo, index: number) => (
           <TableRow
+            key={index}
             onClick={() => handleClick(item)}
             className={`
                       border-t-2
@@ -138,39 +131,39 @@ export const StockList = ({ product, setProduct, companies, products }: StockLis
                         font-medium
                         hover:bg-indigo-600/10
                         hover:cursor-pointer
-                        ${item.symbol === product.symbol && 'border-2 border-indigo-600'}
+                        ${item.symbol === ticker && 'border-2 border-indigo-600'}
                         `}
           >
-            <TableCell className="font-medium">
+            {/* <TableCell className="font-medium">
               <div className="flex items-center justify-center">
                 {item.rank}
               </div>
-            </TableCell>
+            </TableCell> */}
             <TableCell>
               <div className="flex items-center gap-3">
                 <div className={`flex items-center justify-center w-[28px] h-[28px] rounded-full `}>
                   <Image
-                    src={item.imgSrc}
+                    src={item.logo.logo}
                     alt="logo"
-                    width={18}
-                    height={18}
+                    width={28}
+                    height={28}
                     className="max-h-[18px]"
                   />
                 </div>
-                <p className="flex flex-col justify-between">
-                  {item.symbol}
-                  <span className="flex flex-wrap text-[10px] text-muted-foreground max-w-[100px]">{item.name}</span>
-                </p>
+                {item.symbol}
               </div>
             </TableCell>
-            <TableCell className="flex flex-wrap">
-              <p>{item.sector}</p>
+            <TableCell className="">
+              <p>{item.yahooStockV2Summary.summaryProfile.sector}</p>
             </TableCell>
-            <TableCell className={getSentimentalColor(item.sentimental)}>
-              {item.sentimental}
+            <TableCell className={`${getSentimentalColor(item.yahooStockV2Summary.financialData.recommendationKey)}`}>
+              {item.yahooStockV2Summary.financialData.recommendationKey}
             </TableCell>
             <TableCell className="">
               ${item.price}
+            </TableCell>
+            <TableCell className={item.yahooMarketV2Data.regularMarketChangePercent > 0 ? "text-green-500" : "text-red-500"}>
+              {getChangeFormat(item.yahooMarketV2Data.regularMarketChangePercent)}
             </TableCell>
           </TableRow>
         ))}

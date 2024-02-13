@@ -24,16 +24,18 @@ model Company {
   symbol String @unique
   price Float 
   yahooMarketV2Data Json
+  yahooStockV2Summary Json
   resources Resource?
 
   account Account? @relation(fields: [companyId], references: [id])
   companyId String?
+
+  logo Logo?
 }
 
 model Category{
   int String @id @default(uuid())
   name String 
-
 }
 model Ticker {
   id String @id @default(uuid())
@@ -52,6 +54,14 @@ model AllTicker {
 //   imgSrc String  
 //   symbol String @unique
 // }
+
+model Logo {
+  id String @id @default(uuid())
+  symbol String @unique
+  logo String @unique
+
+  company Company @relation(fields: [symbol], references: [symbol])
+}
 model Resource {
   symbol String @unique
   logoImg String
@@ -79,6 +89,7 @@ enum Role {
 }
 model Message {
   id String @id @default(uuid())
+  role Role
   content String @db.Text
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

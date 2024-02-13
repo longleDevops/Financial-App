@@ -4,28 +4,25 @@ import { useAnimate } from "framer-motion"
 import Image from "next/image"
 import { useEffect, useRef } from "react"
 import { ProductDialog } from "./product-dialog"
-import { Company } from "@prisma/client"
+import { Company, Logo, Product } from "@prisma/client"
 import { Transaction } from "./transaction"
+import { ProgressBar } from "./progress-bar"
 interface FeaturedProductProps {
-  product: {
-    productUrl: string,
-    price: string,
-    symbol: string,
-    name: string
-  }
-  companies: Company[]
+  ticker: string,
+  companies: Company[],
+  products: Product[]
 }
 
-export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ product, companies }) => {
+export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies, products }) => {
   const [scope, animate] = useAnimate();
-  const { productUrl, price, symbol, name } = product;
 
   useEffect(() => {
     animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 });
 
-  }, [symbol])
+  }, [ticker])
 
-  const foundCompany = companies.find((company) => company.symbol === product.symbol)
+  const foundCompany = companies.find((company) => company.symbol === ticker)
+  const companyName = foundCompany.yahooStockV2Summary.price.shortName
 
   const handleClick = () => {
 
@@ -36,13 +33,13 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ product, compa
       <div className="flex justify-between">
         <div>
           <p className="mb-1 text-lg font-semibold">
-            {foundCompany.name}
+            {companyName}
           </p>
-          <ProductDialog symbol={symbol} productUrl={productUrl} />
+          <ProductDialog symbol={ticker} productUrl={"todo"} />
         </div>
         <div className="flex flex-col items-end">
           <h1 className="flex text-lg font-semibold ">
-            ${price} <span className="text-[10px] text-muted-foreground ml-1">/ea</span>
+            ${foundCompany.price} <span className="text-[10px] text-muted-foreground ml-1">/ea</span>
           </h1>
           <div className="flex gap-1">
             <Transaction btnName="SELL" color="bg-red-600/60" />
@@ -52,8 +49,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ product, compa
       </div>
       <div className="relative flex items-center justify-center flex-1 ">
         <Image
-          src={productUrl}
-          alt="tsla product"
+          src={`/products/${ticker}.webp`}
+          alt="Product Image"
           width={300}
           height={300}
           ref={scope}
@@ -61,8 +58,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ product, compa
           className="object-contain max-h-[300px]"
         />
       </div>
-      <div className="flex items-center justify-between w-full">
-
+      <div className="">
+        <ProgressBar company={foundCompany}/>
       </div>
     </div>
   )

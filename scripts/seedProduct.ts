@@ -1,49 +1,5 @@
+import { Ticker } from "@prisma/client";
 import { db } from ".";
-
-
-const products =
-  [
-    {
-      symbol: "TSLA",
-      name: "SUV Tesla Model Y",
-      imgSrc: "/products/tsla.webp"
-    },
-    {
-      symbol: "NVDA",
-      name: "Nvidia hardcore chip",
-      imgSrc: "/products/nvda.webp"
-    },
-    {
-      symbol: "AAPL",
-      name: "Macbook Air pro",
-      imgSrc: "/products/aapl.webp"
-    },
-    {
-      symbol: "ABNB",
-      name: "Delux room hotel",
-      imgSrc: "/products/abnb.webp"
-    },
-    {
-      symbol: "AMZN",
-      name: "Amazon Prime Day",
-      imgSrc: "/products/amzn.webp"
-    },
-    {
-      symbol: "GOOGL",
-      name: "google service",
-      imgSrc: "/products/googl.webp"
-    },
-    {
-      symbol: "COCA",
-      name: "Coca Cola | Coke",
-      imgSrc: "/products/cola.webp"
-    },
-    {
-      symbol: "SOFI",
-      name: "Sofi",
-      imgSrc: "/products/sofi.webp"
-    },
-  ]
 
 interface Product {
   name: string,
@@ -52,10 +8,19 @@ interface Product {
 }
 
 async function seedProducts() {
-  const promises: Promise<Product>[] = products.map((product) => (
-    db.product.create({
-      data: {
-        ...product
+  await db.product.deleteMany()
+  const tickers = await db.ticker.findMany()
+  const symbols: string[] = tickers.map((ticker: Ticker) => ticker.symbol)
+  const promises: Promise<Product>[] = symbols.map((symbol) => (
+    db.product.upsert({
+      where: {
+        symbol
+      },
+      update: {},
+      create: {
+        symbol,
+        name: "temp",
+        imgSrc: `/products/${symbol.toLowerCase()}.webp`
       }
     }))
   )

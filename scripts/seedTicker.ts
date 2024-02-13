@@ -1,6 +1,18 @@
 import axios from "axios"
 import { db } from "@/scripts/index";
 
+const popularTickers = [
+  'AAPL',
+  'MSFT',
+  'TSLA',
+  'AMZN',
+  'GOOGL',
+  'META',
+  'JD',
+  'PYPL',
+  'WMT',
+  'MA',
+]
 // Fetch trending tickers
 async function fetchTrendingTickers() {
   const options = {
@@ -69,20 +81,38 @@ async function fetchAllTickers() {
 
 async function seedTickers() {
   try {
+    const promises = [];
+    for (let i = 0; i < popularTickers.length; i++) {
+      promises.push(db.ticker.upsert({
+        where: {
+          symbol: popularTickers[i]
+        },
+        update: {},
+        create: {
+          symbol: popularTickers[i],
+        }
+      }))
+    }
+    await Promise.all(promises)
+    {/*const yahooTrendingTickers: { symbol: string }[] = await fetchTrendingTickers();
+    const filteredTrendingTickers = yahooTrendingTickers.filter((ticker) => {
+      return !ticker.symbol.includes('-')
+    })
+    const promises = []
 
-    // const yahooTrendingTickers = await fetchTrendingTickers();
-    // const promises = []
-    // for (let i = 0; i < 20; i++) {
-    //   promises.push(db.ticker.upsert({
-    //     where: {
-    //       symbol: yahooTrendingTickers[i].symbol
-    //     },
-    //     update: {},
-    //     create: {
-    //       symbol: yahooTrendingTickers[i].symbol,
-    //     }
-    //   }))
-    // }
+    for (let i = 0; i < filteredTrendingTickers.length; i++) {
+      promises.push(db.ticker.upsert({
+        where: {
+          symbol: filteredTrendingTickers[i].symbol
+        },
+        update: {},
+        create: {
+          symbol: filteredTrendingTickers[i].symbol
+        }
+      }))
+    }*/}
+
+    console.log("sucessfully seeding ticker")
 
     // const yahooActiveTickers = await fetchActiveTickers();
     // for (let i = 0; i < 100; i++) {
@@ -96,27 +126,29 @@ async function seedTickers() {
     //     }
     //   }))
     // }
-    const allTickers: string[] = await fetchAllTickers();
-    const filteredAllTickers = allTickers.filter(ticker => {
-      const match = ticker.match(/\..?/);
-      return !match;
-    })
-    console.log("Number of all tickers is: " + filteredAllTickers.length)
-    const secondPromises = []
-    for (let i = 12000; i < 14000; i++) {
-      secondPromises.push(db.allTicker.upsert({
-        where: {
-          symbol: filteredAllTickers[i]
-        },
-        update: {},
-        create: {
-          symbol: filteredAllTickers[i]
-        }
-      }))
-    }
-    //await Promise.all(promises);
-    await Promise.all(secondPromises);
-    console.log("succesfully seeding ticker data");
+
+    // fetch all tickers, scaling for later use
+    // const allTickers: string[] = await fetchAllTickers();
+    // const filteredAllTickers = allTickers.filter(ticker => {
+    //   const match = ticker.match(/\..?/);
+    //   return !match;
+    // })
+    // console.log("Number of all tickers is: " + filteredAllTickers.length)
+    // const secondPromises = []
+    // for (let i = 12000; i < 14000; i++) {
+    //   secondPromises.push(db.allTicker.upsert({
+    //     where: {
+    //       symbol: filteredAllTickers[i]
+    //     },
+    //     update: {},
+    //     create: {
+    //       symbol: filteredAllTickers[i]
+    //     }
+    //   }))
+    // }
+    // //await Promise.all(promises);
+    // await Promise.all(secondPromises);
+    // console.log("succesfully seeding ticker data");
 
   } catch (error) {
     console.error("Error seeding tickers", error)

@@ -2,9 +2,10 @@
 
 import { ElementRef, useEffect, useRef, useState } from "react"
 import ChatMessage, { ChatMessageProps } from "./ChatMessage"
+import { ChatCompletionRequestMessage } from "openai";
 
 interface ChatMessagesProps {
-  messages: ChatMessageProps[]
+  messages: ChatCompletionRequestMessage[]
   isLoading: boolean
 }
 
@@ -27,7 +28,7 @@ const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
     scrollRef?.current?.scrollIntoView({ behavior: "smooth" }) || undefined
   ), [messages.length])
   return (
-    <div className="flex-1 px-4 overflow-y-auto">
+    <div className="flex-1 px-4 overflow-y-auto ">
       <ChatMessage
         isLoading={fakeLoading}
         role="system"
@@ -38,7 +39,6 @@ const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
           key={item.content}
           role={item.role}
           content={item.content}
-          src={item.src}
         />
       ))}
       {isLoading &&

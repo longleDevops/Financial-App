@@ -5,7 +5,8 @@ async function seedMessage() {
     data: {
       messages: {
         create: {
-          content: "Hey there! I'm a chatbot built with Prisma and"
+          content: "Hey there! I'm a chatbot, how can i help you",
+          role: "system"
         }
       }
     }

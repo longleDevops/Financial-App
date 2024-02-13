@@ -97,13 +97,13 @@ export const ProductDialog = ({ symbol, productUrl }: ProductDialogProps) => {
             <p>2024 Tesla Model Y supreme</p>
             <div className="mt-12">
               {productList.map((item, index) => (
-                <>
-                  <div className="flex justify-between py-3" key={item}>
+                <div key={index}>
+                  <div className="flex justify-between py-3">
                     <p className="text-muted-foreground">{headers[index]}</p>
                     <p className="font-semibold">{item}</p>
                   </div>
                   <Separator />
-                </>
+                </div>
               ))}
             </div>
 
