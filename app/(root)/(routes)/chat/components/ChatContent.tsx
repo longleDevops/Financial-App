@@ -44,7 +44,7 @@ export const ChatContent = ({ chatBot }: ChatContentProps) => {
       };
       // Append user message
       setMessages((current) => [...current, userMessage])
-      const response = await axios.post(`/api/chat/${chatBot.id}`, {
+      const response = await axios.post(`/api/chat`, {
         messages: userMessage
       });
 

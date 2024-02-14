@@ -3,7 +3,6 @@
 import { StockList } from "./stock-list"
 import { FeaturedProduct } from "./featured-product"
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
 import { ArrowRight, Ghost, MoveRight } from "lucide-react"
 import { useAnimate } from "framer-motion"
 import { CompanyProfile } from "./company-profile"
@@ -15,72 +14,61 @@ export interface MarketPlaceProps {
 }
 
 const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
-  const defaultCompany = companies[0]
-
   const [ticker, setTicker] = useState("TSLA")
 
   const [isBack, setIsBack] = useState(false)
 
   const [scope, animate] = useAnimate();
-  const [scope2, animate2] = useAnimate();
+  const [scope1, animate1] = useAnimate();
+
   useEffect(() => {
     if (isBack) {
-      animate(scope.current, { x: 0 }, { duration: .3 });
-      animate(scope2.current, { opacity: 1, scale: [.8, 1] }, { duration: .3 });
+      const windowWidth = window.innerWidth;
+      const xValue = 65 * (windowWidth / 100);
+      animate(scope.current, { opacity: 1, scale: 1, x: 0 }, { duration: .3 });
+      animate(scope1.current, { scale: [1, .8], x: xValue }, { duration: .3 });
 
     }
     setIsBack(false);
   }, [isBack])
 
   const handleClick = () => {
-    animate(scope.current, { x: -804 }, { duration: .3 });
-    animate(scope2.current, { opacity: 0, scale: [1, .8] }, { duration: .3 });
+    const windowWidth = window.innerWidth;
+    const xValue = -65 * (windowWidth / 100);
+    animate(scope.current, { opacity: 0, scale: .8, x: xValue }, { duration: .3 });
+    animate1(scope1.current, { scale: [.8, 1], x: [-xValue, 0] }, { duration: .3 });
   }
   return (
-    <div className="flex flex-1 pb-4 max-h-[748px]">
-      <div className="w-[35%] p-8 border-r border-muted-foreground/30">
-        <FeaturedProduct ticker={ticker} companies={companies} products={products}/>
+    <div className="flex h-full">
+      <div className="w-[35%] pt-8 pb-12 px-8 border-r border-muted-foreground/30">
+        <FeaturedProduct ticker={ticker} companies={companies} products={products} />
       </div>
-      <div className="w-[65%] overflow-hidden">
+      <div className="relative flex-1 overflow-hidden ">
         <div
-          className="flex w-[200%] h-full"
           ref={scope}
+          className="absolute p-8 z-[1] w-full bg-white h-full"
         >
-          <div
-            ref={scope2}
-            className="w-[50%] max-w-[50%] p-8"
-          >
-            <div className="flex justify-between pb-8">
-              <p className="text-lg font-semibold">Companies</p>
-              <Button
-                variant="secondary"
-                className=""
-                onClick={handleClick}
-              >
-                AMD Profile
-                <MoveRight
-                  size={20}
-                  className="ml-1"
-                />
-              </Button>
-            </div>
-            <div className="max-h-[600px] overflow-y-auto">
-              <StockList
-                ticker={ticker}
-                setTicker={setTicker}
-                companies={companies}
-                products={products}
-              />
-            </div>
+          <div className="flex justify-between pb-8">
+            <p className="text-lg font-semibold">Companies</p>
           </div>
-          <div
-            className="flex-1 h-full bg-blue-100"
-          >
-            <CompanyProfile
-              isBack={isBack}
-              setIsBack={setIsBack}
+          <div className="overflow-y-auto ">
+            <StockList
+              ticker={ticker}
+              setTicker={setTicker}
+              companies={companies}
+              products={products}
+              animatedClick={handleClick}
             />
           </div>
+        </div>
+        <div
+          ref={scope1}
+          className="absolute flex-1 h-full bg-blue-100 "
+        >
+          <CompanyProfile
+            isBack={isBack}
+            setIsBack={setIsBack}
+          />
         </div>
       </div>
     </div>

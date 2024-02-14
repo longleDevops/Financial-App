@@ -5,23 +5,30 @@ import {
   Chart
 } from "./components/index"
 import AccountValue from "./components/AccountValue";
-
+import Portfolio from "./components/Portfolio";
+import { useQuery } from 'react-query'
 
 const DashboardPage = async () => {
-  const companies = await prismadb.company.findMany();
+  const companies = await prismadb.company.findMany({
+    include: {
+      logo: true
+    }
+  });
 
-  const price = companies[0].yahooMarketV2Data.regularMarketPrice
-  console.log(price)
   return (
     <div className="flex gap-6 px-6 pt-6">
-      <div className="flex flex-col w-[72%]">
+      <div className="flex-col flex-1 ">
         <AccountValue />
         <Chart />
       </div>
 
-      <div className="flex flex-col flex-1 border border-b-0 rounded-t-lg border-muted-foreground/30">
-        <BankCard />
-        <Activity companies={companies} />
+
+      <div className="w-[340px] ">
+        <div className="fixed w-[340px] right-6 bottom-4 flex flex-col border rounded-lg border-muted-foreground/30 top-[85px] overflow-auto custom-scrollbar">
+          <BankCard />
+          <Portfolio companies={companies} />
+          <Activity companies={companies} />
+        </div>
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ import { MdCorporateFare } from "react-icons/md";
 import { LiaIndustrySolid } from "react-icons/lia";
 import { MdCurrencyExchange } from "react-icons/md";
 import { BsPeople } from "react-icons/bs";
-
+import { MoveRight } from "lucide-react";
 
 import {
   Table,
@@ -27,6 +27,8 @@ interface StockListProps {
 
   companies: Company[] & Logo
   products: Product[]
+
+  animatedClick: () => void;
 }
 
 
@@ -50,7 +52,7 @@ const getChangeFormat = (percent: number) => {
   return '+' + percent.toFixed(2) + '%'
 }
 
-export const StockList = ({ ticker, setTicker, companies, products }: StockListProps) => {
+export const StockList = ({ ticker, setTicker, companies, products, animatedClick }: StockListProps) => {
 
 
   const handleClick = (company: Company) => {
@@ -117,6 +119,7 @@ export const StockList = ({ ticker, setTicker, companies, products }: StockListP
               <p>Chg</p>
             </div>
           </TableHead>
+
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -162,8 +165,21 @@ export const StockList = ({ ticker, setTicker, companies, products }: StockListP
             <TableCell className="">
               ${item.price}
             </TableCell>
-            <TableCell className={item.yahooMarketV2Data.regularMarketChangePercent > 0 ? "text-green-500" : "text-red-500"}>
+            <TableCell className={`${item.yahooMarketV2Data.regularMarketChangePercent > 0 ? "text-green-500" : "text-red-500"}`}>
               {getChangeFormat(item.yahooMarketV2Data.regularMarketChangePercent)}
+            </TableCell>
+            <TableCell className="w-[50px]">
+              {item.symbol === ticker &&
+                <button
+                  className="px-2 py-[2px] border rounded-lg border-muted-foreground"
+                  onClick={animatedClick}
+                >
+                  <MoveRight
+                    size={16}
+                    className="ml-1"
+                  />
+                </button>
+              }
             </TableCell>
           </TableRow>
         ))}

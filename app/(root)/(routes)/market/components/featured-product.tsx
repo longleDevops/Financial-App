@@ -17,6 +17,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
+
     animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 });
 
   }, [ticker])
@@ -42,8 +43,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
             ${foundCompany.price} <span className="text-[10px] text-muted-foreground ml-1">/ea</span>
           </h1>
           <div className="flex gap-1">
-            <Transaction btnName="SELL" color="bg-red-600/60" />
-            <Transaction btnName="BUY" color="bg-emerald-600/60" />
+            <Transaction btnName="SELL" color="bg-red-600/60" company={foundCompany} />
+            <Transaction btnName="BUY" color="bg-emerald-600/60" company={foundCompany} />
           </div>
         </div>
       </div>

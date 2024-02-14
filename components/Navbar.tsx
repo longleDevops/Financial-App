@@ -14,7 +14,7 @@ export const Navbar = () => {
   const pathName = usePathname();
   const name = getName(pathName)
   return (
-    <nav className="flex items-center justify-between px-6 py-4 border-b border-muted-foreground/30">
+    <div className="flex items-center justify-between flex-1 px-6 bg-white border-b border-muted-foreground/30 h-[60px]">
       <p className="text-lg font-semibold">
         {name}
       </p>
@@ -22,6 +22,6 @@ export const Navbar = () => {
       <div className="flex items-center gap-4">
         <UserButton afterSignOutUrl="/" />
       </div>
-    </nav>
+    </div>
   )
 }

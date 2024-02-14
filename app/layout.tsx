@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
-            {children}
-            <SpeedInsights />
+        <body className={`${inter.className}`}>
+          {children}
+          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>

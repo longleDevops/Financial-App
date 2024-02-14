@@ -25,7 +25,7 @@ export const Activity = ({ companies }: ActivityProps) => {
   return (
     <div className="flex-1 px-4 pt-4 pb-0">
       <p className="text-sm font-semibold">Recent Activity</p>
-      <div className="flex flex-col mt-4 gap-3 overflow-y-auto max-h-[390px] 2xl:max-h-[500px]">
+      <div className="flex flex-col gap-3 mt-4">
         {companies.slice(0, 10).map((company) => (
           <button
             key={company.id}
@@ -34,7 +34,7 @@ export const Activity = ({ companies }: ActivityProps) => {
             <div className="flex items-center gap-2 w-[150px]">
               <Image
                 alt="stock img"
-                src={"/logos/tsla.svg"}
+                src={company.logo.logo}
                 width={20}
                 height={20}
                 className="object-contain rounded-full max-h-[20px]"

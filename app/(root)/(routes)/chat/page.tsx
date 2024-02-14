@@ -8,7 +8,7 @@ const MessengerPage = async () => {
     }
   })
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex flex-1 w-full">
       <div className="w-[25%]">
         <SideContent />
       </div>

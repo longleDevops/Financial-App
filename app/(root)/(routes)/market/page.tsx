@@ -1,8 +1,6 @@
 import prismadb from "@/lib/prismadb"
 import MarketPlace from "./components/market-place"
 
-//export const revalidate = 0;
-
 const Market = async () => {
   // paralel fetching
   const [companies, products] = await Promise.all([
@@ -15,9 +13,7 @@ const Market = async () => {
   ])
 
   return (
-    <>
-      <MarketPlace companies={companies} products={products}  />
-    </>
+      <MarketPlace companies={companies} products={products} />
   )
 }
 
