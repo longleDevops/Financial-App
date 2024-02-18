@@ -19,11 +19,22 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
   useEffect(() => {
     //animate(scope.current, { opacity: 0.2 }, { duration: 0 })
     if (isSwapped) {
-      animateFunc()
-    } else {
-      animateBackFunc()
+      animate(scope.current, { x: 150, scale: 0, opacity: 0 }, { duration: 0 })
+
+      const timeout = setTimeout(() => {
+        animate2(scope2.current, { x: 0, scale: 1, opacity: 1 }, { duration: .4, ease: "easeInOut" })
+      }, 2)
+      setIsSwapped(!isSwapped)
+      return () => clearTimeout(timeout);
     }
+
+    animate2(scope2.current, { x: 150, scale: 0, opacity: 0 }, { duration: 0 })
+    const timeout2 = setTimeout(() => {
+      animate(scope.current, { x: 0, scale: 1, opacity: 1 }, { duration: .4, ease: "easeInOut" })
+    }, 2)
+
     setIsSwapped(!isSwapped)
+    return () => clearTimeout(timeout2);
   }, [ticker])
 
   const animateFunc = () => {
