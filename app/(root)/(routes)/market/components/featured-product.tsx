@@ -18,7 +18,11 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
   const [scope, animate] = useAnimate();
   const [isLoaded, setIsLoaded] = useState(false)
   useEffect(() => {
-    animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0.5, 1] }, { duration: .4 });
+    if (isLoaded) {
+      animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0.5, 1] }, { duration: .4 });
+      setIsLoaded(false)
+    }
+
 
 
   }, [ticker])

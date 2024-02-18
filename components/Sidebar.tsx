@@ -8,11 +8,12 @@ import { usePathname } from "next/navigation";
 import { IoStorefrontOutline } from "react-icons/io5";
 import { TbMessageBolt } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
-
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const pathName = usePathname()
-
+  const router = useRouter()
+  router.prefetch("/market")
   const sidebarItems = [
     {
       name: "Dashboard",
