@@ -1,6 +1,5 @@
 "use client"
 
-import { Bell, Mail } from "lucide-react"
 import { UserButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
 

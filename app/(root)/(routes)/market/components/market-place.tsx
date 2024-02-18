@@ -1,12 +1,13 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { useAnimate } from "framer-motion"
+
+
+import { Company, Logo, Product } from "@prisma/client"
 import { StockList } from "./stock-list"
 import { FeaturedProduct } from "./featured-product"
-import { useEffect, useRef, useState } from "react"
-import { ArrowRight, Ghost, MoveRight } from "lucide-react"
-import { useAnimate } from "framer-motion"
 import { CompanyProfile } from "./company-profile"
-import { Company, Logo, Product } from "@prisma/client"
 
 export interface MarketPlaceProps {
   companies: Company[] & Logo
@@ -15,11 +16,13 @@ export interface MarketPlaceProps {
 
 const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
   const [ticker, setTicker] = useState("TSLA")
+  const foundCompany = companies.find((item: Company) => item.symbol === ticker)
 
   const [isBack, setIsBack] = useState(false)
 
   const [scope, animate] = useAnimate();
   const [scope1, animate1] = useAnimate();
+
 
   useEffect(() => {
     if (isBack) {
@@ -38,10 +41,17 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
     animate(scope.current, { opacity: 0, scale: .8, x: xValue }, { duration: .3 });
     animate1(scope1.current, { scale: [.8, 1], x: [-xValue, 0] }, { duration: .3 });
   }
+
+  const [defaultStyle, setDefaultStyle] = useState("object-contain max-h-[300px] translate-x-[150px] scale-0 opacity-0")
+
   return (
     <div className="flex h-full">
       <div className="w-[35%] pt-8 pb-12 px-8 border-r border-muted-foreground/30">
-        <FeaturedProduct ticker={ticker} companies={companies} products={products} />
+        <FeaturedProduct
+          ticker={ticker}
+          companies={companies}
+          defaultStyle={defaultStyle}
+        />
       </div>
       <div className="relative flex-1 overflow-hidden ">
         <div
@@ -58,16 +68,19 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
               companies={companies}
               products={products}
               animatedClick={handleClick}
+              setDefaultStyle={setDefaultStyle}
             />
           </div>
         </div>
+
         <div
           ref={scope1}
-          className="absolute flex-1 h-full bg-blue-100 "
+          className="absolute flex-1 w-full h-full"
         >
           <CompanyProfile
             isBack={isBack}
             setIsBack={setIsBack}
+            company={foundCompany}
           />
         </div>
       </div>

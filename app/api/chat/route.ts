@@ -10,8 +10,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function POST(
-  request: Request,
-  { params }: { params: { chatId: string } }
+  request: Request
 ) {
   try {
 

@@ -6,7 +6,7 @@ import {
 } from "./components/index"
 import AccountValue from "./components/AccountValue";
 import Portfolio from "./components/Portfolio";
-import { useQuery } from 'react-query'
+import { AccordionPanel } from "./components/accordion-panel";
 
 const DashboardPage = async () => {
   const companies = await prismadb.company.findMany({
@@ -26,8 +26,7 @@ const DashboardPage = async () => {
       <div className="w-[340px] ">
         <div className="fixed w-[340px] right-6 bottom-4 flex flex-col border rounded-lg border-muted-foreground/30 top-[85px] overflow-auto custom-scrollbar">
           <BankCard />
-          <Portfolio companies={companies} />
-          <Activity companies={companies} />
+          <AccordionPanel companies={companies} />
         </div>
       </div>
     </div>

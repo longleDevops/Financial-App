@@ -1,33 +1,31 @@
 "use client"
 
-import { useAnimate } from "framer-motion"
 import Image from "next/image"
-import { useEffect, useRef } from "react"
+
 import { ProductDialog } from "./product-dialog"
-import { Company, Logo, Product } from "@prisma/client"
+import { Company } from "@prisma/client"
 import { Transaction } from "./transaction"
 import { ProgressBar } from "./progress-bar"
+import { useAnimate } from "framer-motion"
+import { useEffect, useState } from "react"
 interface FeaturedProductProps {
   ticker: string,
   companies: Company[],
-  products: Product[]
+  defaultStyle: string
 }
 
-export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies, products }) => {
+export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies, defaultStyle }) => {
   const [scope, animate] = useAnimate();
-
+  const [isLoaded, setIsLoaded] = useState(false)
   useEffect(() => {
+    animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0.5, 1] }, { duration: .4 });
 
-    animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0, 1] }, { duration: .4 });
 
   }, [ticker])
 
+
   const foundCompany = companies.find((company) => company.symbol === ticker)
   const companyName = foundCompany.yahooStockV2Summary.price.shortName
-
-  const handleClick = () => {
-
-  }
 
   return (
     <div className="flex flex-col h-full text-sm">
@@ -56,7 +54,9 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
           height={300}
           ref={scope}
           priority={true}
-          className="object-contain max-h-[300px]"
+          className={defaultStyle}
+          onLoad={() => setIsLoaded(true)}
+
         />
       </div>
       <div className="">
