@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-
+import { cn } from "@/lib/utils"
 import { ProductDialog } from "./product-dialog"
 import { Company } from "@prisma/client"
 import { Transaction } from "./transaction"
@@ -11,20 +11,17 @@ import { useEffect, useState } from "react"
 interface FeaturedProductProps {
   ticker: string,
   companies: Company[],
-  defaultStyle: string
 }
 
-export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies, defaultStyle }) => {
+export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies }) => {
   const [scope, animate] = useAnimate();
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [defaultStyle, setDefaultStyle] = useState("")
   useEffect(() => {
-    if (isLoaded) {
-      animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0.5, 1] }, { duration: .4 });
-      setIsLoaded(false)
-    }
-
-
-
+    setDefaultStyle("translate-x-[150px] scale-0 opacity-0.5")
+    const timeout = setTimeout(() => {
+      animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0.5, 1] }, { duration: .4 })
+    }, 2)
+    return () => clearTimeout(timeout)
   }, [ticker])
 
 
@@ -52,15 +49,13 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
       </div>
       <div className="relative flex items-center justify-center flex-1 ">
         <Image
+          className={cn("object-contain max-h-[300px]", defaultStyle)}
           src={`/products/${ticker.toLowerCase()}.webp`}
           alt="Product Image"
           width={300}
           height={300}
           ref={scope}
           priority={true}
-          className={defaultStyle}
-          onLoad={() => setIsLoaded(true)}
-
         />
       </div>
       <div className="">

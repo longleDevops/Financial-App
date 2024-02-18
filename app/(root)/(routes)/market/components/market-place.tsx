@@ -42,7 +42,7 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
     animate1(scope1.current, { scale: [.8, 1], x: [-xValue, 0] }, { duration: .3 });
   }
 
-  const [defaultStyle, setDefaultStyle] = useState("object-contain max-h-[300px] translate-x-[150px] scale-0 opacity-0")
+
 
   return (
     <div className="flex h-full">
@@ -50,7 +50,6 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
         <FeaturedProduct
           ticker={ticker}
           companies={companies}
-          defaultStyle={defaultStyle}
         />
       </div>
       <div className="relative flex-1 overflow-hidden ">
@@ -68,7 +67,6 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
               companies={companies}
               products={products}
               animatedClick={handleClick}
-              setDefaultStyle={setDefaultStyle}
             />
           </div>
         </div>

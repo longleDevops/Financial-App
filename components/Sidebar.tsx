@@ -14,6 +14,7 @@ const Sidebar = () => {
   const pathName = usePathname()
   const router = useRouter()
   router.prefetch("/market")
+  router.prefetch("/chat")
   const sidebarItems = [
     {
       name: "Dashboard",

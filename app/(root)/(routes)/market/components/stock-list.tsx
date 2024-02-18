@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react";
 import Image from "next/image";
 
 import { MdCorporateFare } from "react-icons/md";
@@ -28,7 +27,6 @@ interface StockListProps {
   products: Product[]
 
   animatedClick: () => void;
-  setDefaultStyle: (defaultStyle: string) => void
 }
 
 
@@ -52,11 +50,10 @@ const getChangeFormat = (percent: number) => {
   return '+' + percent.toFixed(2) + '%'
 }
 
-export const StockList = ({ ticker, setTicker, companies, products, animatedClick, setDefaultStyle }: StockListProps) => {
+export const StockList = ({ ticker, setTicker, companies, products, animatedClick }: StockListProps) => {
 
 
   const handleClick = (company: Company) => {
-    setDefaultStyle("object-contain max-h-[300px] translate-x-[150px] scale-0 opacity-0.5")
     // Call back func
     setTicker(company.symbol);
   }
