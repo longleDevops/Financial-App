@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { cn } from "@/lib/utils"
 import { ProductDialog } from "./product-dialog"
 import { Company } from "@prisma/client"
 import { Transaction } from "./transaction"
@@ -15,9 +14,7 @@ interface FeaturedProductProps {
 
 export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies }) => {
   const [scope, animate] = useAnimate();
-  const [defaultStyle, setDefaultStyle] = useState("")
   useEffect(() => {
-    setDefaultStyle("translate-x-[150px] scale-0 opacity-0.5")
     const timeout = setTimeout(() => {
       animate(scope.current, { x: [150, 0], scale: [0, 1], opacity: [0.5, 1] }, { duration: .4 })
     }, 2)
@@ -49,7 +46,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
       </div>
       <div className="relative flex items-center justify-center flex-1 ">
         <Image
-          className={cn("object-contain max-h-[300px]", defaultStyle)}
+          className={"object-contain max-h-[300px]"}
           src={`/products/${ticker.toLowerCase()}.webp`}
           alt="Product Image"
           width={300}

@@ -13,8 +13,7 @@ import { useRouter } from "next/navigation";
 const Sidebar = () => {
   const pathName = usePathname()
   const router = useRouter()
-  router.prefetch("/market")
-  router.prefetch("/chat")
+
   const sidebarItems = [
     {
       name: "Dashboard",
@@ -47,8 +46,9 @@ const Sidebar = () => {
       <div className="space-y-4 text-xs font-medium mt-14">
         {sidebarItems.map((item) => (
           <Link
+            prefetch={true}
+            key={item.href}
             href={item.href}
-            key={item.name}
             className={cn("py-2 flex items-center justify-center p-3 group  rounded-lg text-muted-foreground hover:cursor-pointer hover:text-white",
               item.isActive ? "bg-[#6149cd] text-white" : "hover:bg-[#6149cd]/30"
             )}
