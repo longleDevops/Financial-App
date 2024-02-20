@@ -16,7 +16,7 @@ interface PortfolioProps {
 export function AccordionPanel({ companies }: PortfolioProps) {
   return (
     <Accordion type="multiple" className="w-full">
-      <AccordionItem value="item-1" className="px-4">
+      <AccordionItem value="item-1" className="px-4 ">
         <AccordionTrigger className="text-sm font-semibold">Porfolio</AccordionTrigger>
         <AccordionContent>
           <Portfolio companies={companies} />

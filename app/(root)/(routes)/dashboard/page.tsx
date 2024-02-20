@@ -1,11 +1,9 @@
 import prismadb from "@/lib/prismadb";
 import {
   BankCard,
-  Activity,
-  Chart
 } from "./components/index"
+import ChartContainer from "./components/chart-container";
 import AccountValue from "./components/AccountValue";
-import Portfolio from "./components/Portfolio";
 import { AccordionPanel } from "./components/accordion-panel";
 
 const DashboardPage = async () => {
@@ -19,12 +17,12 @@ const DashboardPage = async () => {
     <div className="flex gap-6 px-6 pt-6">
       <div className="flex-col flex-1 ">
         <AccountValue />
-        <Chart />
+        <ChartContainer />
       </div>
 
 
       <div className="w-[340px] ">
-        <div className="fixed w-[340px] right-6 bottom-4 flex flex-col border rounded-lg border-muted-foreground/30 top-[85px] overflow-auto custom-scrollbar">
+        <div className="fixed w-[340px] right-6 bottom-4 flex flex-col border rounded-lg border-muted-foreground/30 top-[85px] overflow-auto no-scrollbar">
           <BankCard />
           <AccordionPanel companies={companies} />
         </div>
