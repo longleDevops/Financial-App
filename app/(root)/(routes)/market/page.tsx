@@ -1,7 +1,15 @@
 import prismadb from "@/lib/prismadb"
 import MarketPlace from "./components/market-place"
+import { Company } from "@prisma/client"
 
-const Market = async () => {
+interface MarketProps {
+  searchParams: {
+    symbol: string
+  }
+}
+const Market = async ({
+  searchParams
+}: MarketProps) => {
   // paralel fetching
   const [companies, products] = await Promise.all([
     prismadb.company.findMany({
@@ -12,8 +20,13 @@ const Market = async () => {
     prismadb.product.findMany(),
   ])
 
+
   return (
-      <MarketPlace companies={companies} products={products} />
+    <MarketPlace
+      companies={companies}
+      products={products}
+      searchSymbol={searchParams.symbol ? searchParams.symbol.toUpperCase() : ""}
+    />
   )
 }
 

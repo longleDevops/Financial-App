@@ -1,5 +1,7 @@
 "use client"
 
+
+import { IoHeart } from "react-icons/io5";
 import Image from "next/image"
 import { ProductDialog } from "./product-dialog"
 import { Company } from "@prisma/client"
@@ -7,6 +9,10 @@ import { Transaction } from "./transaction"
 import { ProgressBar } from "./progress-bar"
 import { useAnimate } from "framer-motion"
 import { useEffect, useState } from "react"
+import { AiOutlineHeart } from "react-icons/ai";
+import { Heart, ThumbsDown, ThumbsUp } from "lucide-react";
+
+
 interface FeaturedProductProps {
   ticker: string,
   companies: Company[],
@@ -37,6 +43,11 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
   const foundCompany = companies.find((company) => company.symbol === ticker)
   const companyName = foundCompany.yahooStockV2Summary.price.shortName
 
+  const [isLiked, setIsLike] = useState(false)
+
+  function handleClicked() {
+    setIsLike(!isLiked)
+  }
   return (
     <div className="flex flex-col h-full text-sm">
       <div className="flex justify-between">
@@ -45,6 +56,21 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, compan
             {companyName}
           </p>
           <ProductDialog symbol={ticker} productUrl={"todo"} />
+          <button onClick={handleClicked}
+            className="transition duration-300 ease-in-out delay-50 hover:-translate-y-1 hover:scale-110"
+          >
+            {isLiked ?
+              <IoHeart
+                size={25}
+                className="mt-2 text-red-500"
+              /> :
+              <AiOutlineHeart
+                size={25}
+                className="mt-2"
+              />
+            }
+          </button>
+
         </div>
         <div className="flex flex-col items-end">
           <h1 className="flex text-lg font-semibold ">

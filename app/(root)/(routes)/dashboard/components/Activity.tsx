@@ -32,7 +32,7 @@ export const Activity = ({ companies }: ActivityProps) => {
           <div className="flex items-center gap-2 w-[150px]">
             <Image
               alt="stock img"
-              src={company.logo.logo}
+              src={company.logo.logo.toLowerCase()}
               width={20}
               height={20}
               className="object-contain rounded-full max-h-[20px]"

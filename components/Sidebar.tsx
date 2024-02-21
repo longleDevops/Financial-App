@@ -34,6 +34,9 @@ const Sidebar = () => {
       isActive: pathName === "/chat"
     },
   ]
+  sidebarItems.map((item) => {
+    router.prefetch(item.href)
+  })
   return (
     <div className="flex flex-col items-center w-full h-full pt-2 pb-8 border-r border-muted-foreground/30 ">
       <Image
@@ -46,7 +49,6 @@ const Sidebar = () => {
       <div className="space-y-4 text-xs font-medium mt-14">
         {sidebarItems.map((item) => (
           <Link
-            prefetch={true}
             key={item.href}
             href={item.href}
             className={cn("py-2 flex items-center justify-center p-3 group  rounded-lg text-muted-foreground hover:cursor-pointer hover:text-white",

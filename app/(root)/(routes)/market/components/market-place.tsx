@@ -12,9 +12,10 @@ import { CompanyProfile } from "./company-profile"
 export interface MarketPlaceProps {
   companies: Company[] & Logo
   products: Product[]
+  searchSymbol: string
 }
 
-const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
+const MarketPlace = ({ companies, products, searchSymbol }: MarketPlaceProps) => {
   const [ticker, setTicker] = useState("TSLA")
   const foundCompany = companies.find((item: Company) => item.symbol === ticker)
 
@@ -57,7 +58,7 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
           ref={scope}
           className="absolute p-8 z-[1] w-full bg-white h-full"
         >
-          <div className="flex justify-between pb-8">
+          <div className="flex justify-between pb-6">
             <p className="text-lg font-semibold">Companies</p>
           </div>
           <div className="overflow-y-auto ">
@@ -67,6 +68,7 @@ const MarketPlace = ({ companies, products }: MarketPlaceProps) => {
               companies={companies}
               products={products}
               animatedClick={handleClick}
+              searchSymbol={searchSymbol}
             />
           </div>
         </div>
