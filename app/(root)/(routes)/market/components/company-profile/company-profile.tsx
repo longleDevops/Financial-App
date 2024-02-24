@@ -5,11 +5,9 @@ import Link from "next/link"
 import ExecutiveCard from "./executive-card"
 import EmployeeCard from "./employee-card"
 import CompanyDetails from "./company-details"
-import BackButton from "./BackButton"
 import { Company, Logo } from "@prisma/client"
+import BackBtn from "./back-btn"
 export interface CompanyProfile {
-  isBack: boolean,
-  setIsBack: (isBack: boolean) => void,
   company: Company & Logo
 }
 
@@ -47,13 +45,13 @@ const numOfEmployees = [
 
 ]
 
-export const CompanyProfile = ({ isBack, setIsBack, company }: CompanyProfile) => {
+export const CompanyProfile = ({company }: CompanyProfile) => {
 
   return (
 
     <div className="p-8 ">
       <div className="flex justify-between">
-        <BackButton isBack={isBack} setIsBack={setIsBack} />
+        <BackBtn />
         <p className="text-base font-semibold underline text-muted-foreground">Tesla Inc.</p>
       </div>
 
@@ -105,7 +103,7 @@ export const CompanyProfile = ({ isBack, setIsBack, company }: CompanyProfile) =
           </div>
         </div>
         <div className="bg-white h-[1000px] w-full">
-          <CompanyDetails 
+          <CompanyDetails
             foundCompany={company}
           />
         </div>

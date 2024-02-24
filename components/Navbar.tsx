@@ -2,6 +2,7 @@
 
 import { UserButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 
 const getName = (pathName: string): string => {
   if (pathName.includes("dashboard")) return "Dashboard"
@@ -9,11 +10,19 @@ const getName = (pathName: string): string => {
   else return "Messenger"
 }
 
-export const Navbar = () => {
+export function Navbar() {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+  if (!isClient) {
+    return;
+  }
   const pathName = usePathname();
   const name = getName(pathName)
   return (
-    <div className="flex items-center justify-between flex-1 px-6 bg-white border-b border-muted-foreground/30 h-[60px]">
+    <div className="flex items-center justify-between flex-1 px-6 h-[60px] border-b border-muted-foreground/30">
       <p className="text-lg font-semibold">
         {name}
       </p>

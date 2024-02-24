@@ -17,6 +17,8 @@ import { Company } from "@prisma/client"
 import axios from "axios";
 //import { safeParse } from 'zod'
 
+import * as React from "react"
+
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,7 +70,7 @@ export function Transaction({ btnName, color, company }: TransactionProps) {
     }
   }
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = React.useState(false)
   const isLoading = form.formState.isSubmitting;
   const router = useRouter()
   return (

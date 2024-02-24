@@ -1,21 +1,24 @@
+import { Company } from '@prisma/client';
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Company } from '@prisma/client';
-import Image from 'next/image';
-import Portfolio from "./Portfolio";
-import { Activity } from ".";
+import {
+  DoughnutChart,
+  Portfolio,
+  Activity
+} from './index';
 
 interface PortfolioProps {
   companies: Company[]
 }
 
-export function AccordionPanel({ companies }: PortfolioProps) {
+export function AccordionContainer({ companies }: PortfolioProps) {
   return (
-    <Accordion type="multiple" className="w-full">
+    <Accordion type="multiple" className="w-full" defaultValue={["item-3"]}>
       <AccordionItem value="item-1" className="px-4 ">
         <AccordionTrigger className="text-sm font-semibold">Porfolio</AccordionTrigger>
         <AccordionContent>
@@ -27,6 +30,13 @@ export function AccordionPanel({ companies }: PortfolioProps) {
         <AccordionTrigger className="text-sm font-semibold">Recent Activity</AccordionTrigger>
         <AccordionContent>
           <Activity companies={companies} />
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-3" className="px-4 ">
+        <AccordionTrigger className="text-sm font-semibold">Distribution</AccordionTrigger>
+        <AccordionContent>
+          <DoughnutChart />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

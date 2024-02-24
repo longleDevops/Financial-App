@@ -1,8 +1,7 @@
 import { Plus } from "lucide-react"
 
-export const BankCard = () => {
+export function BankCard() {
   const handleClick = (symbol: string) => {
-
   }
   return (
     <div className="w-full px-4 py-4">

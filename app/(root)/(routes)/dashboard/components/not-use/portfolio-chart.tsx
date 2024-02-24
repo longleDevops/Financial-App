@@ -72,9 +72,9 @@ export const PortfolioChart = () => {
 
 
   return (
-    <div className="w-[70%] border border-yellow-500">
+    <div className="w-full border border-yellow-500">
       <p className="text-xl font-normal">$120.00</p>
-      <div ref={elementRef} className="h-[400px] ">
+      <div ref={elementRef} className="h-[150px]">
       </div>
     </div>
   )

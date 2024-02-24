@@ -5,20 +5,21 @@ import { IoHeart } from "react-icons/io5";
 import Image from "next/image"
 import { ProductDialog } from "./product-dialog"
 import { Company } from "@prisma/client"
-import { Transaction } from "./transaction"
+import { Transaction } from "../transaction/transaction"
 import { ProgressBar } from "./progress-bar"
 import { useAnimate } from "framer-motion"
 import { useEffect, useState } from "react"
 import { AiOutlineHeart } from "react-icons/ai";
 import { Heart, ThumbsDown, ThumbsUp } from "lucide-react";
+import { useTicker } from "@/hooks/use-ticker";
 
 
 interface FeaturedProductProps {
-  ticker: string,
   companies: Company[],
 }
 
-export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ ticker, companies }) => {
+export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) => {
+  const { ticker } = useTicker()
   const [scope, animate] = useAnimate();
   const [scope2, animate2] = useAnimate();
   const [isSwapped, setIsSwapped] = useState(true)

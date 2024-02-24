@@ -50,7 +50,7 @@ const getChangeFormat = (percent: number) => {
   return '+' + percent.toFixed(2) + '%'
 }
 
-export const StockList = ({ ticker, setTicker, companies, products, animatedClick, searchSymbol }: StockListProps) => {
+export const StockList = ({ ticker, setTicker, companies, products, animatedClick }: StockListProps) => {
 
 
   const handleClick = (company: Company) => {
@@ -58,14 +58,12 @@ export const StockList = ({ ticker, setTicker, companies, products, animatedClic
     setTicker(company.symbol);
   }
 
-  const filteredCompanies = companies.filter((item: Company & Logo) => item.symbol.includes(searchSymbol));
-  const numRows = filteredCompanies.length;
   return (
     <div>
       <div className="flex items-center justify-between">
         <SearchInput />
         <div className="flex items-center justify-center h-full px-4 py-2">
-          <p className="text-xs text-muted-foreground">{numRows} Results</p>
+          <p className="text-xs text-muted-foreground"> Results</p>
         </div>
       </div>
       <Table>
@@ -133,7 +131,6 @@ export const StockList = ({ ticker, setTicker, companies, products, animatedClic
         </TableHeader>
         <TableBody>
           {companies
-            .filter((item: Company & Logo) => item.symbol.includes(searchSymbol))
             .map((item: Company & Logo, index: number) => (
               <TableRow
                 key={index}

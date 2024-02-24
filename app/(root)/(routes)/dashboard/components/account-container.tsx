@@ -1,11 +1,11 @@
 import { dashboardHeaders } from '@/constants'
-import { BalanceCard } from '.'
+import { AccountCard } from './index'
 
-const AccountValue = () => {
+const AccountContainer = () => {
   return (
     <div className="flex justify-between">
       {dashboardHeaders.map((item, index) =>
-        <BalanceCard
+        <AccountCard
           key={item.title}
           title={item.title}
           value={item.value}
@@ -17,4 +17,4 @@ const AccountValue = () => {
   )
 }
 
-export default AccountValue
+export default AccountContainer
