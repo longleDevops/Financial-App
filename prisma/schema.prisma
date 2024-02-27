@@ -24,7 +24,7 @@ model Portfolio {
   id String @id @default(uuid())
   portfolioVal Float 
 
-  companies Company[]
+  companies Portfolio_Company[]
 
   account Account @relation(fields: [accountId], references: [id],onDelete:  Cascade)
   accountId String @unique
@@ -50,6 +50,14 @@ model Watchlist_Company {
   @@id([watchlistId,companyId])
 }
 
+model Portfolio_Company {
+  portfolio Portfolio @relation(fields: [portfolioId],references: [id])
+  portfolioId String
+  company  Company @relation(fields: [companyId], references:[id])
+  companyId String
+  symbol String
+  @@id([portfolioId,companyId])
+} 
 model Company {
   id String @id @default(uuid())
   symbol String @unique
@@ -59,10 +67,9 @@ model Company {
   resources Resource?
 
   logo Logo?
-  portfolio Portfolio? @relation(fields: [portfolioId], references: [id])
-  portfolioId String?
-
+  
   watchlists Watchlist_Company[]
+  portfolios  Portfolio_Company[]
 }
 model Transaction {
   id String @id @default(uuid())
