@@ -1,43 +1,31 @@
+"use client"
 
 import Image from "next/image"
 import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 import { Company, Watchlist_Company } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useWatchlistStore } from "@/hooks/use-dashboard-watchlist";
+import { useEffect, useState } from "react";
 
-export const revalidate = 0;
-
-async function getStocks() {
-  console.log("hi")
-  const { userId } = auth()
-  if (!userId)
-    return new NextResponse("Unauthorized", { status: 401 });
-  const watchlists = await prismadb.watchlist.findMany({
-    where: {
-      accountId: userId
-    },
-    include: {
-      companies: {
-        include: {
-          company: true
-        }
-      }
-    }
-  })
-
-  const watchlistStocks = watchlists[0].companies.map((item: Watchlist_Company) => item.company);
-  return watchlistStocks
-}
-
-export const Watchllist = async () => {
-  const watchlistCompanies: Company[] = await getStocks();
+export const Watchlist = () => {
+  const [mounted, setMounted] = useState(false);
+  const { watchlistCompanies, fetchWatchlistCompanies } = useWatchlistStore();
+  useEffect(() => {
+    fetchWatchlistCompanies();
+    setMounted(true);
+    console.log(watchlistCompanies)
+    console.log("lll" + Array.isArray(watchlistCompanies))
+  }, []);
+  if (!mounted) return;
   return (
     <>
       {!watchlistCompanies || watchlistCompanies.length === 0 ?
         <div className="h-[30px] flex items-center justify-center text-muted-foreground text-sm">No watchlist added</div> :
 
         <div className="flex flex-col gap-3 mt-2">
-          {watchlistCompanies.map((company) => (
+          {Array.isArray(watchlistCompanies) && watchlistCompanies.map((company) => (
             <div
               key={company.id}
               className="flex justify-between px-4 py-2 text-xs rounded-md shadow-md "
@@ -65,4 +53,5 @@ export const Watchllist = async () => {
       }
     </>
   )
+
 }

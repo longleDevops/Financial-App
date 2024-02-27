@@ -49,6 +49,7 @@ const Sidebar = () => {
       <div className="space-y-4 text-xs font-medium mt-14">
         {sidebarItems.map((item) => (
           <Link
+            onClick={() => router.refresh()}
             prefetch={true}
             key={item.href}
             href={item.href}

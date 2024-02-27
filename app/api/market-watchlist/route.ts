@@ -69,7 +69,8 @@ export async function GET() {
     }
   })
 
-  const watchlistStocks = watchlists[0].companies.map((item: Watchlist_Company) => item.symbol);
-  return new NextResponse(watchlistStocks, { status: 200 });
+  const watchlistStocks: string[] = watchlists[0].companies.map((item: Watchlist_Company) => item.symbol);
+  console.log("market route runs")
+  return new NextResponse(JSON.stringify(watchlistStocks), { status: 200 });
 
 }

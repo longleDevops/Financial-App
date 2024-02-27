@@ -2,17 +2,12 @@ import { Company, Portfolio } from '@prisma/client';
 import Image from 'next/image';
 
 
-interface PortfolioItemProps {
-  portfolio: Portfolio & Company[]
-}
 
-export const PortfolioItem = ({
-  portfolio
-}: PortfolioItemProps) => {
-  const companies: Company[] = portfolio.companies;
+
+export const PortfolioItem = () => {
   return (
     <>
-      {
+      {/* {
         !companies || companies.length === 0 ?
           <div className='h-[30px] flex justify-center items-center text-muted-foreground text-sm'>
             No stocks added.
@@ -42,7 +37,7 @@ export const PortfolioItem = ({
               </button>
             ))}
           </div>
-      }
+      } */}
     </>
   )
 }

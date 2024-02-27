@@ -55,7 +55,6 @@ const DashboardPage = async () => {
         <div className="fixed w-[340px] right-6 bottom-4 flex flex-col border rounded-lg border-muted-foreground/30 top-[85px] overflow-auto no-scrollbar">
           <BankCard />
           <AccordionContainer
-            portfolio={portfolio}
           />
         </div>
       </div>

@@ -1,5 +1,3 @@
-import { Company, Portfolio, Watchlist } from '@prisma/client';
-
 import {
   Accordion,
   AccordionContent,
@@ -9,30 +7,23 @@ import {
 import {
   DoughnutChart,
   PortfolioItem,
-  Watchllist
+  Watchlist
 } from './index';
 
-interface AccordionContainerProps {
-  portfolio: Portfolio & Company[]
-}
-
-export function AccordionContainer({
-  portfolio,
-}: AccordionContainerProps) {
-
+export function AccordionContainer() {
   return (
     <Accordion type="multiple" className="w-full" defaultValue={["item-3"]}>
       <AccordionItem value="item-1" className="px-4 ">
         <AccordionTrigger className="text-sm font-semibold">Porfolio</AccordionTrigger>
         <AccordionContent>
-          <PortfolioItem portfolio={portfolio} />
+          <PortfolioItem />
         </AccordionContent>
       </AccordionItem>
 
       <AccordionItem value="item-2" className="px-4">
         <AccordionTrigger className="text-sm font-semibold">Watchlist</AccordionTrigger>
         <AccordionContent>
-          <Watchllist />
+          <Watchlist />
         </AccordionContent>
       </AccordionItem>
 
