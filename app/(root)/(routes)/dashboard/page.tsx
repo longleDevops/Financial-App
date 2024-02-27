@@ -42,9 +42,6 @@ const DashboardPage = async () => {
     where: {
       accountId: userId
     },
-    include: {
-      companies: true
-    }
   })
 
   return (

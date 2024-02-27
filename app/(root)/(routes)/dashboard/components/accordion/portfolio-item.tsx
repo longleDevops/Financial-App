@@ -13,7 +13,7 @@ export const PortfolioItem = ({
   return (
     <>
       {
-        companies.length === 0 ?
+        !companies || companies.length === 0 ?
           <div className='h-[30px] flex justify-center items-center text-muted-foreground text-sm'>
             No stocks added.
           </div> :
