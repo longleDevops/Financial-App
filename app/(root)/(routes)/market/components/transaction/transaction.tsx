@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { useRouter } from "next/navigation";
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/shadcn-ui/label"
 import {
   Sheet,
   SheetContent,
@@ -11,7 +11,7 @@ import {
   SheetOverlay,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/shadcn-ui/sheet"
 import { cn } from "@/lib/utils"
 import { Company } from "@prisma/client"
 import axios from "axios";
@@ -19,10 +19,10 @@ import axios from "axios";
 
 import * as React from "react"
 
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/shadcn-ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/shadcn-ui/input";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -31,7 +31,6 @@ interface TransactionProps {
   color: string,
   company: Company
 }
-
 
 export function Transaction({ btnName, color, company }: TransactionProps) {
   const symbol = company.symbol;

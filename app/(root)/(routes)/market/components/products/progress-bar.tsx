@@ -1,5 +1,5 @@
 "use client"
-import { Progress } from "@/components/ui/progress"
+import { Progress } from "@/components/shadcn-ui/progress"
 import { Company } from "@prisma/client"
 import { useEffect, useState } from "react"
 import BigNumber from 'bignumber.js'

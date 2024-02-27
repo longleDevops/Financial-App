@@ -20,7 +20,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/shadcn-ui/dropdown-menu"
 import { DataTablePagination } from "./table-pagination"
 import {
   Table,
@@ -29,7 +29,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/shadcn-ui/table"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -40,8 +40,8 @@ interface TickerProps {
   ticker: string,
 }
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/shadcn-ui/input"
+import { Button } from "@/components/shadcn-ui/button"
 import { useTicker } from "@/hooks/use-ticker"
 import { SlidersHorizontal } from "lucide-react"
 
@@ -162,7 +162,7 @@ export function DataTable<TData, TValue>({
                                hover:bg-indigo-600/10
                                hover:cursor-pointer 
                                transition duration-75 
-                              ${getSymbol(row) === ticker && 'ring-2 ring-purple-500 ring-inset'}
+                              ${getSymbol(row) === ticker && 'ring-2 ring-cyan-600 ring-inset'}
                                `}
                 >
                   {row.getVisibleCells().map((cell) => (

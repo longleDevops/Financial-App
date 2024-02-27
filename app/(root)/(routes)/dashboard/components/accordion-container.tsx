@@ -1,35 +1,41 @@
-import { Company } from '@prisma/client';
+import { Company, Portfolio, Watchlist } from '@prisma/client';
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@/components/shadcn-ui/accordion"
 import {
   DoughnutChart,
-  Portfolio,
-  Activity
+  PortfolioItem,
+  Watchllist
 } from './index';
 
-interface PortfolioProps {
-  companies: Company[]
+interface AccordionContainerProps {
+  portfolio: Portfolio & Company[]
+  foundCompany: Company
 }
 
-export function AccordionContainer({ companies }: PortfolioProps) {
+export function AccordionContainer({
+  portfolio,
+  foundCompany
+}: AccordionContainerProps) {
+
   return (
     <Accordion type="multiple" className="w-full" defaultValue={["item-3"]}>
       <AccordionItem value="item-1" className="px-4 ">
         <AccordionTrigger className="text-sm font-semibold">Porfolio</AccordionTrigger>
         <AccordionContent>
-          <Portfolio companies={companies} />
+          <PortfolioItem portfolio={portfolio} />
         </AccordionContent>
       </AccordionItem>
 
       <AccordionItem value="item-2" className="px-4">
-        <AccordionTrigger className="text-sm font-semibold">Recent Activity</AccordionTrigger>
+        <AccordionTrigger className="text-sm font-semibold">Watchlist</AccordionTrigger>
         <AccordionContent>
-          <Activity companies={companies} />
+          <Watchllist watchlist={foundCompany}
+          />
         </AccordionContent>
       </AccordionItem>
 

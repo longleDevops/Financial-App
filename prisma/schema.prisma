@@ -13,10 +13,41 @@ datasource db {
 
 model Account{
   id String @id @default(uuid())
-  balance Int
-  portfolioVal Int
-  totalVal Int
+  accountBalance Float
+  accountValue Float
+
+  portfolio Portfolio?
+  watchlist Watchlist?
+}
+
+model Portfolio {
+  id String @id @default(uuid())
+  portfolioVal Float 
+
   companies Company[]
+
+  account Account @relation(fields: [accountId], references: [id],onDelete:  Cascade)
+  accountId String @unique
+}
+
+model Watchlist {
+  id String @id @default(uuid())
+  name String
+
+  companies Watchlist_Company[]
+
+  account Account @relation(fields: [accountId], references: [id])
+  accountId String @unique
+ 
+}
+
+model Watchlist_Company {
+  watchlist Watchlist @relation(fields: [watchlistId],references: [id])
+  watchlistId String
+  company  Company @relation(fields: [companyId], references:[id])
+  companyId String
+  symbol String
+  @@id([watchlistId,companyId])
 }
 
 model Company {
@@ -27,20 +58,29 @@ model Company {
   yahooStockV2Summary Json
   resources Resource?
 
-  account Account? @relation(fields: [companyId], references: [id])
-  companyId String?
-
   logo Logo?
+  portfolio Portfolio? @relation(fields: [portfolioId], references: [id])
+  portfolioId String?
+
+  watchlists Watchlist_Company[]
 }
+model Transaction {
+  id String @id @default(uuid())
+
+}
+
+model Ticker {
+  id String @id @default(uuid())
+  symbol String @unique
+}
+
+
 
 model Category{
   int String @id @default(uuid())
   name String 
 }
-model Ticker {
-  id String @id @default(uuid())
-  symbol String @unique
-}
+
 
 model AllTicker {
   id String @id @default(uuid())

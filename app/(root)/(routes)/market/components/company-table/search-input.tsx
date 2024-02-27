@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/shadcn-ui/input"
 import { Search } from "lucide-react"
 import { useEffect, useState, ChangeEventHandler } from "react";
 import { useRouter, useSearchParams } from "next/navigation";

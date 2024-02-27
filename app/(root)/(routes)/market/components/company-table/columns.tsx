@@ -6,6 +6,7 @@ import Image from "next/image"
 import { MoveRight } from "lucide-react"
 import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
+import { Button } from "@/components/aceternity-ui/moving-border"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -77,7 +78,7 @@ export const columns: ColumnDef<CompanyDef>[] = [
   {
     accessorKey: "percentChg",
     header: ({ column }) => (
-      <div className=""><DataTableColumnHeader column={column} title="Change" /></div>
+      <div className="w-[100px]"><DataTableColumnHeader column={column} title="Change" /></div>
     ),
     cell: ({ row }) => {
       const data = parseFloat(row.getValue("percentChg"))
@@ -89,18 +90,19 @@ export const columns: ColumnDef<CompanyDef>[] = [
 
           <div className="flex items-center justify-between">
             <p className="w-[60px]">{data.toFixed(2) + '%'}</p>
-            {ticker === row.getValue("symbol") && <button
+            {ticker === row.getValue("symbol") && <Button
               onClick={() => {
                 setAnimtedId(1)
                 console.log(animatedId)
               }}
-              className="px-2 py-[2px] border rounded-lg border-muted-foreground "
+              borderRadius="100px"
+              className="text-black bg-white dark:bg-slate-900 hover:bg-cyan-800 hover:text-white dark:text-white border-neutral-400 dark:border-slate-800"
             >
               <MoveRight
                 size={16}
                 className="ml-1"
               />
-            </button>}
+            </Button>}
           </div>
 
         )
@@ -108,18 +110,20 @@ export const columns: ColumnDef<CompanyDef>[] = [
       return (
         <div className="flex items-center justify-between">
           <p className="w-[60px]">{'+' + data.toFixed(2) + '%'}</p>
-          {ticker === row.getValue("symbol") && <button
+          {ticker === row.getValue("symbol") && <Button
+
             onClick={() => {
               setAnimtedId(1)
               console.log(animatedId)
             }}
-            className="px-2 py-[2px] border rounded-lg border-muted-foreground"
+            borderRadius="100px"
+            className="text-black bg-white hover:bg-cyan-800 hover:text-white dark:bg-slate-900 dark:text-white border-neutral-400 dark:border-slate-800 "
           >
             <MoveRight
               size={16}
               className="ml-1"
             />
-          </button>}
+          </Button>}
         </div>
       )
     }

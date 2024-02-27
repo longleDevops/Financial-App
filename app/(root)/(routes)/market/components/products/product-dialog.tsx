@@ -1,12 +1,12 @@
 import { ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/shadcn-ui/button"
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/shadcn-ui/dialog"
 import Image from "next/image"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/components/shadcn-ui/separator"
 
 
 

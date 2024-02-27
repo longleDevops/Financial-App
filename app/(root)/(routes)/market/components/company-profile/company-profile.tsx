@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/shadcn-ui/button"
 import { ArrowLeft, Facebook, Instagram, Twitter } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -45,7 +45,7 @@ const numOfEmployees = [
 
 ]
 
-export const CompanyProfile = ({company }: CompanyProfile) => {
+export const CompanyProfile = ({ company }: CompanyProfile) => {
 
   return (
 

@@ -13,7 +13,7 @@ export type Payment = {
   date: string
 }
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/shadcn-ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,8 +21,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "@/components/shadcn-ui/dropdown-menu"
+import { Checkbox } from "@/components/shadcn-ui/checkbox"
 
 
 export const columns: ColumnDef<Payment>[] = [

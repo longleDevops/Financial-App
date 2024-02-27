@@ -12,14 +12,18 @@ import { useEffect, useState } from "react"
 import { AiOutlineHeart } from "react-icons/ai";
 import { Heart, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useTicker } from "@/hooks/use-ticker";
-
-
+import { useToast } from "@/components/ui/use-toast"
+import { Check } from "lucide-react";
+import axios from "axios";
 interface FeaturedProductProps {
   companies: Company[],
 }
 
 export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) => {
+  // Global state
   const { ticker } = useTicker()
+  const { toast } = useToast()
+
   const [scope, animate] = useAnimate();
   const [scope2, animate2] = useAnimate();
   const [isSwapped, setIsSwapped] = useState(true)
@@ -46,11 +50,24 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
 
   const [isLiked, setIsLike] = useState(false)
 
-  function handleClicked() {
+  async function handleClicked() {
     setIsLike(!isLiked)
+
+    const description = !isLiked ? "Added to watchlist" : "Removed from watchlist"
+    toast({
+      className: "shadow-lg gap-2",
+      duration: 1500,
+      description,
+      action: <Check size={24} className="text-white bg-green-500 rounded-full" />,
+    })
+
+    await axios.post('/api/watchlist', {
+      isLiked,
+      ticker
+    })
   }
   return (
-    <div className="flex flex-col h-full text-sm">
+    <div className="flex flex-col justify-between h-full text-sm">
       <div className="flex justify-between">
         <div>
           <p className="mb-1 text-lg font-semibold">
@@ -83,7 +100,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
           </div>
         </div>
       </div>
-      <div className="relative flex items-center justify-center flex-1 ">
+
+      <div className="relative flex items-center justify-center flex-1 w-[300px] h-[300px] mx-auto">
         <Image
           className={"object-contain max-h-[300px] absolute"}
           src={`/products/${ticker.toLowerCase()}.webp`}

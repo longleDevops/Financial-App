@@ -14,9 +14,9 @@ import { DataTablePagination } from "./table/data-table-pagination";
 import { AccountCard } from "./account/account-card";
 
 // Import accordion components
-import { Activity } from "./accordion/activity";
+import { Watchllist } from "./accordion/watchlist";
 import { DoughnutChart } from "./accordion/doughnut-chart";
-import Portfolio from "./accordion/portfolio";
+import {PortfolioItem} from "./accordion/portfolio-item";
 
 export {
   BankCard,
@@ -30,7 +30,7 @@ export {
   DataTablePagination,
   AccountCard,
 
-  Activity,
+  Watchllist,
   DoughnutChart,
-  Portfolio
+  PortfolioItem
 }

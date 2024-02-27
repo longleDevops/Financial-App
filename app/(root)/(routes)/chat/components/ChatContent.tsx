@@ -5,10 +5,10 @@ import { ChatBot, Message } from "@prisma/client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import ChatMessages from "./ChatMessages"
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/shadcn-ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/shadcn-ui/input";
 import { formSchema } from "./constants";
 import { ArrowRight } from "lucide-react";
 import axios from "axios"

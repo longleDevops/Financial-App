@@ -19,9 +19,9 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
+} from "@/components/shadcn-ui/dropdown-menu"
+import { Checkbox } from "@/components/shadcn-ui/checkbox"
+import { Input } from "@/components/shadcn-ui/input"
 import {
   Table,
   TableBody,
@@ -29,8 +29,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+} from "@/components/shadcn-ui/table"
+import { Button } from "@/components/shadcn-ui/button"
 import { DataTablePagination } from "./data-table-pagination"
 
 
