@@ -1,38 +1,48 @@
+
 import Image from "next/image"
+import { auth } from "@clerk/nextjs";
+import prismadb from "@/lib/prismadb";
+import { NextResponse } from "next/server";
+import { Company, Watchlist_Company } from "@prisma/client";
 
-import { Company, Watchlist } from "@prisma/client"
+export const revalidate = 0;
 
-interface WatchlistProps {
-  watchlist: Company[]
+async function getStocks() {
+  console.log("hi")
+  const { userId } = auth()
+  if (!userId)
+    return new NextResponse("Unauthorized", { status: 401 });
+  const watchlists = await prismadb.watchlist.findMany({
+    where: {
+      accountId: userId
+    },
+    include: {
+      companies: {
+        include: {
+          company: true
+        }
+      }
+    }
+  })
+
+  const watchlistStocks = watchlists[0].companies.map((item: Watchlist_Company) => item.company);
+  return watchlistStocks
 }
-export const Watchllist = ({ watchlist }: WatchlistProps) => {
 
-  //const router = useRouter();
-
-  // const handleClick = (symbol: string) => {
-  //   const query = { name: symbol }
-  //   const url = qs.stringifyUrl({
-  //     url: window.location.href,
-  //     query,
-  //   }, { skipNull: true })
-
-  //   router.push(url)
-  // }
-
-  // TODO: add a calendar option if possible
+export const Watchllist = async () => {
+  const watchlistCompanies: Company[] = await getStocks();
   return (
     <>
-      {watchlist.length === 0 ?
+      {!watchlistCompanies || watchlistCompanies.length === 0 ?
         <div className="h-[30px] flex items-center justify-center text-muted-foreground text-sm">No watchlist added</div> :
 
-        <div className="flex flex-col gap-3 mt-4">
-          {watchlist.map((company) => (
-
-            <button
+        <div className="flex flex-col gap-3 mt-2">
+          {watchlistCompanies.map((company) => (
+            <div
               key={company.id}
               className="flex justify-between px-4 py-2 text-xs rounded-md shadow-md "
             >
-              <div className="flex items-center gap-2 w-[150px]">
+              <div className="flex items-center gap-2 w-[210px] ">
                 <Image
                   alt="stock img"
                   src={`/logos/${company.symbol.toLowerCase()}.svg`}
@@ -49,11 +59,10 @@ export const Watchllist = ({ watchlist }: WatchlistProps) => {
                 <p className="">${company.price}</p>
                 <p className="text-muted-foreground">Buy</p>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       }
-
     </>
   )
 }

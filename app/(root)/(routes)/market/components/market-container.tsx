@@ -26,6 +26,7 @@ const MarketContainer = ({ companies, products }: MarketContainerProps) => {
   const [frontElement, animate] = useAnimate();
   const [behindElement, animate1] = useAnimate();
 
+  // Animation
   useEffect(() => {
     if (animatedId === 1) {
       console.log(animatedId)

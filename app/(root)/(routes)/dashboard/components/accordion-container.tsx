@@ -14,12 +14,10 @@ import {
 
 interface AccordionContainerProps {
   portfolio: Portfolio & Company[]
-  foundCompany: Company
 }
 
 export function AccordionContainer({
   portfolio,
-  foundCompany
 }: AccordionContainerProps) {
 
   return (
@@ -34,8 +32,7 @@ export function AccordionContainer({
       <AccordionItem value="item-2" className="px-4">
         <AccordionTrigger className="text-sm font-semibold">Watchlist</AccordionTrigger>
         <AccordionContent>
-          <Watchllist watchlist={foundCompany}
-          />
+          <Watchllist />
         </AccordionContent>
       </AccordionItem>
 

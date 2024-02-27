@@ -1,5 +1,7 @@
 import prismadb from "@/lib/prismadb"
 import MarketContainer from "./components/market-container"
+import { auth } from "@clerk/nextjs"
+import { redirect } from "next/navigation"
 
 interface MarketProps {
   searchParams: {
@@ -7,6 +9,10 @@ interface MarketProps {
   }
 }
 const Market = async () => {
+  const { userId } = auth()
+  if (!userId) {
+    redirect("/")
+  }
   // paralel fetching
   const [companies, products] = await Promise.all([
     prismadb.company.findMany({
@@ -16,7 +22,6 @@ const Market = async () => {
     }),
     prismadb.product.findMany(),
   ])
-
 
   return (
     <MarketContainer
