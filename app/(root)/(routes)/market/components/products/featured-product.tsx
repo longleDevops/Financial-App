@@ -4,7 +4,6 @@ import { IoHeart } from "react-icons/io5";
 import Image from "next/image"
 import { ProductDialog } from "./product-dialog"
 import { Account, Company } from "@prisma/client"
-import { Transaction } from "../transaction/buy-transaction"
 import { ProgressBar } from "./progress-bar"
 import { useAnimate } from "framer-motion"
 import { useEffect, useState } from "react"
