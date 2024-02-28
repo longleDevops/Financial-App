@@ -8,7 +8,7 @@ import { LineChart } from "./line-chart";
 
 interface AccountCardProps {
   title: string,
-  value: string,
+  value: number,
   percentChange: string
   index: number
 }
@@ -30,6 +30,7 @@ export const AccountCard = (
 ) => {
 
   const selectedIcon = icons[index]
+  const formattedVal = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <div className={`p-4 border border-muted-foreground/30 rounded-lg w-[250px] flex flex-col gap-2 ${index === 0 && "bg-[#6149cd] shadow-black/25"}  text-xs shadow-lg relative`}>
@@ -42,7 +43,7 @@ export const AccountCard = (
         {title}
       </p>
       <p className={`${index === 0 && "text-white"} font-semibold text-xl mt-1`}>
-        ${value}
+        ${formattedVal}
       </p>
 
       <div className={`${index === 0 && "text-white"} flex items-end justify-between mt-2`}>
