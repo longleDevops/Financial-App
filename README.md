@@ -16,6 +16,60 @@ Here is the site: https://dynamitetrade.vercel.app/
 * Clerk
 * OpenAI API
 
+## Project Layout
+
+```
+└──./
+    ├──app/
+    │   ├──(auth)/
+    │   │   ├──(routes)/
+    │   │   │   ├──sign-in/
+    │   │   │   │   └──[[...sign-in]]/
+    │   │   │   └──sign-up/
+    │   │   │       └──[[...sign-up]]/
+    │   ├──(landing-page)/
+    │   ├──(root)/
+    │   │   ├──(routes)/
+    │   │   │   ├──chat/
+    │   │   │   │   ├──components/
+    │   │   │   ├──dashboard/
+    │   │   │   │   ├──components/
+    │   │   │   │   │   ├──accordion/
+    │   │   │   │   │   ├──account/
+    │   │   │   │   │   ├──bank/
+    │   │   │   │   │   ├──not-use/
+    │   │   │   │   │   ├──table/
+    │   │   │   └──market/
+    │   │   │       ├──components/
+    │   │   │       │   ├──company-profile/
+    │   │   │       │   ├──company-table/
+    │   │   │       │   ├──products/
+    │   │   │       │   └──transaction/
+    │   ├──api/
+    │   │   ├──account/
+    │   │   ├──chat/
+    │   │   ├──dashboard-watchlist/
+    │   │   ├──market-watchlist/
+    │   │   └──portfolio/
+    ├──components/
+    │   ├──aceternity-ui/
+    │   ├──shadcn-ui/
+    │   └──ui/
+    ├──constants/
+    ├──hooks/
+    ├──lib/
+    ├──prisma/
+    ├──providers/
+    ├──public/
+    │   ├──avatars/
+    │   ├──employees/
+    │   ├──logos/
+    │   ├──products/
+    ├──scripts/
+    ├──types/
+    └──utils/
+```
+
 # Status
 
 The project is still in active development. Major UI changes are expected.
