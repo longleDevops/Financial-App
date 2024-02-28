@@ -2,6 +2,18 @@
 
 DynamiteTrade is an opensource project to provide a user friendly user interface to view stock information of companies in (soft) real time.
 
+# Architecture
+
+## Tech Stack
+
+* Vercel
+* NextJS
+* Shadcn-UI
+* Supabass
+* PrismaORM
+* Clerk
+* OpenAI API
+
 # Build
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
