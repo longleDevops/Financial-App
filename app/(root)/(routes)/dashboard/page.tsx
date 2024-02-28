@@ -23,11 +23,11 @@ const DashboardPage = async () => {
     update: {},
     create: {
       id: userId,
-      accountBalance: 50000,
-      accountValue: 100000,
+      accountBalance: 0,
+      accountValue: 0,
       portfolio: {
         create: {
-          portfolioVal: 500000
+          portfolioVal: 0
         }
       },
       watchlist: {

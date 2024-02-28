@@ -10,7 +10,10 @@ import {
   Watchlist
 } from './index';
 
+
+
 export function AccordionContainer() {
+
   return (
     <Accordion type="multiple" className="w-full" defaultValue={["item-3"]}>
       <AccordionItem value="item-1" className="px-4 ">

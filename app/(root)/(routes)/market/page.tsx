@@ -8,25 +8,18 @@ interface MarketProps {
     symbol: string
   }
 }
+
 const Market = async () => {
   const { userId } = auth()
   if (!userId) {
     redirect("/")
   }
   // paralel fetching
-  const [companies, products] = await Promise.all([
-    prismadb.company.findMany({
-      include: {
-        logo: true
-      }
-    }),
-    prismadb.product.findMany(),
-  ])
+  const companies = await prismadb.company.findMany()
 
   return (
     <MarketContainer
       companies={companies}
-      products={products}
     />
   )
 }

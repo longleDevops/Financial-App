@@ -11,13 +11,13 @@ import { CompanyProfile } from "./company-profile/company-profile"
 import TableContainer from "./table-container"
 import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
-
+import { useQueryClient } from "@tanstack/react-query"
 export interface MarketContainerProps {
   companies: Company[] & Logo
-  products: Product[]
+
 }
 
-const MarketContainer = ({ companies, products }: MarketContainerProps) => {
+const MarketContainer = ({ companies }: MarketContainerProps) => {
   const { ticker } = useTicker()
   const foundCompany = companies.find((item: Company) => item.symbol === ticker)
 

@@ -3,8 +3,8 @@
 import { IoHeart } from "react-icons/io5";
 import Image from "next/image"
 import { ProductDialog } from "./product-dialog"
-import { Company } from "@prisma/client"
-import { Transaction } from "../transaction/transaction"
+import { Account, Company } from "@prisma/client"
+import { Transaction } from "../transaction/buy-transaction"
 import { ProgressBar } from "./progress-bar"
 import { useAnimate } from "framer-motion"
 import { useEffect, useState } from "react"
@@ -15,11 +15,17 @@ import { useToast } from "@/components/ui/use-toast"
 import { Check } from "lucide-react";
 import axios from "axios";
 import { useStockWatchlists } from "@/hooks/use-watch-list";
+import { useQuery } from "@tanstack/react-query";
+import prismadb from "@/lib/prismadb";
+import { useAuth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import Wrapper from "../transaction/wrapper";
 interface FeaturedProductProps {
   companies: Company[],
 }
 
 export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) => {
+
   // Global state
   const { ticker } = useTicker()
   const { toast } = useToast()
@@ -79,6 +85,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
     return () => clearTimeout(timeout2);
   }, [ticker])
 
+
   return (
     <div className="flex flex-col justify-between h-full text-sm">
       <div className="flex justify-between">
@@ -109,10 +116,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
           <h1 className="flex text-lg font-semibold ">
             ${foundCompany.price} <span className="text-[10px] text-muted-foreground ml-1">/ea</span>
           </h1>
-          <div className="flex gap-1">
-            <Transaction btnName="SELL" color="bg-red-600/60" company={foundCompany} />
-            <Transaction btnName="BUY" color="bg-emerald-600/60" company={foundCompany} />
-          </div>
+          <Wrapper company={foundCompany} />
         </div>
       </div>
 

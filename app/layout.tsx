@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ToastProvider } from '@/providers/toast-provider'
 import { Toaster } from "@/components/ui/toaster"
+import Providers from '@/components/providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,12 +23,14 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" >
         <body className={`${inter.className}`}>
-          <ToastProvider />
-          {children}
-          <Toaster />
-          <SpeedInsights />
+          <Providers>
+            <ToastProvider />
+            {children}
+            <Toaster />
+            <SpeedInsights />
+          </Providers>
         </body>
       </html>
     </ClerkProvider>

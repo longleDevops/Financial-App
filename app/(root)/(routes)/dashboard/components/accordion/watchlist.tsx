@@ -13,10 +13,8 @@ export const Watchlist = () => {
   const [mounted, setMounted] = useState(false);
   const { watchlistCompanies, fetchWatchlistCompanies } = useWatchlistStore();
   useEffect(() => {
-    fetchWatchlistCompanies();
     setMounted(true);
-    console.log(watchlistCompanies)
-    console.log("lll" + Array.isArray(watchlistCompanies))
+    fetchWatchlistCompanies();
   }, []);
   if (!mounted) return;
   return (

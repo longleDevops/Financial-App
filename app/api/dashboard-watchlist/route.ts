@@ -22,7 +22,7 @@ export async function GET() {
 
   const watchlistStocks = watchlists[0].companies.map((item: Watchlist_Company & Company) => item.company);
   console.log("dashboard-route-runs")
-  return new NextResponse(JSON.stringify(watchlistStocks), { status: 200 });
+  return NextResponse.json(watchlistStocks, { status: 200 });
 
 
 }

@@ -13,7 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/shadcn-ui/sheet"
 import { cn } from "@/lib/utils"
-import { Company } from "@prisma/client"
+import { Account, Company } from "@prisma/client"
 import axios from "axios";
 //import { safeParse } from 'zod'
 
@@ -23,63 +23,95 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/shadcn-ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-
+import { useMutation, QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Separator } from "@/components/shadcn-ui/separator";
 interface TransactionProps {
-  btnName: string,
-  color: string,
-  company: Company
+  company: Company,
 }
 
-export function Transaction({ btnName, color, company }: TransactionProps) {
+type Transaction = {
+  type: string,
+  value: number,
+  symbol: string
+}
+
+export function BuyTransaction({ company }: TransactionProps) {
+
+  const client = useQueryClient();
+  const data: Account = client.getQueryData(['getAccount'])
   const symbol = company.symbol;
 
   const formSchema = z.object({
-    prompt: z.coerce.number().int().positive().lte(100, {
-      message: "Must be less than 100"
-    })
+    prompt: z.coerce.number().int()
+      .positive()
+      .gte(50)
+      .lte(data.accountBalance)
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      prompt: 1
+      prompt: 50
     }
   });
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const transaction = {
-        type: btnName,
-        value: values.prompt
+        type: "BUY",
+        value: values.prompt,
+        symbol
       }
-      const response = await axios.patch("/api/account", {
-        transaction
-      });
-      if (response) {
-        toast.success("Successful")
-        setIsOpen(false)
-      }
+      updatePortfolio(transaction)
       // clear user input
-      form.reset()
     } catch (error) {
       console.log("Error submitting the form")
     } finally {
-      router.refresh()
+      //router.refresh()
     }
   }
+
+  const queryClient = useQueryClient();
+  const { mutate: updatePortfolio, isPending } = useMutation({
+    mutationFn: (transaction: Transaction) => {
+      return axios.patch("/api/account", { transaction })
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+    onSuccess: () => {
+      toast.success("BUY Successful")
+      setIsOpen(false)
+      form.reset()
+      setShareLabel('0')
+      queryClient.invalidateQueries({
+        queryKey: ['getAccount'],
+        exact: true,
+        refetchType: 'all'
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['getPortfolio'],
+        exact: true,
+        refetchType: 'all'
+      })
+    }
+  })
 
   const [isOpen, setIsOpen] = React.useState(false)
   const isLoading = form.formState.isSubmitting;
   const router = useRouter()
+
+  const [shareLabel, setShareLabel] = useState("")
   return (
     <Sheet open={isOpen} >
       <SheetTrigger asChild>
         <button
-          className={cn("px-4 py-2 mt-2 text-xs font-medium text-white rounded-lg ", color)}
+          className={"px-4 py-2 mt-2 text-xs font-medium text-white rounded-lg bg-emerald-600/60"}
           onClick={() => setIsOpen(true)}
         >
-          {btnName}
+          BUY
         </button>
       </SheetTrigger>
       <SheetOverlay
@@ -110,9 +142,19 @@ export function Transaction({ btnName, color, company }: TransactionProps) {
             </Label>
           </div>
 
+          <div className="grid items-center grid-cols-4 gap-4">
+            <Label htmlFor="username" className="text-right">
+              Price
+            </Label>
+            <Label className="col-span-3 pl-4" >
+              {company.price}
+            </Label>
+          </div>
+
           <Form {...form} >
             <form
               onSubmit={form.handleSubmit(onSubmit)}
+
               className=""
             >
               <div className="flex gap-4 px-5">
@@ -121,21 +163,35 @@ export function Transaction({ btnName, color, company }: TransactionProps) {
                   name="prompt"
                   render={({ field }) => (
                     <FormItem >
-                      <FormControl className="px-2 m-0">
+                      <FormControl className="px-4 w-[150px]">
                         <Input
                           type="number"
                           disabled={isLoading}
-                          placeholder="500"
+                          placeholder="$50"
                           {...field}
+                          onChange={(e) => {
+                            field.onChange(e)
+                            setShareLabel(`${parseFloat(e.target.value) ? parseFloat(e.target.value) / company.price : 0}`);
+                          }}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="pt-2" />
                     </FormItem>
                   )}
                 />
+                <p className="mt-2 mr-12 pr-auto">$</p>
               </div>
-              <div className="flex justify-end gap-2 mt-6">
+              {shareLabel !== '0' &&
+                <div className="flex justify-end w-full gap-4 pr-[40px] mt-4">
 
+                  <Label className="text-sm text-muted-foreground" >
+                    {shareLabel}
+                  </Label>
+                  <p className="text-sm text-muted-foreground">Shares</p>
+
+                </div>
+              }
+              <div className="flex justify-end gap-2 pr-2 mt-6">
                 <button
                   onClick={() => setIsOpen(false)}
                   type="button"
@@ -144,7 +200,12 @@ export function Transaction({ btnName, color, company }: TransactionProps) {
                 </button>
 
                 <button
-                  type="submit" className="px-4 py-2 text-white bg-black rounded-lg">Confirm</button>
+                  disabled={isPending}
+                  type="submit"
+                  className="px-6 py-2 text-white bg-black rounded-lg bg-green-600/90"
+                >
+                  {isPending ? <h1>...Loading</h1> : <h1>BUY</h1>}
+                </button>
               </div>
             </form>
           </Form>
