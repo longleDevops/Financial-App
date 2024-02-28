@@ -2,6 +2,8 @@
 
 DynamiteTrade is an opensource project to provide a user friendly user interface to view stock information of companies in (soft) real time.
 
+Here is the site: https://dynamitetrade.vercel.app/
+
 # Architecture
 
 ## Tech Stack
@@ -13,6 +15,10 @@ DynamiteTrade is an opensource project to provide a user friendly user interface
 * PrismaORM
 * Clerk
 * OpenAI API
+
+# Status
+
+The project is still in active development. Major UI changes are expected.
 
 # Build
 
