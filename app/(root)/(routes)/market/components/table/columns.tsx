@@ -1,15 +1,17 @@
 "use client"
 
-import { DataTableColumnHeader } from "./column-header"
-import { ColumnDef } from "@tanstack/react-table"
 import Image from "next/image"
+import { ColumnDef } from "@tanstack/react-table"
+
+
+import { cn } from "@/lib/utils"
+import { DataTableColumnHeader } from "./column-header"
 import { MoveRight } from "lucide-react"
 import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
 import { Button } from "@/components/aceternity-ui/moving-border"
 
 // This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type CompanyDef = {
   symbol: string,
   sector: string,
@@ -56,7 +58,16 @@ export const columns: ColumnDef<CompanyDef>[] = [
       <div className="w-[75px]"><DataTableColumnHeader column={column} title="Trend" /></div>
     ),
     cell: ({ row }) => {
-      return <div className=" w-[75px]">{row.getValue("trend")}</div>
+      const data = row.getValue("trend")
+      return (
+        <div className={`w-[75px] ${data === "buy" ?
+          "text-green-500" :
+          data === "hold" ?
+            "text-blue-500" :
+            "text-red-600"}`}>
+          {row.getValue("trend")}
+        </div>
+      )
     },
   },
   {
@@ -85,39 +96,19 @@ export const columns: ColumnDef<CompanyDef>[] = [
       const { animatedId, setAnimtedId } = useAnimation();
 
       const { ticker } = useTicker()
-      if (data < 0) {
-        return (
-
-          <div className="flex items-center justify-between">
-            <p className="w-[60px]">{data.toFixed(2) + '%'}</p>
-            {ticker === row.getValue("symbol") && <Button
-              onClick={() => {
-                setAnimtedId(1)
-                console.log(animatedId)
-              }}
-              borderRadius="100px"
-              className="text-black bg-white dark:bg-slate-900 hover:bg-cyan-800 hover:text-white dark:text-white border-neutral-400 dark:border-slate-800"
-            >
-              <MoveRight
-                size={16}
-                className="ml-1"
-              />
-            </Button>}
-          </div>
-
-        )
-      }
+      const style = data < 0 ? "text-red-400" : "text-green-400";
       return (
         <div className="flex items-center justify-between">
-          <p className="w-[60px]">{'+' + data.toFixed(2) + '%'}</p>
+          <p className={`w-[60px] ${style}`}>
+            {data < 0 ? data.toFixed(2) + "%" : '+' + data.toFixed(2) + '%'}
+          </p>
           {ticker === row.getValue("symbol") && <Button
-
             onClick={() => {
               setAnimtedId(1)
               console.log(animatedId)
             }}
             borderRadius="100px"
-            className="text-black bg-white hover:bg-cyan-800 hover:text-white dark:bg-slate-900 dark:text-white border-neutral-400 dark:border-slate-800 "
+            className={cn("text-black bg-white dark:bg-slate-900 hover:bg-cyan-800 hover:text-white dark:text-white border-neutral-400 dark:border-slate-800")}
           >
             <MoveRight
               size={16}
@@ -125,7 +116,10 @@ export const columns: ColumnDef<CompanyDef>[] = [
             />
           </Button>}
         </div>
+
       )
+
+
     }
   }
 ]

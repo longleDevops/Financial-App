@@ -4,13 +4,13 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
+// One account has only one portfolio, and one watchlist
 model Account{
   id String @id @default(uuid())
   accountBalance Float
@@ -18,8 +18,10 @@ model Account{
 
   portfolio Portfolio?
   watchlist Watchlist?
+  cards Card[]
 }
 
+// A Portfolio can have many companies, 
 model Portfolio {
   id String @id @default(uuid())
   portfolioVal Float 
@@ -30,6 +32,7 @@ model Portfolio {
   accountId String @unique
 }
 
+// A watchlist can have many companies
 model Watchlist {
   id String @id @default(uuid())
   name String
@@ -41,6 +44,7 @@ model Watchlist {
  
 }
 
+// watchlist_companies: many-to-many relation
 model Watchlist_Company {
   watchlist Watchlist @relation(fields: [watchlistId],references: [id])
   watchlistId String
@@ -50,6 +54,19 @@ model Watchlist_Company {
   @@id([watchlistId,companyId])
 }
 
+model Card {
+  id String @id @default(uuid())
+  value Float
+  holderName String
+  expiration String
+  cardDigits String @unique
+  type String
+
+  account Account @relation(fields: [accountId],references: [id])
+  accountId String
+}
+
+// portfolio_company: many-to-many relation
 model Portfolio_Company {
   portfolio Portfolio @relation(fields: [portfolioId],references: [id])
   portfolioId String
@@ -59,6 +76,8 @@ model Portfolio_Company {
   shares Float
   @@id([portfolioId,companyId])
 } 
+
+// Company model that holds all data for stock information
 model Company {
   id String @id @default(uuid())
   symbol String @unique
@@ -66,8 +85,6 @@ model Company {
   yahooMarketV2Data Json
   yahooStockV2Summary Json
   resources Resource?
-
-  logo Logo?
   
   watchlists Watchlist_Company[]
   portfolios  Portfolio_Company[]
@@ -82,34 +99,6 @@ model Ticker {
   symbol String @unique
 }
 
-
-
-model Category{
-  int String @id @default(uuid())
-  name String 
-}
-
-
-model AllTicker {
-  id String @id @default(uuid())
-  symbol String @unique
-}
-
-// // cannot create a ticker without a company
-// model Ticker {
-//   id String @id @default(uuid())
-//   price String
-//   imgSrc String  
-//   symbol String @unique
-// }
-
-model Logo {
-  id String @id @default(uuid())
-  symbol String @unique
-  logo String @unique
-
-  company Company @relation(fields: [symbol], references: [symbol])
-}
 model Resource {
   symbol String @unique
   logoImg String
@@ -118,7 +107,6 @@ model Resource {
   company Company @relation(fields: [symbol], references: [symbol])
 
 }
-
 model Product {
   id String @id @default(uuid())
   symbol String @unique
@@ -126,6 +114,7 @@ model Product {
   imgSrc String
 }
 
+// Chatbot models
 model ChatBot {
   id String @id @default(uuid())
   messages Message[]
@@ -144,5 +133,8 @@ model Message {
   chatBot  ChatBot @relation(fields: [id], references: [id])
 }
 
-
+model AllTicker {
+  id String @id @default(uuid())
+  symbol String @unique
+}
 

@@ -1,13 +1,13 @@
 
-import { DataTable } from "./company-table/data-table"
-import { columns, CompanyDef } from "./company-table/columns"
+import { DataTable } from "./table/data-table"
+import { columns, CompanyDef } from "./table/columns"
 import { Company } from "@prisma/client"
 
 interface TableContainerProps {
   companies: Company[],
 }
 
-const TableContainer = ({ companies}: TableContainerProps) => {
+const TableContainer = ({ companies }: TableContainerProps) => {
   const data = companies.map((item) => (
     {
       symbol: item.symbol,
@@ -19,7 +19,7 @@ const TableContainer = ({ companies}: TableContainerProps) => {
   ))
 
   return (
-    <DataTable columns={columns} data={data}/>
+    <DataTable columns={columns} data={data} />
   )
 }
 

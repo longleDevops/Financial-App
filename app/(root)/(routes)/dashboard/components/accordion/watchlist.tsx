@@ -1,29 +1,34 @@
 "use client"
 
-import Image from "next/image"
-import { auth } from "@clerk/nextjs";
-import prismadb from "@/lib/prismadb";
-import { NextResponse } from "next/server";
-import { Company, Watchlist_Company } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useWatchlistStore } from "@/hooks/use-dashboard-watchlist";
-import { useEffect, useState } from "react";
-
+import { Company } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Image from "next/image";
 export const Watchlist = () => {
-  const [mounted, setMounted] = useState(false);
-  const { watchlistCompanies, fetchWatchlistCompanies } = useWatchlistStore();
-  useEffect(() => {
-    setMounted(true);
-    fetchWatchlistCompanies();
-  }, []);
-  if (!mounted) return;
+
+  const { data, isLoading } = useQuery<Company[]>({
+    queryKey: ['getWatchlist'],
+    queryFn: async () => {
+      const response = await axios.get('/api/watchlist')
+      return response.data;
+    },
+    staleTime: 3600000 // 1 hour in ms only runs once when the component mounts
+  })
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center h-[30px] text-muted-foreground'>
+        ...Loading
+      </div>
+    );
+  }
   return (
     <>
-      {!watchlistCompanies || watchlistCompanies.length === 0 ?
+      {!data || data.length === 0 ?
         <div className="h-[30px] flex items-center justify-center text-muted-foreground text-sm">No watchlist added</div> :
 
         <div className="flex flex-col gap-3 mt-2">
-          {Array.isArray(watchlistCompanies) && watchlistCompanies.map((company) => (
+          {data.map((company) => (
             <div
               key={company.id}
               className="flex justify-between px-4 py-2 text-xs rounded-md shadow-md "

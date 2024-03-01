@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import {
   AccountContainer,
-  BankCard,
+  BankContainer,
   TableContainer,
   AccordionContainer
 } from "./components/index"
@@ -53,9 +53,8 @@ const DashboardPage = async () => {
 
       <div className="w-[340px] ">
         <div className="fixed w-[340px] right-6 bottom-4 flex flex-col border rounded-lg border-muted-foreground/30 top-[85px] overflow-auto no-scrollbar">
-          <BankCard />
-          <AccordionContainer
-          />
+          <BankContainer />
+          <AccordionContainer />
         </div>
       </div>
     </div>

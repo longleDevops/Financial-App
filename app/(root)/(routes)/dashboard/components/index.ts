@@ -1,5 +1,5 @@
 // Import container components
-import { BankCard } from "./bank-card";
+import { BankContainer } from "./bank-container";
 import AccountContainer from "./account-container";
 import { AccordionContainer } from "./accordion-container";
 import TableContainer from "./table-container";
@@ -19,7 +19,7 @@ import { DoughnutChart } from "./accordion/doughnut-chart";
 import { PortfolioItem } from "./accordion/portfolio-item";
 
 export {
-  BankCard,
+  BankContainer,
   AccordionContainer,
   AccountContainer,
   TableContainer,

@@ -5,7 +5,7 @@ import { useAnimate } from "framer-motion"
 
 
 import { Company, Logo, Product } from "@prisma/client"
-import { StockList } from "./company-table/stock-list"
+import { StockList } from "./table/stock-list"
 import { FeaturedProduct } from "./products/featured-product"
 import { CompanyProfile } from "./company-profile/company-profile"
 import TableContainer from "./table-container"
