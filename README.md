@@ -1,8 +1,9 @@
 # Introduction
 
-DynamiteTrade is an opensource project to provide a user friendly user interface to view stock information of companies in (soft) real time.
+DynamiteTrade is an opensource financialproject to provide a user friendly user interface to view stock information of companies in (soft) real time.
+The project is written in JavaScript/TypeScript leveraging full stack framework NextJS and deploying on Vercel hosting platform.
 
-Here is the site: https://dynamitetrade.vercel.app/
+Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.vercel.app/)
 
 # Architecture
 
@@ -104,8 +105,6 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
