@@ -9,7 +9,10 @@ import Image from "next/image";
  */
 export const UserAvatar = () => {
   const { user } = useUser();
+  // Check if user information is available (not null).
+  // If not, simply return.
   if (!user) return
+  // User information is available for rendering.
   return (
     <Image
       src={user.imageUrl}
