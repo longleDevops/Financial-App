@@ -9,6 +9,9 @@ interface ChatMessagesProps {
   isLoading: boolean
 }
 
+/**
+ * This component renders a sequence of chat messages exchanged by the chatbot and the user.
+ */
 const ChatMessages = ({ messages, isLoading }: ChatMessagesProps) => {
   const scrollRef = useRef<ElementRef<"div">>(null)
 

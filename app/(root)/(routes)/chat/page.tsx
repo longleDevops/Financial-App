@@ -1,6 +1,10 @@
 import { ChatContent } from "./components/ChatContent"
 import prismadb from "@/lib/prismadb"
 import SideContent from "./components/SideContent"
+
+/**
+ * This components renders the chat bot page.
+ */
 const MessengerPage = async () => {
   const chatBot = await prismadb.chatBot.findFirst({
     include: {
@@ -18,4 +22,5 @@ const MessengerPage = async () => {
     </div>
   )
 }
+
 export default MessengerPage
