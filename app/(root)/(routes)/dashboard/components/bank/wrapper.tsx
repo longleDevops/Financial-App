@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import CardContent from "./card-content"
+import { CardContent } from "./card-content"
 import { Card } from "@prisma/client"
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Skeleton } from "@/components/ui/skeleton"

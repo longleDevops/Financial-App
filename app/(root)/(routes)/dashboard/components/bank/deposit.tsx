@@ -43,6 +43,7 @@ import { TbArrowBarToRight } from "react-icons/tb";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
 import { useToast } from "@/components/ui/use-toast";
+import { useColor } from "@/hooks/use-color";
 
 function getFormattedDigits(data: string) {
   const visibleDigits = data.slice(0, 3);
@@ -54,6 +55,7 @@ function getFormattedDigits(data: string) {
 
 
 export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
+  const { color } = useColor()
   const { toast: shadcnToast } = useToast()
   const [shareLabel, setShareLabel] = useState('')
   const { accountVal } = useAccount()
@@ -99,8 +101,6 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
         variant: "destructive",
         title: "Insufficient card balance.",
       })
-      form.reset()
-      console.log(error)
     },
     onSuccess: () => {
       toast.success("Remove Card Successfully")
@@ -126,7 +126,10 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
     const foundData = cardLists.find((item) => item.cardDigits === data)
     return foundData ? foundData.expiration : ""
   }
-  if (!cardLists || cardLists.length === 0) return;
+  if (!cardLists || cardLists.length === 0) {
+    toast.error("Please add card to deposit !")
+    return;
+  }
 
   return (
     <DialogContent className="w-[396px] pt-[40px] pb-[20px] h-[550px]">
@@ -155,8 +158,11 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
                           <SelectGroup>
                             <SelectLabel>Available cards</SelectLabel>
                             {cardLists.map((item) => (
-                              <SelectItem key={item.id} value={item.cardDigits}>
-                                <div>{item.cardDigits}</div>
+                              <SelectItem key={item.id} value={item.cardDigits} className="hover:cursor-pointer">
+                                <div className="flex py-1 items-center">
+                                  {item.cardDigits}
+                                  <div className="ml-4 h-[15px] w-[15px] rounded-sm" style={{ backgroundColor: item.color }}></div>
+                                </div >
                               </SelectItem>
                             ))}
                           </SelectGroup>

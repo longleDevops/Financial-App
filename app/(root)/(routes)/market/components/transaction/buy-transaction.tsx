@@ -1,7 +1,6 @@
 "use client"
 
 import * as z from "zod";
-import { useRouter } from "next/navigation";
 import { Label } from "@/components/shadcn-ui/label"
 import {
   Sheet,
@@ -12,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/shadcn-ui/sheet"
-import { cn } from "@/lib/utils"
 import { Account, Company } from "@prisma/client"
 import axios from "axios";
 //import { safeParse } from 'zod'
@@ -32,7 +30,6 @@ interface TransactionProps {
 }
 
 type Transaction = {
-  type: string,
   value: number,
   symbol: string
 }
@@ -46,8 +43,12 @@ export function BuyTransaction({ company }: TransactionProps) {
   const formSchema = z.object({
     prompt: z.coerce.number().int()
       .positive()
-      .gte(50)
-      .lte(data.accountBalance)
+      .gte(50, {
+        message: "Minimum $50 is required."
+      })
+      .lte(data.accountBalance, {
+        message: `Must be less than or equal to your account balance. Your current account balance: ${data.accountBalance}`,
+      })
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -60,7 +61,6 @@ export function BuyTransaction({ company }: TransactionProps) {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const transaction = {
-        type: "BUY",
         value: values.prompt,
         symbol
       }
@@ -76,7 +76,7 @@ export function BuyTransaction({ company }: TransactionProps) {
   const queryClient = useQueryClient();
   const { mutate: updatePortfolio, isPending } = useMutation({
     mutationFn: (transaction: Transaction) => {
-      return axios.patch("/api/account", { transaction })
+      return axios.patch("/api/transaction/buy", { transaction })
     },
     onError: (error) => {
       console.log(error)
@@ -106,8 +106,6 @@ export function BuyTransaction({ company }: TransactionProps) {
 
   const [isOpen, setIsOpen] = React.useState(false)
   const isLoading = form.formState.isSubmitting;
-  const router = useRouter()
-
   const [shareLabel, setShareLabel] = useState("")
   return (
     <Sheet open={isOpen} >

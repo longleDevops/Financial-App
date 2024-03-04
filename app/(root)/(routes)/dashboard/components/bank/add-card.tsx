@@ -38,7 +38,8 @@ import {
   FormDescription
 } from "@/components/shadcn-ui/form";
 import { useOrder } from "@/hooks/use-order";
-
+import { ColorSelector } from "./color-selector";
+import { useColor } from '@/hooks/use-color'
 const FormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -60,7 +61,7 @@ const FormSchema = z.object({
 
 export const AddCard = () => {
   const { isOpen, setIsOpen } = useOrder()
-
+  const { color } = useColor()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -78,7 +79,7 @@ export const AddCard = () => {
   const queryClient = useQueryClient();
   const { mutate: addCard, isPending } = useMutation({
     mutationFn: (data: z.infer<typeof FormSchema>) => {
-      return axios.post("/api/card", data)
+      return axios.post("/api/card/add", { data, color })
     },
     onError: (error) => {
       toast.error("Failed adding new card. Duplicate card found")
@@ -169,6 +170,7 @@ export const AddCard = () => {
                     )}
                   />
                 </div>
+                <ColorSelector />
                 <div className="flex justify-between mt-12">
                   <Button variant="outline">Cancel</Button>
                   <Button type="submit">{isPending ? "...Submitting" : "Add Card"}</Button>

@@ -1,8 +1,6 @@
 "use client"
 
-import * as z from "zod";
-import { useRouter } from "next/navigation";
-import { Label } from "@/components/shadcn-ui/label"
+import { Label } from "@/components/shadcn-ui/label";
 import {
   Sheet,
   SheetContent,
@@ -11,28 +9,27 @@ import {
   SheetOverlay,
   SheetTitle,
   SheetTrigger,
-} from "@/components/shadcn-ui/sheet"
-import { cn } from "@/lib/utils"
-import { Account, Company, Portfolio, Portfolio_Company } from "@prisma/client"
+} from "@/components/shadcn-ui/sheet";
+import { Account, Company, Portfolio, Portfolio_Company } from "@prisma/client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import * as z from "zod";
 //import { safeParse } from 'zod'
 
-import * as React from "react"
+import * as React from "react";
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/shadcn-ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/shadcn-ui/input";
-import { useState, useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useMutation, QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Separator } from "@/components/shadcn-ui/separator";
 interface TransactionProps {
   company: Company,
 }
 
 type Transaction = {
-  type: string,
   value: number,
   symbol: string
 }
@@ -71,23 +68,19 @@ export function SellTransaction({ company }: TransactionProps) {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const transaction = {
-        type: "BUY",
         value: values.prompt,
         symbol
       }
       updatePortfolio(transaction)
-      // clear user input
     } catch (error) {
       console.log("Error submitting the form")
-    } finally {
-      //router.refresh()
     }
   }
 
   const queryClient = useQueryClient();
   const { mutate: updatePortfolio, isPending } = useMutation({
     mutationFn: (transaction: Transaction) => {
-      return axios.patch("/api/account", { transaction })
+      return axios.patch("/api/transaction/sell", { transaction })
     },
     onError: (error) => {
       console.log(error)

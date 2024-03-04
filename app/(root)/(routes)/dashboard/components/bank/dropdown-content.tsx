@@ -28,6 +28,7 @@ import { RemoveCard } from "./remove-card"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useToast } from "@/components/ui/use-toast"
+import { ViewCards } from "./view-cards"
 export const DropdownContent = () => {
   const { order, setOrder, isOpen, setIsOpen } = useOrder()
   const { toast } = useToast()
@@ -44,6 +45,9 @@ export const DropdownContent = () => {
   )
   return (
     <div >
+      <div className="absolute w-[16px] h-[16px] left-[65px] top-[0px] rounded-full p-auto border border-muted-foreground text-[10px] text-muted-foreground font-bold flex items-center justify-center">
+        {data.length}
+      </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger>
@@ -83,7 +87,7 @@ export const DropdownContent = () => {
 
         {
           order === '0' ? <></> :
-            order === '1' ? <AddCard /> :
+            order === '1' ? <ViewCards cardLists={data} /> :
               order === '2' ? <AddCard /> :
                 order === '3' ? <RemoveCard cardLists={data} /> :
                   order === '4' ? <Deposit cardLists={data} /> :

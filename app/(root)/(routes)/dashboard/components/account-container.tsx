@@ -31,7 +31,6 @@ const AccountContainer = () => {
     </div>
   }
 
-  console.log(data)
   const total = data.accountBalance + data.portfolio.portfolioVal
   const dataArr = [
     total,
