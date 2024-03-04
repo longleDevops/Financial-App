@@ -76,7 +76,6 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
   //   <div>...Loading</div>
   // )
 
-  if (!cardLists || cardLists.length === 0) return;
 
   const queryClient = useQueryClient()
   const { mutate: addCard, isPending } = useMutation({
@@ -105,6 +104,7 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
     const foundData = cardLists.find((item) => item.cardDigits === data)
     return foundData ? foundData.expiration : ""
   }
+  if (!cardLists || cardLists.length === 0) return;
 
   return (
     <DialogContent className="w-[396px] pt-[40px] pb-[20px] h-[500px]">
@@ -155,7 +155,7 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
                         </div>}
                       <div className={`flex justify-between pt-[120px] ${field.value ? "pt-[120px]" : "pt-[160px]"}`}>
                         <Button variant="outline">Cancel</Button>
-                        <Button type="submit" >{isPending ? "...Loading" : "Button"}</Button>
+                        <Button type="submit" >{isPending ? "...Submitting" : "Remove"}</Button>
                       </div>
                     </FormItem>
                   )}

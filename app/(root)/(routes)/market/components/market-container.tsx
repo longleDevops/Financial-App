@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useAnimate } from "framer-motion"
 
 
-import { Company, Logo, Product } from "@prisma/client"
+import { Company, Product } from "@prisma/client"
 import { StockList } from "./table/stock-list"
 import { FeaturedProduct } from "./products/featured-product"
 import { CompanyProfile } from "./company-profile/company-profile"
@@ -13,21 +13,24 @@ import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
 import { useQueryClient } from "@tanstack/react-query"
 export interface MarketContainerProps {
-  companies: Company[] & Logo
-
+  companies: Company[]
 }
 
 const MarketContainer = ({ companies }: MarketContainerProps) => {
   const { ticker } = useTicker()
   const foundCompany = companies.find((item: Company) => item.symbol === ticker)
 
-  const { animatedId } = useAnimation()
+  const { animatedId, firstLoop, setFirstLoop } = useAnimation()
 
   const [frontElement, animate] = useAnimate();
   const [behindElement, animate1] = useAnimate();
 
   // Animation
   useEffect(() => {
+    if (firstLoop) {
+      setFirstLoop(false);
+      return;
+    }
     if (animatedId === 1) {
       console.log(animatedId)
       const windowWidth = window.innerWidth;
@@ -41,8 +44,8 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
       animate(frontElement.current, { opacity: 1, scale: 1, x: 0 }, { duration: .2 });
       animate1(behindElement.current, { scale: [1, .8], x: xValue }, { duration: .2 });
     }
-  }, [animatedId])
-
+  }, [animatedId, firstLoop])
+  console.log(animatedId)
   return (
     <div className="flex h-full">
       {/*Left Container*/}
@@ -56,7 +59,7 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
       <div className="relative flex-1 overflow-hidden ">
         <div
           ref={frontElement}
-          className="absolute pt-8 z-[1] w-full bg-white h-full flex flex-col overflow-y-auto"
+          className={`absolute pt-8 z-[1] w-full h-full flex flex-col overflow-y-auto ${animatedId === 1 && "opacity-0"}`}
         >
           <p className="pb-6 pl-8 text-lg font-semibold">Companies</p>
           <div className="flex-1 ">
@@ -66,7 +69,7 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
 
         <div
           ref={behindElement}
-          className="absolute flex-1 w-full h-full"
+          className={`absolute flex-1 w-full h-full ${animatedId === 2 && "opacity-0"}`}
         >
           <CompanyProfile
             company={foundCompany}

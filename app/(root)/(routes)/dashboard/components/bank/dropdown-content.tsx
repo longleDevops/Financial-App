@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/shadcn-ui/dropdown-menu"
-import Deposit from "./deposit"
+import { Deposit } from "./deposit"
 import {
   Dialog,
   DialogContent,
@@ -38,6 +38,7 @@ export const DropdownContent = () => {
       return result.data;
     }
   })
+
   if (isLoading) return (
     <div>isloading</div>
   )
@@ -85,8 +86,8 @@ export const DropdownContent = () => {
             order === '1' ? <AddCard /> :
               order === '2' ? <AddCard /> :
                 order === '3' ? <RemoveCard cardLists={data} /> :
-                  order === '4' ? <Deposit /> :
-                    <Withdraw />
+                  order === '4' ? <Deposit cardLists={data} /> :
+                    <Withdraw cardLists={data} />
         }
       </Dialog>
     </div>

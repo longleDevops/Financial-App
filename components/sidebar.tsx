@@ -9,6 +9,7 @@ import { IoStorefrontOutline } from "react-icons/io5";
 import { TbMessageBolt } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useRouter } from "next/navigation";
+import { GrBarChart } from "react-icons/gr";
 
 const Sidebar = () => {
   const pathName = usePathname()
@@ -32,6 +33,12 @@ const Sidebar = () => {
       href: `/chat`,
       icon: TbMessageBolt,
       isActive: pathName === "/chat"
+    },
+    {
+      name: "Charts",
+      href: `/chart`,
+      icon: GrBarChart,
+      isActive: pathName === "/chart"
     },
   ]
   // sidebarItems.map((item) => {

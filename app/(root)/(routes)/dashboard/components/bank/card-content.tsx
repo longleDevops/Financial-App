@@ -5,11 +5,11 @@ import { useQueryClient } from "@tanstack/react-query"
 interface CardContentProps {
   className: string,
   order: string,
-  cardData: Card[]
+  cardData: Card
 }
 
 const CardContent = ({ className, order, cardData }: CardContentProps) => {
-  const firstData = cardData[0]
+  const firstData = cardData
 
   const visibleDigits = firstData.cardDigits.slice(0, 3);
   const lastTwoDigits = firstData.cardDigits.slice(-2);
