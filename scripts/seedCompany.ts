@@ -47,11 +47,7 @@ async function getMarketV2Quotes(symbols: string[]) {
   return fetchedData;
 }
 
-<<<<<<< HEAD
-// Fetches stock summaries for a given symbol from Yahoo Finance API
-=======
 // Get detail data for individual stock
->>>>>>> 4b0c58e (feat: implement company employes and profiles section)
 async function fetchStockV2Summary(symbol: string) {
   const options = {
     method: 'GET',
@@ -96,12 +92,6 @@ async function seedCompanies() {
         symbol: "asc"
       }
     })
-<<<<<<< HEAD
-    // Extract symbols from the symbol list
-    const symbols = symbolList.map((item: { symbol: string }) => item.symbol)
-    const marketV2GetQuotes = await getMarketV2Quotes(symbols)
-    const stockV2GetSummary = await getStockV2Summary(symbols)
-=======
     const companies: Company[] = await db.company.findMany()
     const existingSymbols = companies.map((item) => item.symbol)
     const allSymbols: string[] = symbolList.map((item: { symbol: string }) => item.symbol)
@@ -112,7 +102,6 @@ async function seedCompanies() {
     const marketV2GetQuotes = await getMarketV2Quotes(symbols.slice(start, end))
     const stockV2GetSummary = await getStockV2Summary(symbols.slice(start, end))
 
->>>>>>> 4b0c58e (feat: implement company employes and profiles section)
     console.log("total: " + symbols.length);
     console.log("V2GetQuotes actual: " + marketV2GetQuotes.length)
     console.log("V2GetSummary actual: " + stockV2GetSummary.length)
