@@ -38,6 +38,7 @@ async function getMarketV2Quotes(symbols: string[]) {
 
   const fetchedData = [];
 
+  // Fetch market data for each sub-array and concatenate the results
   for (const subArray of subArrays) {
     const data = await fetchMarketV2(subArray);
     fetchedData.push(...data);
@@ -45,6 +46,7 @@ async function getMarketV2Quotes(symbols: string[]) {
   return fetchedData;
 }
 
+// Fetches stock summaries for a given symbol from Yahoo Finance API
 async function fetchStockV2Summary(symbol: string) {
   const options = {
     method: 'GET',
@@ -67,6 +69,7 @@ async function fetchStockV2Summary(symbol: string) {
   }
 }
 
+// Fetches stock summaries for multiple symbols
 async function getStockV2Summary(symbols: string[]) {
   const result = []
   for (let i = 0; i < symbols.length; i++) {
@@ -76,6 +79,7 @@ async function getStockV2Summary(symbols: string[]) {
   return result;
 }
 
+// Seeds company data into the database
 async function seedCompanies() {
 
   try {
@@ -85,6 +89,7 @@ async function seedCompanies() {
         symbol: true
       }
     })
+    // Extract symbols from the symbol list
     const symbols = symbolList.map((item: { symbol: string }) => item.symbol)
     const marketV2GetQuotes = await getMarketV2Quotes(symbols)
     const stockV2GetSummary = await getStockV2Summary(symbols)
