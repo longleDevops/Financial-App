@@ -38,12 +38,6 @@ const DashboardPage = async () => {
     }
   })
 
-  const portfolio = await prismadb.portfolio.findFirst({
-    where: {
-      accountId: userId
-    },
-  })
-
   return (
     <div className="flex flex-1 gap-6 px-6 pt-6">
       <div className="flex flex-col flex-1 h-full">

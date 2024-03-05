@@ -6,6 +6,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ToastProvider } from '@/components/providers/toast-provider'
 import { Toaster } from "@/components/ui/toaster"
 import Providers from '@/components/providers/providers'
+import { ThemeProvider } from "@/components/theme-provider"
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,11 +25,18 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" >
+      <html lang="en" suppressHydrationWarning>
         <body className={`${inter.className}`}>
           <Providers>
             <ToastProvider />
-            {children}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
             <Toaster />
             <SpeedInsights />
           </Providers>

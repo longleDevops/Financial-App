@@ -2,12 +2,15 @@
 
 import { useRouter } from 'next/navigation'
 import { Button } from './shadcn-ui/button'
-
+import { ThemeSwitch } from './theme-switch'
+import { useTheme } from 'next-themes'
 const HomeNavbar = () => {
   const router = useRouter();
   const onNavigate = () => {
     router.push("/dashboard")
   }
+  const { setTheme } = useTheme()
+  setTheme("light")
   return (
     <div className={`fixed px-16 py-6 w-full text-black flex justify-between items-center`}>
       <p className="font-semibold text-2xl">

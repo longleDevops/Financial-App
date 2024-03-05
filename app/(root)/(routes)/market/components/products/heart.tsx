@@ -15,7 +15,7 @@ import { ThreeDots } from "react-loading-icons";
 
 const Heart = () => {
   const { toast } = useToast()
-  const { ticker } = useTicker()
+  const { ticker, setIsLiking } = useTicker()
 
   const { data, isLoading } = useQuery<Company[]>({
     queryKey: ['getWatchlist'],
@@ -39,6 +39,7 @@ const Heart = () => {
   }, [ticker])
 
   function handleClicked() {
+    setIsLiking(true)
     setIsDisabled(true)
     setIsLiked(!isContained)
     updateWatchlist()
@@ -56,6 +57,7 @@ const Heart = () => {
       console.log(error)
     },
     onSuccess: () => {
+      setIsLiking(false)
       const description = !isContained ? "Added to watchlist" : "Removed from watchlist"
       queryClient.invalidateQueries({
         queryKey: ['getWatchlist'],
@@ -74,12 +76,13 @@ const Heart = () => {
   })
 
   if (isPending) return (
-    <div className="h-[35px]">
+    <div className="h-[40px]">
       <ThreeDots
-        speed={2}
+        speed={3}
         width={20}
         height={20}
-        fill="black"
+        fill=""
+        className="text-black dark:fill-white"
       />
     </div>
   )
@@ -87,7 +90,6 @@ const Heart = () => {
   if (isLoading) return (
     <Skeleton
       className="w-[40px] h-[35px] rounded-lg"
-
     />
   )
 

@@ -1,6 +1,6 @@
 # Introduction
 
-DynamiteTrade is an opensource financialproject to provide a user friendly user interface to view stock information of companies in (soft) real time.
+DynamiteTrade is an opensource financial project aiming to provide a clean and snappy user interface to view stock information of companies in (soft) real time.
 The project is written in JavaScript/TypeScript leveraging full stack framework NextJS and deploying on Vercel hosting platform.
 
 Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.vercel.app/)

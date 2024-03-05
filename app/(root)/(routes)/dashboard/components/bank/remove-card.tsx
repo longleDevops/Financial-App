@@ -39,6 +39,7 @@ import {
 } from "@/components/shadcn-ui/form";
 import { useOrder } from "@/hooks/use-order";
 import { Card as CardModel } from "@prisma/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
   cardNum: z
@@ -58,6 +59,7 @@ function getFormattedDigits(data: string) {
 
 export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
   const { isOpen, setIsOpen } = useOrder()
+  const { toast: shadcnToast } = useToast()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -76,7 +78,6 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
   //   <div>...Loading</div>
   // )
 
-  if (!cardLists || cardLists.length === 0) return;
 
   const queryClient = useQueryClient()
   const { mutate: addCard, isPending } = useMutation({
@@ -104,6 +105,10 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
   const getCardExp = (data: string) => {
     const foundData = cardLists.find((item) => item.cardDigits === data)
     return foundData ? foundData.expiration : ""
+  }
+  if (!cardLists || cardLists.length === 0) {
+    toast.error("No Cards Found!")
+    return;
   }
 
   return (
@@ -133,7 +138,12 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
                           <SelectGroup>
                             <SelectLabel>Available cards</SelectLabel>
                             {cardLists.map((item) => (
-                              <SelectItem key={item.id} value={item.cardDigits}>{getFormattedDigits(item.cardDigits)}</SelectItem>
+                              <SelectItem key={item.id} value={item.cardDigits} className="hover:cursor-pointer">
+                                <div className="flex py-1 items-center">
+                                  {getFormattedDigits(item.cardDigits)}
+                                  <div className="ml-4 h-[15px] w-[15px] rounded-sm" style={{ backgroundColor: item.color }}></div>
+                                </div >
+                              </SelectItem>
                             ))}
                           </SelectGroup>
                         </SelectContent>
@@ -155,7 +165,7 @@ export const RemoveCard = ({ cardLists }: { cardLists: CardModel[] }) => {
                         </div>}
                       <div className={`flex justify-between pt-[120px] ${field.value ? "pt-[120px]" : "pt-[160px]"}`}>
                         <Button variant="outline">Cancel</Button>
-                        <Button type="submit" >{isPending ? "...Loading" : "Button"}</Button>
+                        <Button type="submit" >{isPending ? "...Submitting" : "Remove"}</Button>
                       </div>
                     </FormItem>
                   )}

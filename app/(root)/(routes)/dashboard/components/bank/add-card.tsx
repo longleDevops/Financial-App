@@ -38,7 +38,8 @@ import {
   FormDescription
 } from "@/components/shadcn-ui/form";
 import { useOrder } from "@/hooks/use-order";
-
+import { ColorSelector } from "./color-selector";
+import { useColor } from '@/hooks/use-color'
 const FormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -48,10 +49,10 @@ const FormSchema = z.object({
   }).regex(/^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}$/, {
     message: "Must be in format 'xxxx xxxx xxxx xxxx'"
   }),
-  value: z.coerce.number().gte(500, {
-    message: "Value must be from $500 to $50,000",
-  }).lte(50000, {
-    message: "Value must be from $500 to $50,000",
+  value: z.coerce.number().gte(5000, {
+    message: "Value must be from $5,000 to $500,000",
+  }).lte(500000, {
+    message: "Value must be from $5,000 to $500,000",
   }),
   expiryDate: z.string().regex(/^([0-9][0-9])\/([0-1][0-9])$/, {
     message: "Must be in the format of yy/mm."
@@ -60,13 +61,13 @@ const FormSchema = z.object({
 
 export const AddCard = () => {
   const { isOpen, setIsOpen } = useOrder()
-
+  const { color } = useColor()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
       cardNumber: "0000 0000 0000 0000",
-      value: 600,
+      value: 250000,
       expiryDate: "",
     },
   })
@@ -78,10 +79,10 @@ export const AddCard = () => {
   const queryClient = useQueryClient();
   const { mutate: addCard, isPending } = useMutation({
     mutationFn: (data: z.infer<typeof FormSchema>) => {
-      return axios.post("/api/card", data)
+      return axios.post("/api/card/add", { data, color })
     },
     onError: (error) => {
-      toast.error("Failed to add a new credit card.")
+      toast.error("Failed adding new card. Duplicate card found")
     },
     onSuccess: () => {
       toast.success("Add Card Successfully")
@@ -143,7 +144,10 @@ export const AddCard = () => {
                       <FormItem>
                         <FormLabel>Value</FormLabel>
                         <FormControl>
-                          <Input placeholder="$500-$5000" {...field} />
+                          <div className="relative">
+                            <p className="absolute pt-[7px] pl-2">$</p>
+                            <Input placeholder="5,000-50,000" {...field} className="pl-5" />
+                          </div>
                         </FormControl>
 
                         <FormMessage />
@@ -166,6 +170,7 @@ export const AddCard = () => {
                     )}
                   />
                 </div>
+                <ColorSelector />
                 <div className="flex justify-between mt-12">
                   <Button variant="outline">Cancel</Button>
                   <Button type="submit">{isPending ? "...Submitting" : "Add Card"}</Button>

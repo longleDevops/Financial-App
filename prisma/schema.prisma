@@ -61,7 +61,8 @@ model Card {
   expiration String
   cardDigits String @unique
   type String
-
+  color String
+  
   account Account @relation(fields: [accountId],references: [id])
   accountId String
 }

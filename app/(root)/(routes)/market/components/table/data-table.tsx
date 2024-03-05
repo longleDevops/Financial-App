@@ -14,6 +14,7 @@ import {
 
   useReactTable,
 } from "@tanstack/react-table"
+import { useToast } from "@/components/ui/use-toast"
 import { Row } from "@tanstack/react-table"
 import {
   DropdownMenu,
@@ -49,7 +50,7 @@ export function DataTable<TData, TValue>({
   columns,
   data
 }: DataTableProps<TData, TValue>) {
-
+  const { toast } = useToast()
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
@@ -75,8 +76,14 @@ export function DataTable<TData, TValue>({
     },
   })
 
-  const { ticker, setTicker } = useTicker()
+  const { ticker, setTicker, isLiking } = useTicker()
   const handleClick = (symbol: string) => {
+    if (isLiking) return (
+      toast({
+        variant: "destructive",
+        title: "Please wait.",
+      })
+    );
     setTicker(symbol)
   }
 
@@ -153,6 +160,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+
                   onClick={() => handleClick(getSymbol(row))}
                   className={`
                                border-t
