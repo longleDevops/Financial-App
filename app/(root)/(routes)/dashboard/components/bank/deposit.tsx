@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/shadcn-ui/card"
 import { Input } from "@/components/shadcn-ui/input"
 import { Label } from "@/components/shadcn-ui/label"
 import {
@@ -42,7 +42,7 @@ import { Card as CardModel } from "@prisma/client";
 import { TbArrowBarToRight } from "react-icons/tb";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/shadcn-ui/use-toast";
 import { useColor } from "@/hooks/use-color";
 
 function getFormattedDigits(data: string) {
@@ -101,6 +101,11 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
         variant: "destructive",
         title: "Insufficient card balance.",
       })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
+        exact: true,
+        refetchType: 'all'
+      })
     },
     onSuccess: () => {
       toast.success("Remove Card Successfully")
@@ -112,6 +117,11 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
       })
       queryClient.invalidateQueries({
         queryKey: ['getAccount2'],
+        exact: true,
+        refetchType: 'all'
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
         exact: true,
         refetchType: 'all'
       })

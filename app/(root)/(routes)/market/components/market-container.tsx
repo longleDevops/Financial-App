@@ -3,15 +3,15 @@
 import { useEffect, useState } from "react"
 import { useAnimate } from "framer-motion"
 
-
 import { Company, Product } from "@prisma/client"
 import { StockList } from "./table/stock-list"
 import { FeaturedProduct } from "./products/featured-product"
 import { CompanyProfile } from "./company-profile/company-profile"
-import TableContainer from "./table-container"
+import TableContainer from "./table/table-container"
 import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
 import { useQueryClient } from "@tanstack/react-query"
+import { usePathname } from "next/navigation"
 export interface MarketContainerProps {
   companies: Company[]
 }
@@ -19,12 +19,12 @@ export interface MarketContainerProps {
 const MarketContainer = ({ companies }: MarketContainerProps) => {
   const { ticker } = useTicker()
   const foundCompany = companies.find((item: Company) => item.symbol === ticker)
-
-  const { animatedId, firstLoop, setFirstLoop } = useAnimation()
-
+  const updatedAt = new Date(foundCompany.yahooStockV2Summary.price.regularMarketTime).toLocaleTimeString()
+  console.log(updatedAt)
+  const { animatedId, setAnimatedId, firstLoop, setFirstLoop } = useAnimation()
   const [frontElement, animate] = useAnimate();
   const [behindElement, animate1] = useAnimate();
-
+  const pathname = usePathname()
   // Animation
   useEffect(() => {
     if (firstLoop) {
@@ -45,23 +45,30 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
       animate1(behindElement.current, { scale: [1, .8], x: xValue }, { duration: .2 });
     }
   }, [animatedId, firstLoop])
-  console.log(animatedId)
+  useEffect(() => {
+    setAnimatedId(2)
+  }, [pathname])
   return (
     <div className="flex h-full">
       {/*Left Container*/}
       <div className="w-[35%] pt-8 pb-12 px-8 border-r border-muted-foreground/30">
         <FeaturedProduct
-          companies={companies}
+          company={foundCompany}
         />
       </div>
 
       {/*Right Container*/}
-      <div className="relative flex-1 overflow-hidden ">
+      <div className={`relative flex-1 overflow-hidden ${animatedId === 1 && "overflow-y-auto"}`} >
         <div
           ref={frontElement}
           className={`absolute pt-8 z-[1] w-full h-full flex flex-col overflow-y-auto ${animatedId === 1 && "opacity-0"}`}
         >
-          <p className="pb-6 pl-8 text-lg font-semibold">Companies</p>
+          <div className="pb-6 px-8 text-lg font-semibold flex gap-4 justify-between items-end">
+            <p>Companies</p>
+            <div className="text-[11px] font-medium text-muted-foreground ">
+              Updated {updatedAt}
+            </div>
+          </div>
           <div className="flex-1 ">
             <TableContainer companies={companies} />
           </div>

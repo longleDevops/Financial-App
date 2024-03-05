@@ -15,6 +15,20 @@ export async function PATCH(request: Request) {
     const foundAccount = await prisma?.account.findFirst({ where: { id: userId } })
 
     if (value > foundAccount.accountBalance) {
+      await prismadb.account.update({
+        where: {
+          id: userId
+        },
+        data: {
+          transactions: {
+            create: {
+              type: "withdraw",
+              amount: value,
+              status: 'failed'
+            }
+          }
+        }
+      })
       return new NextResponse("Insufficient account balance", { status: 400 })
     }
 
@@ -33,7 +47,14 @@ export async function PATCH(request: Request) {
       },
       data: {
         accountBalance: foundAccount.accountBalance - value,
-        accountValue: foundAccount.accountValue - value
+        accountValue: foundAccount.accountValue - value,
+        transactions: {
+          create: {
+            type: `withdraw`,
+            status: 'success',
+            amount: value,
+          }
+        }
       }
     })
     console.log("card/deposit PATCH runs")

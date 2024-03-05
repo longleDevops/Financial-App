@@ -7,11 +7,11 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { ThreeDots } from 'react-loading-icons'
-
+import { Portfolio_Company } from '@prisma/client';
 
 export const PortfolioItem = () => {
 
-  const { data, isLoading } = useQuery<Company[]>({
+  const { data: queryData, isLoading } = useQuery<Portfolio_Company & Company[]>({
     queryKey: ['getPortfolio'],
     queryFn: async () => {
       const response = await axios.get('/api/portfolio')
@@ -20,13 +20,15 @@ export const PortfolioItem = () => {
     staleTime: 3600000 // 1 hour in ms
   })
 
-  if (isLoading) {
+  if (isLoading || !queryData) {
     return (
       <div className='flex items-center justify-center h-[30px] text-muted-foreground'>
         ...Loading
       </div>
     );
   }
+  const data: Company[] = queryData.companies.map((item: Portfolio_Company & Company) => item.company);
+
   return (
     <>
       {
@@ -43,10 +45,10 @@ export const PortfolioItem = () => {
                 <div className="flex items-center gap-2 w-[150px]">
                   <Image
                     alt="stock img"
-                    src={`/logos/${company.symbol}.svg`}
-                    width={20}
-                    height={20}
-                    className="object-contain rounded-full max-h-[20px]"
+                    src={`/logos/${company.symbol.toLowerCase()}.svg`}
+                    width={22}
+                    height={22}
+                    className="object-contain rounded-full p-[2px] dark:bg-slate-200"
                   />
                   <div className="flex flex-col items-start ml-1">
                     <p className="font-medium">{company.symbol}</p>

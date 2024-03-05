@@ -27,7 +27,7 @@ import { SwitchCard } from "./switch-card"
 import { RemoveCard } from "./remove-card"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/shadcn-ui/use-toast"
 import { ViewCards } from "./view-cards"
 export const DropdownContent = () => {
   const { order, setOrder, isOpen, setIsOpen } = useOrder()

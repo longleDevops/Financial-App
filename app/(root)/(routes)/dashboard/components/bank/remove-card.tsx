@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/shadcn-ui/card"
 import { Input } from "@/components/shadcn-ui/input"
 import { Label } from "@/components/shadcn-ui/label"
 import {
@@ -39,7 +39,7 @@ import {
 } from "@/components/shadcn-ui/form";
 import { useOrder } from "@/hooks/use-order";
 import { Card as CardModel } from "@prisma/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/shadcn-ui/use-toast";
 
 const FormSchema = z.object({
   cardNum: z

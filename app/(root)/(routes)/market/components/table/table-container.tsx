@@ -1,6 +1,6 @@
 
-import { DataTable } from "./table/data-table"
-import { columns, CompanyDef } from "./table/columns"
+import { DataTable } from "./data-table"
+import { columns, CompanyDef } from "./columns"
 import { Company } from "@prisma/client"
 
 interface TableContainerProps {

@@ -7,8 +7,8 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
+} from "@/components/shadcn-ui/toast"
+import { useToast } from "@/components/shadcn-ui/use-toast"
 
 /**
  * This component is responsible for rendering toast notifications.

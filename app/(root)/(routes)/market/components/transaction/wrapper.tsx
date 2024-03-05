@@ -4,7 +4,7 @@ import { SellTransaction } from "./sell-transaction"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useTicker } from "@/hooks/use-ticker"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/shadcn-ui/skeleton"
 interface WrapperInterface {
   company: Company
 }

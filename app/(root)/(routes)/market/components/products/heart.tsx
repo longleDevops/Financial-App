@@ -6,12 +6,13 @@ import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoHeart } from "react-icons/io5";
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/shadcn-ui/use-toast"
 import { useTicker } from "@/hooks/use-ticker";
 import { useQuery } from "@tanstack/react-query";
 import { Company } from "@prisma/client";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/shadcn-ui/skeleton";
 import { ThreeDots } from "react-loading-icons";
+
 
 const Heart = () => {
   const { toast } = useToast()
@@ -27,8 +28,6 @@ const Heart = () => {
   })
   const likedSymbols = data?.map((item) => item.symbol) // ['AAPL','AMD']
   const isContained = likedSymbols?.includes(ticker)
-  console.log(likedSymbols)
-  console.log(isContained)
 
   //const [isLiked, setIsLiked] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)

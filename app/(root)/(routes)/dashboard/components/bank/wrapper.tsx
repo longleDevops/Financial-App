@@ -3,7 +3,7 @@ import axios from "axios"
 import { CardContent } from "./card-content"
 import { Card } from "@prisma/client"
 import 'react-loading-skeleton/dist/skeleton.css'
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/shadcn-ui/skeleton"
 
 const contents = [
   {

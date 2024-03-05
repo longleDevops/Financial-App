@@ -4,9 +4,9 @@ import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ToastProvider } from '@/components/providers/toast-provider'
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/shadcn-ui/toaster"
 import Providers from '@/components/providers/providers'
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/app/theme-provider"
 
 
 const inter = Inter({ subsets: ['latin'] })

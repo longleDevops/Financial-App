@@ -10,11 +10,12 @@ import { TbMessageBolt } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { GrBarChart } from "react-icons/gr";
+import { useAnimation } from "@/hooks/use-animation";
+
 
 const Sidebar = () => {
   const pathName = usePathname()
   const router = useRouter()
-
   const sidebarItems = [
     {
       name: "Dashboard",
@@ -44,6 +45,7 @@ const Sidebar = () => {
   // sidebarItems.map((item) => {
   //   router.prefetch(item.href)
   // })
+
   return (
     <div className="flex flex-col items-center w-full h-full pt-2 pb-8 border-r border-muted-foreground/30 ">
       <Image
@@ -56,7 +58,6 @@ const Sidebar = () => {
       <div className="space-y-4 text-xs font-medium mt-14">
         {sidebarItems.map((item) => (
           <Link
-            onClick={() => router.refresh()}
             prefetch={true}
             key={item.href}
             href={item.href}

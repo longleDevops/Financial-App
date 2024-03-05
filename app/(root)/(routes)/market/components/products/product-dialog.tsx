@@ -3,54 +3,30 @@ import { Button } from "@/components/shadcn-ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/shadcn-ui/dialog"
 import Image from "next/image"
 import { Separator } from "@/components/shadcn-ui/separator"
-
-
-
-const productList = [
-  "Tesla Model Y",
-  "USA",
-  "Electric car",
-  "22,000",
-  "supreme",
-  "Strong and powerful",
-  "fast",
-  "strong yes"
-]
-
-const headers = [
-  "Model",
-  "Manufacture",
-  "Product Type",
-  "Price",
-  "Trim",
-  "Highlight",
-  "Selling Rate",
-  "In-demand"
-]
-
-const horizontalImage = [
-  "/products/tsla-img.png",
-  "/products/tsla-img.png",
-  "/products/tsla-img.png",
-]
+import { BarChart } from "./bar-chart"
+import { Company } from "@prisma/client"
 
 interface ProductDialogProps {
-  symbol: string,
-  productUrl: string
+  company: Company
 }
 
-export const ProductDialog = ({ symbol, productUrl }: ProductDialogProps) => {
+export const ProductDialog = ({ company }: ProductDialogProps) => {
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button
           className="flex gap-2 text-sm text-muted-foreground hover:underline"
         >
-          <p>Feature</p>
+          <p>Revenue</p>
           <ExternalLink
             width={20}
             height={20}
@@ -59,63 +35,13 @@ export const ProductDialog = ({ symbol, productUrl }: ProductDialogProps) => {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[980px] overflow-hidden">
-
-        <div className="flex">
-          <div className="w-[400px] flex flex-col items-center gap-8 pt-4 pr-8">
-            <Image
-              src={productUrl}
-              alt="tsla car"
-              width={250}
-              height={250}
-              className="transform scale-x-[-1]"
-            />
-            <div className="flex gap-3">
-              {horizontalImage.map((item) => (
-                <div
-                  key={item}
-                  className="px-2 py-3 border border-slate-200"
-                >
-                  <Image
-                    src={productUrl}
-                    alt="product images"
-                    width={100}
-                    height={100}
-                    priority={true}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex-1 w-full p-4 space-y-4 font-semibold border border-slate-200">
-              <p>HighLights</p>
-              <p>+Strong with high reliability</p>
-              <p>+Free electric battery replacement</p>
-              <p>+High end model</p>
-            </div>
-          </div>
-
-          <div className="flex-1 px-8 border border-red-300">
-            <p>2024 Tesla Model Y supreme</p>
-            <div className="mt-12">
-              {productList.map((item, index) => (
-                <div key={index}>
-                  <div className="flex justify-between py-3">
-                    <p className="text-muted-foreground">{headers[index]}</p>
-                    <p className="font-semibold">{item}</p>
-                  </div>
-                  <Separator />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-end pt-8">
-              <Button
-              >
-                Add to Compare
-              </Button>
-            </div>
-
-          </div>
-        </div>
+        <DialogHeader>
+          <DialogTitle>{company.yahooStockV2Summary.price.shortName} Revenue/Earnings</DialogTitle>
+          <DialogDescription>
+            Earning charts helps you understand the performance of the company.
+          </DialogDescription>
+        </DialogHeader>
+        <BarChart company={company} />
       </DialogContent>
     </Dialog>
   )

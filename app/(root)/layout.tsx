@@ -1,5 +1,5 @@
-import { Navbar } from "@/components/navbar"
-import Sidebar from "@/components/sidebar"
+import { Navbar } from "@/components/app/navbar"
+import Sidebar from "@/components/app/sidebar"
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

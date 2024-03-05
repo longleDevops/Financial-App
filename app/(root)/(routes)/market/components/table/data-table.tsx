@@ -14,7 +14,7 @@ import {
 
   useReactTable,
 } from "@tanstack/react-table"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/shadcn-ui/use-toast"
 import { Row } from "@tanstack/react-table"
 import {
   DropdownMenu,
@@ -100,7 +100,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn("symbol")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-[200px]"
         />
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>

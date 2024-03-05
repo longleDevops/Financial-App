@@ -1,7 +1,8 @@
 import axios from "axios"
 import { db } from "@/scripts/index"
+import { Company } from "@prisma/client";
 
-// only allow 50 symbols
+// Get overview data for a maximum of 50 symbols
 async function fetchMarketV2(symbols: String[]) {
   const options = {
     method: 'GET',
@@ -46,7 +47,11 @@ async function getMarketV2Quotes(symbols: string[]) {
   return fetchedData;
 }
 
+<<<<<<< HEAD
 // Fetches stock summaries for a given symbol from Yahoo Finance API
+=======
+// Get detail data for individual stock
+>>>>>>> 4b0c58e (feat: implement company employes and profiles section)
 async function fetchStockV2Summary(symbol: string) {
   const options = {
     method: 'GET',
@@ -81,70 +86,60 @@ async function getStockV2Summary(symbols: string[]) {
 
 // Seeds company data into the database
 async function seedCompanies() {
-
   try {
-    await db.company.deleteMany()
+    //await db.company.deleteMany()
     const symbolList = await db.ticker.findMany({
       select: {
         symbol: true
+      },
+      orderBy: {
+        symbol: "asc"
       }
     })
+<<<<<<< HEAD
     // Extract symbols from the symbol list
     const symbols = symbolList.map((item: { symbol: string }) => item.symbol)
     const marketV2GetQuotes = await getMarketV2Quotes(symbols)
     const stockV2GetSummary = await getStockV2Summary(symbols)
+=======
+    const companies: Company[] = await db.company.findMany()
+    const existingSymbols = companies.map((item) => item.symbol)
+    const allSymbols: string[] = symbolList.map((item: { symbol: string }) => item.symbol)
+    const symbols = allSymbols.filter((symbol) => existingSymbols.indexOf(symbol) === -1);
+
+    const start = 0;
+    const end = symbols.length < 10 ? symbols.length : 20;
+    const marketV2GetQuotes = await getMarketV2Quotes(symbols.slice(start, end))
+    const stockV2GetSummary = await getStockV2Summary(symbols.slice(start, end))
+
+>>>>>>> 4b0c58e (feat: implement company employes and profiles section)
     console.log("total: " + symbols.length);
-    console.log("actual: " + marketV2GetQuotes.length)
-    await Promise.all(symbols.map(async (symbol: string, index: number) => (
+    console.log("V2GetQuotes actual: " + marketV2GetQuotes.length)
+    console.log("V2GetSummary actual: " + stockV2GetSummary.length)
+
+    await Promise.all(symbols.slice(start, end).map(async (symbol: string, index: number) => (
       db.company.upsert({
         where: {
           symbol
         },
-        update: {},
+        update: {
+          price: marketV2GetQuotes[index].regularMarketPrice,
+          yahooMarketV2Data: marketV2GetQuotes[index],
+          yahooStockV2Summary: stockV2GetSummary[index],
+        },
         create: {
           symbol,
           price: marketV2GetQuotes[index].regularMarketPrice,
           yahooMarketV2Data: marketV2GetQuotes[index],
           yahooStockV2Summary: stockV2GetSummary[index],
-          logo: {
-            create: {
-              logo: `/logos/${symbol}.svg`,
-            }
-          }
         }
       })
     )))
 
-    // const allSymbolList = await db.allTicker.findMany({
-    //   select: {
-    //     symbol: true
-    //   }
-    // })
-    // const allSymbols = allSymbolList.map((item: { symbol: string }) => item.symbol)
-    // const allYahooMarketV2Data = await fetchCompanies(allSymbols.slice(3000, 4500));
-    // console.log(allYahooMarketV2Data.length)
-    // const promises = []
-    // for (let i = 0; i < 40; i++) {
-    //   promises.push(db.company.upsert({
-    //     where: {
-    //       symbol: allSymbols[i],
-    //       price: allYahooMarketV2Data[i].regularMarketPrice
-    //     },
-    //     update: {},
-    //     create: {
-    //       symbol: allSymbols[i],
-    //       price: allYahooMarketV2Data[i].regularMarketPrice,
-    //       yahooMarketV2Data: allYahooMarketV2Data[i]
-    //     }
-    //   }))
-    // }
-
-    // await Promise.all(promises)
     console.log("seeding company data successfully");
   } catch (error) {
     console.log("error seeding company data", error)
   }
-
 }
 
 seedCompanies()

@@ -5,7 +5,7 @@ import { AccountCard } from './index'
 import { QueryClient, useQueryClient } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/shadcn-ui/skeleton'
 import { useAccount } from '@/hooks/use-account'
 import { useEffect } from 'react'
 

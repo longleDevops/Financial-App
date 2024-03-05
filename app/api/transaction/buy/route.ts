@@ -74,9 +74,17 @@ export async function PATCH(request: Request) {
           id: userId
         },
         data: {
-          accountBalance: account.accountBalance - value
+          accountBalance: account.accountBalance - value,
+          transactions: {
+            create: {
+              type: `buy ${symbol}`,
+              status: 'success',
+              amount: value,
+            }
+          }
         }
-      })
+      }),
+
     ]
     await Promise.all(allPromies);
 
