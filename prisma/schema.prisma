@@ -10,7 +10,7 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// One account has only one portfolio, and one watchlist
+// One account has only one portfolio, one watchlist, many bank cards, and many transactions
 model Account{
   id String @id @default(uuid())
   accountBalance Float
@@ -19,6 +19,7 @@ model Account{
   portfolio Portfolio?
   watchlist Watchlist?
   cards Card[]
+  transactions Transaction[]
 }
 
 // A Portfolio can have many companies, 
@@ -54,6 +55,7 @@ model Watchlist_Company {
   @@id([watchlistId,companyId])
 }
 
+// card entity: belongs to only one user's account. 
 model Card {
   id String @id @default(uuid())
   value Float
@@ -90,9 +92,18 @@ model Company {
   watchlists Watchlist_Company[]
   portfolios  Portfolio_Company[]
 }
+
+// transaction entity: belongs to only one user's account
 model Transaction {
   id String @id @default(uuid())
+  status String
+  type String
+  amount Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  account Account @relation(fields: [accountId],references: [id])
+  accountId  String
 }
 
 model Ticker {

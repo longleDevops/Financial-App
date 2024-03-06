@@ -22,9 +22,9 @@ export async function GET() {
       }
     }
   })
-
+  console.log(portfolio);
   const portfolioStocks = portfolio.companies.map((item: Portfolio_Company & Company) => item.company);
   console.log("portfolio GET route runs")
-  return NextResponse.json(portfolioStocks, { status: 200 });
+  return NextResponse.json(portfolio, { status: 200 });
 
 }

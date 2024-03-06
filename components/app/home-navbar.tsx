@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
-import { Button } from './shadcn-ui/button'
+import { Button } from '../shadcn-ui/button'
 import { ThemeSwitch } from './theme-switch'
 import { useTheme } from 'next-themes'
 const HomeNavbar = () => {

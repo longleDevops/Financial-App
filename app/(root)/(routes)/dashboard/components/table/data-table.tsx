@@ -32,6 +32,7 @@ import {
 } from "@/components/shadcn-ui/table"
 import { Button } from "@/components/shadcn-ui/button"
 import { DataTablePagination } from "./data-table-pagination"
+import { SlidersHorizontal } from "lucide-react"
 
 
 interface DataTableProps<TData, TValue> {
@@ -43,6 +44,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -50,7 +52,6 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
-
 
   const table = useReactTable({
     data,
@@ -71,22 +72,26 @@ export function DataTable<TData, TValue>({
     },
   })
 
+
   return (
-    <div className="flex flex-col justify-between h-full pb-4">
+    <div className="flex flex-col justify-between h-[85%] gap-6">
       <div>
-        <div className="flex items-center py-4">
+        <div className="flex items-center mb-4">
           <Input
-            placeholder="Filter emails..."
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter transaction id..."
+            value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
+              table.getColumn("id")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="max-w-[300px]"
           />
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                Columns
+                <SlidersHorizontal
+                  size={16}
+                />
+                <h1 className="ml-2">View</h1>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -139,6 +144,7 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    className="text-[11px]"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
@@ -149,11 +155,12 @@ export function DataTable<TData, TValue>({
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length} className="h-[42vh] text-center">
-                    No transaction.
+                  <TableCell colSpan={columns.length} className="h-[38vh] text-center">
+                    No transaction found.
                   </TableCell>
                 </TableRow>
-              )}
+              )
+              }
             </TableBody>
           </Table>
         </div>

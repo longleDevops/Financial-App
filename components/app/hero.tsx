@@ -2,7 +2,7 @@
 
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import React from 'react'
-import { Button } from './shadcn-ui/button'
+import { Button } from '../shadcn-ui/button'
 import { useRouter } from 'next/navigation';
 
 const Hero = () => {

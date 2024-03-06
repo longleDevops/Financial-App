@@ -40,7 +40,7 @@ const DashboardPage = async () => {
 
   return (
     <div className="flex flex-1 gap-6 px-6 pt-6">
-      <div className="flex flex-col flex-1 h-full">
+      <div className="flex flex-col flex-1 h-full ">
         <AccountContainer />
         <TableContainer />
       </div>

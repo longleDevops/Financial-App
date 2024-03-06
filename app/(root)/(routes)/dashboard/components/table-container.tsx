@@ -1,31 +1,35 @@
-import { columns, Payment } from "./table/columns"
+"use client"
+import { columns } from "./table/columns"
 import { DataTable } from "./index"
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Skeleton } from "@/components/shadcn-ui/skeleton";
+import { Transaction } from "@prisma/client";
+import { Greetings } from "./table/greetings";
 
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  const data: Payment[] = []
-  for (let i = 0; i < 20; i++) {
-    data.push({
-      id: "23423423",
-      status: "success",
-      transactionId: "234234",
-      type: "buy tesla",
-      amount: 233,
-      date: "22-23-2023"
-    })
-  }
-  return data;
-}
-
-const TableContainer = async () => {
-  const data = await getData()
-
-  return (
+const TableContainer = () => {
+  const { data: transactionData, isLoading } = useQuery<Transaction[]>({
+    queryKey: ['getTransaction'],
+    queryFn: async () => {
+      const response = await axios.get("/api/transaction")
+      return response.data;
+    }
+  })
+  if (isLoading || !transactionData) return (
     <div className="flex-1 mt-8 border rounded-t-lg border-muted-foreground/30">
+      <Skeleton
+        className="w-full h-full"
+      />
+    </div>
+  );
+  return (
+    <div className="flex-1 mt-8 border rounded-t-lg border-muted-foreground/30 p-6 h-full">
+      <Greetings />
       <DataTable
         columns={columns}
-        data={data} />
+        data={transactionData}
+      />
     </div>
 
   )

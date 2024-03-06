@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/shadcn-ui/card"
 import { Input } from "@/components/shadcn-ui/input"
 import { Label } from "@/components/shadcn-ui/label"
 import {
@@ -42,7 +42,7 @@ import { Card as CardModel } from "@prisma/client";
 import { TbArrowBarToRight } from "react-icons/tb";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/shadcn-ui/use-toast";
 const FormSchema = z.object({
   cardNum: z
     .string({
@@ -74,7 +74,7 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
     resolver: zodResolver(FormSchema),
   })
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    deposit(data)
+    withdraw(data)
   }
   // const { data: cardLists, isLoading } = useQuery<CardModel[]>({
   //   queryKey: ['getCard2'],
@@ -89,7 +89,7 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
 
 
   const queryClient = useQueryClient()
-  const { mutate: deposit, isPending } = useMutation({
+  const { mutate: withdraw, isPending } = useMutation({
     mutationFn: (data: z.infer<typeof FormSchema>) => {
       return axios.patch("/api/card/withdraw", data)
     },
@@ -97,6 +97,11 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
       shadcnToast({
         variant: "destructive",
         title: "Insufficient account balance.",
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
+        exact: true,
+        refetchType: 'all'
       })
       console.log(error)
     },
@@ -110,6 +115,11 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
       })
       queryClient.invalidateQueries({
         queryKey: ['getAccount2'],
+        exact: true,
+        refetchType: 'all'
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
         exact: true,
         refetchType: 'all'
       })
@@ -228,9 +238,7 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
               </form>
             </Form>
           </CardContent>
-
         </Card>
-
       </div>
     </DialogContent>
   )

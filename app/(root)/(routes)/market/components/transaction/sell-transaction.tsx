@@ -105,6 +105,11 @@ export function SellTransaction({ company }: TransactionProps) {
         exact: true,
         refetchType: 'all'
       })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
+        exact: true,
+        refetchType: 'all'
+      })
     }
   })
 

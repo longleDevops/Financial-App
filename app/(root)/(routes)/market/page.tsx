@@ -14,7 +14,7 @@ const Market = async () => {
   if (!userId) {
     redirect("/")
   }
-  // paralel fetching
+  // fetching
   const companies = await prismadb.company.findMany()
 
   return (

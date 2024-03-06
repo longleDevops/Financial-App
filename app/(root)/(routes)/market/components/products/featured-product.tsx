@@ -9,20 +9,22 @@ import Heart from "./heart";
 import { ProductDialog } from "./product-dialog";
 import { ProgressBar } from "./progress-bar";
 import { useTicker } from "@/hooks/use-ticker";
+import { useImage } from "@/hooks/use-image";
 interface FeaturedProductProps {
-  companies: Company[],
+  company: Company,
 }
 
-export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) => {
+export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => {
   const { ticker } = useTicker()
   const [scope, animate] = useAnimate();
   const [scope2, animate2] = useAnimate();
   const [isSwapped, setIsSwapped] = useState(true)
-  const foundCompany = companies.find((company) => company.symbol === ticker)
-  const companyName = foundCompany.yahooStockV2Summary.price.shortName
 
+  const companyName = company.yahooStockV2Summary.price.shortName
+  const { productSrc, setProductSrc } = useImage()
   // animate product img
   useEffect(() => {
+    setProductSrc(`/products/${ticker.toLowerCase()}.webp`)
     if (isSwapped) {
       animate(scope.current, { x: 150, scale: 0, opacity: 0 }, { duration: 0 })
       const timeout = setTimeout(() => {
@@ -47,22 +49,23 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
           <p className="mb-1 text-lg font-semibold">
             {companyName}
           </p>
-          <ProductDialog symbol={ticker} productUrl={"todo"} />
+          <ProductDialog company={company} />
           <Heart />
 
         </div>
         <div className="flex flex-col items-end">
           <h1 className="flex text-lg font-semibold ">
-            ${foundCompany.price} <span className="text-[10px] text-muted-foreground ml-1">/ea</span>
+            ${company.price} <span className="text-[10px] text-muted-foreground ml-1">/ea</span>
           </h1>
-          <Wrapper company={foundCompany} />
+          <Wrapper company={company} />
         </div>
       </div>
 
       <div className="relative flex items-center justify-center flex-1 w-[300px] h-[300px] mx-auto">
         <Image
           className={"object-contain  absolute w-auto h-auto"}
-          src={`/products/${ticker.toLowerCase()}.webp`}
+          src={productSrc === '' ? `/products/${ticker.toLowerCase()}.webp` : productSrc}
+          onError={() => setProductSrc('/products/dummy-product.webp')}
           alt="Product Image"
           width={300}
           height={300}
@@ -71,7 +74,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
         />
         <Image
           className={"object-contain  absolute opacity-0 scale-[.2] translate-x-[150px] w-auto h-auto"}
-          src={`/products/${ticker.toLowerCase()}.webp`}
+          src={productSrc === '' ? `/products/${ticker.toLowerCase()}.webp` : productSrc}
+          onError={() => setProductSrc('/products/dummy-product.webp')}
           alt="Product Image"
           width={300}
           height={300}
@@ -80,7 +84,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ companies }) =
         />
       </div>
       <div className="">
-        <ProgressBar company={foundCompany} />
+        <ProgressBar company={company} />
       </div>
     </div>
   )

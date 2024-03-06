@@ -3,13 +3,14 @@
 import Image from "next/image"
 import { ColumnDef } from "@tanstack/react-table"
 
-
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { DataTableColumnHeader } from "./column-header"
 import { MoveRight } from "lucide-react"
 import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
 import { Button } from "@/components/aceternity-ui/moving-border"
+import { useImage } from "@/hooks/use-image"
 
 // This type is used to define the shape of our data.
 export type CompanyDef = {
@@ -20,7 +21,6 @@ export type CompanyDef = {
   percentChg: number
 }
 
-
 export const columns: ColumnDef<CompanyDef>[] = [
   {
     accessorKey: "symbol",
@@ -28,12 +28,15 @@ export const columns: ColumnDef<CompanyDef>[] = [
       <div className="w-[70px]"><DataTableColumnHeader column={column} title="Company" /></div>
     ),
     cell: ({ row }) => {
+      const [isError, setIsError] = useState(false)
+
       const data: string = row.getValue("symbol")
-      const imgPath = "/logos/" + data.toLowerCase() + ".svg"
+      const imgPath = !isError ? "/logos/" + data.toLowerCase() + ".svg" : "/logos/dummy-logo.webp"
       return (
         <div className="flex gap-3 items-center text-xs w-[70px]">
           <Image
             src={imgPath}
+            onError={() => setIsError(true)}
             alt="Company logo"
             width={18}
             height={18}
@@ -93,7 +96,7 @@ export const columns: ColumnDef<CompanyDef>[] = [
     ),
     cell: ({ row }) => {
       const data = parseFloat(row.getValue("percentChg"))
-      const { animatedId, setAnimtedId } = useAnimation();
+      const { animatedId, setAnimatedId } = useAnimation();
 
       const { ticker } = useTicker()
       const style = data < 0 ? "text-red-400" : "text-green-400";
@@ -104,7 +107,7 @@ export const columns: ColumnDef<CompanyDef>[] = [
           </p>
           {ticker === row.getValue("symbol") && <Button
             onClick={() => {
-              setAnimtedId(1)
+              setAnimatedId(1)
               console.log(animatedId)
             }}
             borderRadius="100px"

@@ -33,7 +33,7 @@ export const AccountCard = (
   const formattedVal = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
-    <div className={`p-4 border border-muted-foreground/30 rounded-lg w-[250px] flex flex-col gap-2 ${index === 0 && "bg-[#6149cd] shadow-black/25"}  text-xs shadow-lg relative`}>
+    <div className={`p-4 border border-muted-foreground/30 rounded-lg w-[250px] flex flex-col gap-2 ${index === 0 && "bg-[#5b44cc] dark:bg-[#3c2e8b] shadow-black/25"}  text-xs shadow-lg relative`}>
       <selectedIcon.icon
         size={28}
         className={`${index === 0 ? "text-white" : "text-muted-foreground"} absolute right-4 top-4`}
@@ -47,11 +47,11 @@ export const AccountCard = (
       </p>
 
       <div className={`${index === 0 && "text-white"} flex items-end justify-between mt-2`}>
-        <div className="flex items-center gap-2">
+        <div className={`flex items-center justify-center gap-1  rounded-2xl py-1 px-2 bg-zinc-300/30 dark:bg-zinc-300/15 ${index === 1 && "text-green-600 bg-green-600/10 dark:bg-green-600/10"} ${index === 2 && "text-red-600 bg-red-600/10 dark:bg-red-600/10"}`}>
           <AiOutlineRise
-            size={25}
+            size={16}
           />
-          <p className="font-medium">+30.23%</p>
+          <p className="font-medium text-[10px]">+30.23%</p>
         </div>
         <LineChart />
       </div>

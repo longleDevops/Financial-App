@@ -66,7 +66,21 @@ export async function PATCH(request: Request) {
       })
     }
 
-    console.log("api/transaction/sell PATCH runs")
+    await prismadb.account.update({
+      where: {
+        id: userId
+      },
+      data: {
+        transactions: {
+          create: {
+            type: `sell ${symbol}`,
+            status: 'success',
+            amount: value,
+          }
+        }
+      }
+    }),
+      console.log("api/transaction/sell PATCH runs")
     return new NextResponse("Success", { status: 200 })
   } catch (error) {
     console.log(error);

@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/shadcn-ui/card"
 import { Input } from "@/components/shadcn-ui/input"
 import { Label } from "@/components/shadcn-ui/label"
 import {
@@ -42,7 +42,7 @@ import { Card as CardModel } from "@prisma/client";
 import { TbArrowBarToRight } from "react-icons/tb";
 import { useState } from "react";
 import { useAccount } from "@/hooks/use-account";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/shadcn-ui/use-toast";
 import { useColor } from "@/hooks/use-color";
 
 function getFormattedDigits(data: string) {
@@ -79,17 +79,6 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     deposit(data)
   }
-  // const { data: cardLists, isLoading } = useQuery<CardModel[]>({
-  //   queryKey: ['getCard2'],
-  //   queryFn: async () => {
-  //     const result = await axios.get("/api/card")
-  //     return result.data;
-  //   }
-  // })
-  // if (isLoading) return (
-  //   <div>...Loading</div>
-  // )
-
 
   const queryClient = useQueryClient()
   const { mutate: deposit, isPending } = useMutation({
@@ -97,13 +86,19 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
       return axios.patch("/api/card/deposit", data)
     },
     onError: (error) => {
+      console.log(error)
       shadcnToast({
         variant: "destructive",
         title: "Insufficient card balance.",
       })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
+        exact: true,
+        refetchType: 'all'
+      })
     },
     onSuccess: () => {
-      toast.success("Remove Card Successfully")
+      toast.success("Deposit Successfully")
       setIsOpen(!isOpen)
       queryClient.invalidateQueries({
         queryKey: ['getCard'],
@@ -112,6 +107,11 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
       })
       queryClient.invalidateQueries({
         queryKey: ['getAccount2'],
+        exact: true,
+        refetchType: 'all'
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['getTransaction'],
         exact: true,
         refetchType: 'all'
       })

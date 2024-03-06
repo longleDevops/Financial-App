@@ -1,18 +1,15 @@
 import axios from "axios"
 import { db } from "@/scripts/index";
 
-const popularTickers = [
-  'AAPL',
-  'MSFT',
-  'TSLA',
-  'AMZN',
-  'GOOGL',
-  'META',
-  'JD',
-  'PYPL',
-  'WMT',
-  'MA',
+
+const popularTickers = ['MSFT', 'AAPL', 'NVDA', 'AMZN', 'GOOGL', 'META', 'BRK.B', 'LLY', 'TSM', 'AVGO', 'TSLA', 'V', 'NVO', 'JPM', 'UNH', 'XOM', 'JNJ', 'ASML', 'HD', 'PG', 'COST', 'AMD', 'TM', 'MRK', 'ABBV', 'ORCL', 'CRM', 'CVX', 'BAC', 'NFLX', 'ADBE', 'KO', 'ACN', 'PEP', 'FMX', 'TMO', 'SAP', 'LIN', 'MCD', 'NVS', 'DIS', 'ABT', 'SHEL', 'AZN', 'WFC', 'CSCO', 'TMUS', 'WMT', 'JD', 'PYPL', 'MA', 'DHR', 'INTU', 'QCOM', 'BABA', 'IBM', 'GE', 'AMAT', 'VZ', 'CAT', 'UBER', 'PDD', 'CMCSA', 'AXP', 'TXN', 'UNP', 'NKE', 'NOW', 'BX', 'TTE', 'AMGN', 'HSBC', 'MS', 'BHP', 'PFE', 'ISRG', 'LOW', 'PM', 'HDB', 'RY', 'COP', 'SYK', 'SPGI', 'HON', 'LRCX', 'GS', 'UPS', 'PLD', 'BLK', 'MUFG', 'UL', 'BA', 'T', 'SCHW', 'BUD', 'BKNG', 'RTX', 'ETN', 'SNY', 'ELV', 'MDT', 'TJX', 'NEE', 'PGR', 'VRTX', 'PBR', 'C', 'TD', 'SONY', 'PBR.A', 'MU', 'REGN', 'SBUX', 'RIO', 'LMT', 'DE', 'BMY', 'CB', 'ABNB', 'ADP', 'BP', 'MMC', 'BSX', 'CI', 'PANW', 'SHOP', 'MDLZ', 'KLAC', 'ADI', 'AMT', 'CVS', 'IBN', 'UBS', 'SNPS', 'GILD', 'FI', 'KKR', 'ANET', 'ZTS', 'DELL', 'EQIX', 'CDNS', 'GSK', 'SHW', 'DEO', 'CNI', 'HCA', 'WM', 'INFY', 'RELX', 'STLA', 'CP', 'CME', 'ICE', 'CNQ', 'ARM', 'MELI', 'ITW', 'WDAY', 'CRWD', 'GD', 'CSX', 'SMFG',
+  'RACE', 'CMG', 'SO', 'ENB', 'EQNR', 'MAR', 'MO', 'TRI', 'TGT', 'CL', 'DUK', 'SLB', 'MCK', 'NTES', 'MCO', 'PH', 'NOC', 'MRVL', 'BDX', 'ITUB', 'EOG', 'APH', 'USB', 'BMO', 'NXPI', 'SAN', 'TDG', 'BTI', 'TT', 'BN', 'ECL', 'CTAS', 'PYPL', 'ORLY', 'APO', 'SCCO', 'MPC', 'AON'
 ]
+
+
+
+
+
 // Fetch trending tickers
 async function fetchTrendingTickers() {
   const options = {

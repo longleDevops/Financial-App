@@ -69,14 +69,23 @@ export async function PATCH(request: Request) {
           portfolioVal: portfolio.portfolioVal + value
         }
       }),
+
       prismadb.account.update({
         where: {
           id: userId
         },
         data: {
-          accountBalance: account.accountBalance - value
+          accountBalance: account.accountBalance - value,
+          transactions: {
+            create: {
+              type: `buy ${symbol}`,
+              status: 'success',
+              amount: value,
+            }
+          }
         }
-      })
+      }),
+
     ]
     await Promise.all(allPromies);
 

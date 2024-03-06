@@ -18,12 +18,12 @@ import {
   TableHeader,
   TableRow
 } from "@/components/shadcn-ui/table";
-import { Company, Logo, Product } from "@prisma/client";
+import { Company, Product } from "@prisma/client";
 
 interface StockListProps {
   ticker: string
   setTicker: (ticker: string) => void
-  companies: Company[] & Logo
+  companies: Company[]
   products: Product[]
   animatedClick: () => void;
   searchSymbol: string
@@ -131,7 +131,7 @@ export const StockList = ({ ticker, setTicker, companies, products, animatedClic
         </TableHeader>
         <TableBody>
           {companies
-            .map((item: Company & Logo, index: number) => (
+            .map((item: Company, index: number) => (
               <TableRow
                 key={index}
                 onClick={() => handleClick(item)}

@@ -18,7 +18,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/shadcn-ui/card"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 import { Card as CardModel } from "@prisma/client"
