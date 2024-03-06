@@ -11,12 +11,12 @@ import { CiSettings } from "react-icons/ci";
 import { IoStorefrontOutline } from "react-icons/io5";
 import { TbMessageBolt } from "react-icons/tb";
 
-
 const Sidebar = () => {
   const { animatedId, setAnimatedId } = useAnimation()
   const { theme } = useTheme()
   const pathName = usePathname()
   const router = useRouter()
+
   const sidebarItems = [
     {
       name: "Dashboard",
@@ -38,7 +38,8 @@ const Sidebar = () => {
     },
 
   ]
-
+  router.prefetch('/dashboard')
+  router.prefetch('/market')
   const src = theme === 'light' ? "/landing-page/logo.webp" : "/landing-page/logo2.png"
   const handleClicked = () => {
     if (animatedId !== 2) {
@@ -46,6 +47,7 @@ const Sidebar = () => {
     }
 
   }
+
   return (
     <div className="flex flex-col items-center w-full h-full pt-4 pb-8 border-r border-muted-foreground/30 ">
       <Image

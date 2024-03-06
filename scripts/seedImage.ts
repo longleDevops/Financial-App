@@ -17,28 +17,26 @@ async function seedLogos() {
 
     await db.company.updateMany({
       where: {
-        productSrc: null,
         logoSrc: null
       },
       data: {
-        productSrc: 'dummy-product.webp'
+        logoSrc: 'dummy-logo.webp'
       }
     })
 
-    // const promises1 = []
-    // const arrLogos = ['jd', 'pypl', 'msft', 'meta', 'wmt', 'ma', 'amzn', 'abnb', 'ebay', 'cola', 'sofi', 'googl', 'tsla', 'nvda', 'aapl', 'amd', 'visa', 'xom', 'shopify', 'salesforce', 'pfizer', 'nike', 'lowes', 'ibm', 'cmcsa', 'citygroup', 'cisco', 'cigna', 'chubb', 'caterpillar', 'ba']
-    // for (let i = 0; i < arrLogos.length; i++) {
-    //   promises1.push(db.company.update({
-    //     where: {
-    //       symbol: arrLogos[i].toUpperCase()
-    //     },
-    //     data: {
-    //       productSrc: arrLogos[i] + '.svg'
-    //     }
-    //   }))
-    // }
-
-    // await Promise.all(promises1)
+    const promises1 = []
+    const arrLogos = ['jd', 'pypl', 'msft', 'meta', 'wmt', 'ma', 'amzn', 'abnb', 'ebay', 'cola', 'sofi', 'googl', 'tsla', 'nvda', 'aapl', 'amd', 'visa', 'xom', 'shopify', 'salesforce', 'pfizer', 'nike', 'lowes', 'ibm', 'cmcsa', 'citygroup', 'cisco', 'cigna', 'chubb', 'caterpillar', 'ba']
+    for (let i = 0; i < arrLogos.length; i++) {
+      promises1.push(db.company.update({
+        where: {
+          symbol: arrLogos[i].toUpperCase()
+        },
+        data: {
+          logoSrc: arrLogos[i] + '.svg'
+        }
+      }))
+    }
+    await Promise.all(promises1)
     // const promises = []
     // const arrProducts = ['jd', 'pypl', 'msft', 'meta', 'wmt', 'ma', 'amzn', 'abnb', 'ebay', 'cola', 'sofi', 'googl', 'tsla', 'nvda', 'aapl', 'amd', 'visa']
 
