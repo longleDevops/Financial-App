@@ -43,7 +43,7 @@ export async function PATCH(request: Request) {
 
     const temp = portfolioShares ? portfolioShares.shares : 0
 
-    if (portfolioShares > (value / company.price)) {
+    if (portfolioShares.shares > (value / company.price)) {
       await prismadb.portfolio_Company.update({
         where: {
           portfolioId_companyId: {
@@ -64,6 +64,16 @@ export async function PATCH(request: Request) {
           portfolioVal: portfolio.portfolioVal - value
         }
       })
+      if (portfolioShares - value / company.price <= 0) {
+        await prismadb.portfolio_Company.delete({
+          where: {
+            portfolioId_companyId: {
+              portfolioId: portfolio.id,
+              companyId: company.id
+            }
+          }
+        })
+      }
     }
 
     await prismadb.account.update({
