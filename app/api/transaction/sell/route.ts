@@ -40,7 +40,7 @@ export async function PATCH(request: Request) {
         shares: true
       }
     })
-
+    console.log(portfolioShares)
     const temp = portfolioShares ? portfolioShares.shares : 0
 
     if (portfolioShares.shares > (value / company.price)) {
