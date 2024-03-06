@@ -41,12 +41,7 @@ const Sidebar = () => {
   router.prefetch('/dashboard')
   router.prefetch('/market')
   const src = theme === 'light' ? "/landing-page/logo.webp" : "/landing-page/logo2.png"
-  const handleClicked = () => {
-    if (animatedId !== 2) {
-      setAnimatedId(2)
-    }
 
-  }
 
   return (
     <div className="flex flex-col items-center w-full h-full pt-4 pb-8 border-r border-muted-foreground/30 ">
@@ -63,7 +58,6 @@ const Sidebar = () => {
             prefetch={true}
             key={item.href}
             href={item.href}
-            onClick={() => handleClicked()}
             className={cn("py-2 flex items-center justify-center p-3 group  rounded-lg text-muted-foreground hover:cursor-pointer hover:text-white hover:bg-[#230f61] shadow-md dark:shadow-sm dark:shadow-purple-700",
               item.isActive ? "bg-[#6149cd] text-white shadow-sm shadow-[#19033e]  " : "hover:bg-[#6149cd]/30"
             )}
