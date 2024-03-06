@@ -38,8 +38,7 @@ const Sidebar = () => {
     },
 
   ]
-  router.prefetch('/dashboard')
-  router.prefetch('/market')
+
   const src = theme === 'light' ? "/landing-page/logo.webp" : "/landing-page/logo2.png"
 
 

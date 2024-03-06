@@ -64,16 +64,7 @@ export async function PATCH(request: Request) {
           portfolioVal: portfolio.portfolioVal - value
         }
       })
-      if (portfolioShares - value / company.price <= 0) {
-        await prismadb.portfolio_Company.delete({
-          where: {
-            portfolioId_companyId: {
-              portfolioId: portfolio.id,
-              companyId: company.id
-            }
-          }
-        })
-      }
+
     }
 
     await prismadb.account.update({
