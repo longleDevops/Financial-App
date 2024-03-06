@@ -34,7 +34,6 @@ export function DoughnutChart() {
   const total = arrData.length === 0 ? 0 : arrData.length === 1 ? 1 : arrData.reduce((a, b) => a + b)
   const arrPercent = total === 0 ? [] : total === 1 ? [100] : arrData.map((item) => Math.max(item / total * 100, 2))
 
-  console.log(arrData)
   const bgColors = ['#035380', '#00803d', '#803335', '#17807b', '#144f80']
   //const arrValues = queryData.map((item)=>item.)
   const options = {}

@@ -6,6 +6,7 @@ import prismadb from "@/lib/prismadb";
 export async function PATCH(request: Request) {
   try {
     const { userId } = auth()
+    console.log(userId)
     if (!userId)
       return new NextResponse("Unauthorized", { status: 401 });
 

@@ -97,6 +97,7 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
       return axios.patch("/api/card/deposit", data)
     },
     onError: (error) => {
+      console.log(error)
       shadcnToast({
         variant: "destructive",
         title: "Insufficient card balance.",

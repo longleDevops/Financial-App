@@ -69,6 +69,7 @@ export async function PATCH(request: Request) {
           portfolioVal: portfolio.portfolioVal + value
         }
       }),
+
       prismadb.account.update({
         where: {
           id: userId
