@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Settings } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,6 @@ import { TbMessageBolt } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { GrBarChart } from "react-icons/gr";
-import { useAnimation } from "@/hooks/use-animation";
 
 
 const Sidebar = () => {
@@ -42,9 +41,9 @@ const Sidebar = () => {
       isActive: pathName === "/chart"
     },
   ]
-  // sidebarItems.map((item) => {
-  //   router.prefetch(item.href)
-  // })
+  sidebarItems.map((item) => {
+    router.prefetch(item.href)
+  })
 
   return (
     <div className="flex flex-col items-center w-full h-full pt-2 pb-8 border-r border-muted-foreground/30 ">

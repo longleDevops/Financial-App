@@ -1,34 +1,40 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
-import { Button } from '../shadcn-ui/button'
-import { ThemeSwitch } from './theme-switch'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useTheme } from 'next-themes'
+import { Button } from '../shadcn-ui/button'
 const HomeNavbar = () => {
-  const router = useRouter();
-  const onNavigate = () => {
-    router.push("/dashboard")
-  }
   const { setTheme } = useTheme()
   setTheme("light")
   return (
-    <div className={`fixed px-16 py-6 w-full text-black flex justify-between items-center`}>
-      <p className="font-semibold text-2xl">
-        DynamiteTrade.
-      </p>
+    <div className={`fixed px-16 py-6 w-full text-black flex justify-between items-center  bg-white z-[700]`}>
+      <div className='flex gap-2'>
+        <Image
+          src='/landing-page/logo.webp'
+          alt="Logo"
+          height={45}
+          width={45}
+          className=''
+        />
+        <p className="text-2xl font-semibold">
+          DynamiteTrade.
+        </p>
+      </div>
 
-      <div className="flex space-x-8 items-center font-semibold">
+
+      <div className="flex items-center space-x-8 font-semibold">
         <div>Home</div>
-        <div>Docs</div>
         <div>Pricing</div>
         <div>About Us</div>
-        <div>Stocks</div>
-        <div>About us</div>
-        <Button
-          onClick={onNavigate}
-          className="rounded-sm px-5 h-9">
-          Sign in
-        </Button>
+        <Link
+          href="/dashboard"
+        >
+          <Button
+            className="px-5 rounded-sm h-9">
+            Sign in
+          </Button>
+        </Link>
       </div>
     </div >
   )

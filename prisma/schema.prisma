@@ -87,7 +87,6 @@ model Company {
   price Float 
   yahooMarketV2Data Json
   yahooStockV2Summary Json
-  resources Resource?
   
   watchlists Watchlist_Company[]
   portfolios  Portfolio_Company[]
@@ -111,14 +110,7 @@ model Ticker {
   symbol String @unique
 }
 
-model Resource {
-  symbol String @unique
-  logoImg String
-  productImg String 
 
-  company Company @relation(fields: [symbol], references: [symbol])
-
-}
 model Product {
   id String @id @default(uuid())
   symbol String @unique
