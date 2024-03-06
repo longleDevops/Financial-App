@@ -74,7 +74,7 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
     resolver: zodResolver(FormSchema),
   })
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    deposit(data)
+    withdraw(data)
   }
   // const { data: cardLists, isLoading } = useQuery<CardModel[]>({
   //   queryKey: ['getCard2'],
@@ -89,7 +89,7 @@ export const Withdraw = ({ cardLists }: { cardLists: CardModel[] }) => {
 
 
   const queryClient = useQueryClient()
-  const { mutate: deposit, isPending } = useMutation({
+  const { mutate: withdraw, isPending } = useMutation({
     mutationFn: (data: z.infer<typeof FormSchema>) => {
       return axios.patch("/api/card/withdraw", data)
     },

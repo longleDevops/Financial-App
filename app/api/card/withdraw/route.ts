@@ -6,13 +6,14 @@ import prismadb from "@/lib/prismadb";
 export async function PATCH(request: Request) {
   try {
     const { userId } = auth()
+    console.log(userId)
     if (!userId)
       return new NextResponse("Unauthorized", { status: 401 });
 
     const { cardNum, value } = await request.json()
 
     const foundCard = await prismadb.card.findFirst({ where: { cardDigits: cardNum } })
-    const foundAccount = await prisma?.account.findFirst({ where: { id: userId } })
+    const foundAccount = await prismadb.account.findFirst({ where: { id: userId } })
 
     if (value > foundAccount.accountBalance) {
       await prismadb.account.update({
