@@ -15,7 +15,6 @@ const Sidebar = () => {
   const { animatedId, setAnimatedId } = useAnimation()
   const { theme } = useTheme()
   const pathName = usePathname()
-  const router = useRouter()
 
   const sidebarItems = [
     {

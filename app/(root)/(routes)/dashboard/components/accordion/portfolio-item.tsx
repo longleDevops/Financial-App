@@ -17,7 +17,6 @@ export const PortfolioItem = () => {
       const response = await axios.get('/api/portfolio')
       return response.data;
     },
-    staleTime: 3600000 // 1 hour in ms
   })
 
   if (isLoading || !queryData) {
@@ -29,6 +28,7 @@ export const PortfolioItem = () => {
   }
   //const data: Company[] = queryData.companies.map((item: Portfolio_Company & Company) => item.company);
   const data2 = queryData.companies
+  console.log(data2)
   return (
     <>
       {

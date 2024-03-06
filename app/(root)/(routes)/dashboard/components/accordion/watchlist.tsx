@@ -42,7 +42,7 @@ export const Watchlist = () => {
                   className="object-contain rounded-full max-h-[20px]"
                 />
                 <div className="flex flex-col items-start ml-1">
-                  <p className="font-medium">{company.yahooMarketV2Data.shortName}</p>
+                  <p className="font-medium">{company.yahooStockV2Summary.price.shortName}</p>
                   <p className="text-muted-foreground">just now</p>
                 </div>
               </div>
