@@ -159,8 +159,8 @@ const CompanyDetails = ({ foundCompany }: CompanyDetailsProps) => {
     <>
       <div>
         <h1>Updated at {regularTime}</h1>
-        <div className="pt-4 pb-2 text-xl font-semibold border-b border-muted-foreground/30">Company Overview</div>
-        <div className="py-6 px-4 space-y-2">
+        <div className="pt-8 pb-2 text-xl font-semibold border-b border-muted-foreground/30">Company Overview</div>
+        <div className="px-4 py-6 space-y-2">
           {headers.slice(0, 5).map((item, index) => (
             <div className="flex gap-4">
               <p className="w-[150px]">{item}</p>
@@ -173,7 +173,7 @@ const CompanyDetails = ({ foundCompany }: CompanyDetailsProps) => {
       <div className="pb-8">
         <div className="pt-4 pb-2 text-xl font-semibold border-b border-muted-foreground/30">Financial Data</div>
         <div className="flex justify-between ">
-          <div className="py-6 px-4 space-y-2 w-full">
+          <div className="w-full px-4 py-6 space-y-2">
             <div className="font-semibold">Valuation</div>
             {headers.slice(6, 15).map((item, index) => (
               <div className="flex justify-between">
@@ -183,12 +183,12 @@ const CompanyDetails = ({ foundCompany }: CompanyDetailsProps) => {
             ))}
           </div>
 
-          <div className="py-6 px-4 space-y-2 w-full">
+          <div className="w-full px-4 py-6 space-y-2">
             <div className="font-semibold">Revenue</div>
             {headers.slice(15, 25).map((item, index) => (
               <div className="flex justify-between">
                 <p className="text-muted-foreground">{item}</p>
-                <p className=" font-semibold">{data[index + 15]}</p>
+                <p className="font-semibold ">{data[index + 15]}</p>
               </div>
             ))}
           </div>
@@ -196,10 +196,10 @@ const CompanyDetails = ({ foundCompany }: CompanyDetailsProps) => {
       </div>
 
       <div className="pb-2 text-xl font-semibold border-b border-muted-foreground/30">Top Stakeholders</div>
-      <div className="pb-6 px-4 flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-between px-4 pb-6">
         {insiderHolders.holders.map((item) => (
           <div className="border border-muted-foreground/30 p-4 w-[30%] space-y-2 mt-6 rounded-lg">
-            <p className=" font-semibold">{item.name}</p>
+            <p className="font-semibold ">{item.name}</p>
             <div className="flex gap-2">
               <p className="">role</p>
               <p className="font-semibold">{item.relation}</p>
@@ -207,7 +207,7 @@ const CompanyDetails = ({ foundCompany }: CompanyDetailsProps) => {
             <div className="flex gap-2">
               <p className="">Shares</p>
               {item.positionDirect?.fmt ?
-                <p className=" font-semibold">{item.positionDirect?.fmt}</p> :
+                <p className="font-semibold ">{item.positionDirect?.fmt}</p> :
                 <p>No public information available</p>
               }
 

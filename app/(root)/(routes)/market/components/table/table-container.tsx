@@ -14,7 +14,7 @@ const TableContainer = ({ companies }: TableContainerProps) => {
       sector: item.yahooStockV2Summary.summaryProfile.sector,
       trend: item.yahooStockV2Summary.financialData.recommendationKey,
       price: item.price,
-      percentChg: item.yahooMarketV2Data.regularMarketChangePercent
+      percentChg: item.yahooStockV2Summary.price.regularMarketChange.fmt
     }
   ))
 

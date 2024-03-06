@@ -10,7 +10,6 @@ import { MoveRight } from "lucide-react"
 import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
 import { Button } from "@/components/aceternity-ui/moving-border"
-import { useImage } from "@/hooks/use-image"
 
 // This type is used to define the shape of our data.
 export type CompanyDef = {
@@ -28,15 +27,13 @@ export const columns: ColumnDef<CompanyDef>[] = [
       <div className="w-[70px]"><DataTableColumnHeader column={column} title="Company" /></div>
     ),
     cell: ({ row }) => {
-      const [isError, setIsError] = useState(false)
 
       const data: string = row.getValue("symbol")
-      const imgPath = !isError ? "/logos/" + data.toLowerCase() + ".svg" : "/logos/dummy-logo.webp"
+      const imgPath = "/logos/dummy-logo.webp"
       return (
         <div className="flex gap-3 items-center text-xs w-[70px]">
           <Image
             src={imgPath}
-            onError={() => setIsError(true)}
             alt="Company logo"
             width={18}
             height={18}
@@ -108,7 +105,6 @@ export const columns: ColumnDef<CompanyDef>[] = [
           {ticker === row.getValue("symbol") && <Button
             onClick={() => {
               setAnimatedId(1)
-              console.log(animatedId)
             }}
             borderRadius="100px"
             className={cn("text-black bg-white dark:bg-slate-900 hover:bg-cyan-800 hover:text-white dark:text-white border-neutral-400 dark:border-slate-800")}

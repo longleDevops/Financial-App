@@ -20,8 +20,8 @@ const ExecutiveCard = ({ employee }: ExecutiveProps) => {
         height={30}
         className="absolute -top-[15px] rounded-full"
       />
-      <p className="text-[10px] mb-2 mt-2">{name}</p>
-      <p>{role}</p>
+      <p className="text-[10px] mb-2 mt-2 text-center">{name}</p>
+      <p className="text-center">{role}</p>
       <p className="pt-4">{shares}</p>
     </div>
   )

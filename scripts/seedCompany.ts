@@ -2,51 +2,6 @@ import axios from "axios"
 import { db } from "@/scripts/index"
 import { Company } from "@prisma/client";
 
-// Get overview data for a maximum of 50 symbols
-async function fetchMarketV2(symbols: String[]) {
-  const options = {
-    method: 'GET',
-    url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
-    params: {
-      region: 'US',
-      symbols: symbols.join(',')
-    },
-    headers: {
-      'X-RapidAPI-Key': process.env.YAHOO_FINANCE_MARKET_QUOTES,
-      'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
-    }
-  };
-
-  try {
-    const response = await axios.request(options);
-    return response.data.quoteResponse.result;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// This is the main fetch() that allows more than 50 symbols
-async function getMarketV2Quotes(symbols: string[]) {
-  const chunkSize = 50;
-  const numChunks = Math.ceil(symbols.length / chunkSize);
-  const subArrays = [];
-
-  for (let i = 0; i < numChunks; i++) {
-    const startIndex = i * chunkSize;
-    const endIndex = startIndex + chunkSize;
-    subArrays.push(symbols.slice(startIndex, endIndex));
-  }
-
-  const fetchedData = [];
-
-  // Fetch market data for each sub-array and concatenate the results
-  for (const subArray of subArrays) {
-    const data = await fetchMarketV2(subArray);
-    fetchedData.push(...data);
-  }
-  return fetchedData;
-}
-
 // Get detail data for individual stock
 async function fetchStockV2Summary(symbol: string) {
   const options = {
@@ -96,12 +51,10 @@ async function seedCompanies() {
 
     const start = 0;
     const end = symbols.length < 10 ? symbols.length : 40;
-    const marketV2GetQuotes = await fetchMarketV2(symbols.slice(start, end + 1))
-    const stockV2GetSummary = await getStockV2Summary(symbols.slice(start, end))
+    const stockV2Summary = await getStockV2Summary(symbols.slice(start, end))
 
     console.log("total: " + symbols.length);
-    console.log("V2GetQuotes actual: " + marketV2GetQuotes.length)
-    console.log("V2GetSummary actual: " + stockV2GetSummary.length)
+    console.log("V2GetSummary actual: " + stockV2Summary.length)
 
     await Promise.all(symbols.slice(start, end).map(async (symbol: string, index: number) => (
       db.company.upsert({
@@ -111,9 +64,8 @@ async function seedCompanies() {
         update: {},
         create: {
           symbol,
-          price: marketV2GetQuotes[index].regularMarketPrice,
-          yahooMarketV2Data: marketV2GetQuotes[index],
-          yahooStockV2Summary: stockV2GetSummary[index],
+          price: stockV2Summary[index].price.regularMarketPrice.raw,
+          yahooStockV2Summary: stockV2Summary[index],
         }
       })
     )))

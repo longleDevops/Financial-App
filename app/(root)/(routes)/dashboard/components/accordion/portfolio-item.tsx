@@ -27,17 +27,17 @@ export const PortfolioItem = () => {
       </div>
     );
   }
-  const data: Company[] = queryData.companies.map((item: Portfolio_Company & Company) => item.company);
-
+  //const data: Company[] = queryData.companies.map((item: Portfolio_Company & Company) => item.company);
+  const data2 = queryData.companies
   return (
     <>
       {
-        !data || data.length === 0 ?
+        !data2 || data2.length === 0 ?
           <div className='h-[30px] flex justify-center items-center text-muted-foreground text-sm'>
             No stocks added.
           </div> :
           <div className="flex flex-col gap-3 mt-4 ">
-            {data.map(company => (
+            {data2.map((company: Portfolio_Company & Company) => (
               <button
                 key={company.id}
                 className="flex justify-between px-4 py-2 text-xs rounded-md shadow-md "
@@ -45,7 +45,7 @@ export const PortfolioItem = () => {
                 <div className="flex items-center gap-2 w-[150px]">
                   <Image
                     alt="stock img"
-                    src={`/logos/${company.symbol.toLowerCase()}.svg`}
+                    src={`/logos/${company.company.logoSrc}`}
                     width={22}
                     height={22}
                     className="object-contain rounded-full p-[2px] dark:bg-slate-200"
@@ -55,8 +55,8 @@ export const PortfolioItem = () => {
                   </div>
                 </div>
                 <div className="flex flex-col items-end">
-                  <p className="">${company.price}</p>
-                  <p className="text-muted-foreground">-5.23%</p>
+                  <p className="">${(company.shares * company.company.price).toFixed(2)}</p>
+                  <p className="text-muted-foreground">{company.shares.toFixed(8) + " shares"}</p>
                 </div>
               </button>
             ))}

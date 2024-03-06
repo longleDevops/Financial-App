@@ -146,7 +146,7 @@ export function BuyTransaction({ company }: TransactionProps) {
               Company
             </Label>
             <Label className="col-span-3 pl-4" >
-              {company.yahooMarketV2Data.longName}
+              {company.yahooStockV2Summary.price.shortName}
             </Label>
           </div>
 

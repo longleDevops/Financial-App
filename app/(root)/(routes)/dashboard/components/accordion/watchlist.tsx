@@ -36,7 +36,7 @@ export const Watchlist = () => {
               <div className="flex items-center gap-2 w-[210px] ">
                 <Image
                   alt="stock img"
-                  src={`/logos/${company.symbol.toLowerCase()}.svg`}
+                  src={`/logos/${company.logoSrc}`}
                   width={20}
                   height={20}
                   className="object-contain rounded-full max-h-[20px]"

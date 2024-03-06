@@ -29,6 +29,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useToast } from "@/components/shadcn-ui/use-toast"
 import { ViewCards } from "./view-cards"
+import { Skeleton } from "@/components/shadcn-ui/skeleton"
 export const DropdownContent = () => {
   const { order, setOrder, isOpen, setIsOpen } = useOrder()
   const { toast } = useToast()
@@ -41,7 +42,9 @@ export const DropdownContent = () => {
   })
 
   if (isLoading) return (
-    <div>isloading</div>
+    <Skeleton
+      className="w-[30px] h-[20px]"
+    />
   )
   return (
     <div >

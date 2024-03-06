@@ -9,7 +9,6 @@ import Heart from "./heart";
 import { ProductDialog } from "./product-dialog";
 import { ProgressBar } from "./progress-bar";
 import { useTicker } from "@/hooks/use-ticker";
-import { useImage } from "@/hooks/use-image";
 interface FeaturedProductProps {
   company: Company,
 }
@@ -21,10 +20,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
   const [isSwapped, setIsSwapped] = useState(true)
 
   const companyName = company.yahooStockV2Summary.price.shortName
-  const { productSrc, setProductSrc } = useImage()
   // animate product img
   useEffect(() => {
-    setProductSrc(`/products/${ticker.toLowerCase()}.webp`)
     if (isSwapped) {
       animate(scope.current, { x: 150, scale: 0, opacity: 0 }, { duration: 0 })
       const timeout = setTimeout(() => {
@@ -41,7 +38,8 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
     setIsSwapped(!isSwapped)
     return () => clearTimeout(timeout2);
   }, [ticker])
-
+  const img = company.productSrc
+  console.log(img)
   return (
     <div className="flex flex-col justify-between h-full text-sm">
       <div className="flex justify-between">
@@ -64,8 +62,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
       <div className="relative flex items-center justify-center flex-1 w-[300px] h-[300px] mx-auto">
         <Image
           className={"object-contain  absolute w-auto h-auto"}
-          src={productSrc === '' ? `/products/${ticker.toLowerCase()}.webp` : productSrc}
-          onError={() => setProductSrc('/products/dummy-product.webp')}
+          src={`/products/${img}`}
           alt="Product Image"
           width={300}
           height={300}
@@ -74,8 +71,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
         />
         <Image
           className={"object-contain  absolute opacity-0 scale-[.2] translate-x-[150px] w-auto h-auto"}
-          src={productSrc === '' ? `/products/${ticker.toLowerCase()}.webp` : productSrc}
-          onError={() => setProductSrc('/products/dummy-product.webp')}
+          src={`/products/${img}`}
           alt="Product Image"
           width={300}
           height={300}

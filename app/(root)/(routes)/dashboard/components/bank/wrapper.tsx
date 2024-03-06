@@ -29,7 +29,6 @@ export const Wrapper = () => {
       className="h-[150px] mx-4"
     />
   )
-  console.log(data)
   return (
     <>
       {!data || data.length === 0 ?

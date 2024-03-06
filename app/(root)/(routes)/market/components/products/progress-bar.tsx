@@ -33,13 +33,13 @@ const getPortion2 = (portion: number) => {
 export function ProgressBar({ company }: ProgressBarProps) {
   const [progress, setProgress] = useState(0)
   const [secondProgress, setSecondProgress] = useState(0)
-  const revenue = new BigNumber(company.yahooMarketV2Data.revenue)
+  const revenue = new BigNumber(company.yahooStockV2Summary.financialData.totalRevenue.raw)
   const formatRevenue = revenue.toFormat(0, { groupSeparator: ',', groupSize: 3 })
 
   const total = new BigNumber(1000000000)
   const portion = revenue.dividedBy(total).toNumber()
 
-  const marketCap = new BigNumber(company.yahooMarketV2Data.marketCap)
+  const marketCap = new BigNumber(company.yahooStockV2Summary.price.marketCap.raw)
   const formatRevenue2 = marketCap.toFormat(0, { groupSeparator: ',', groupSize: 3 })
   const totalMarket = new BigNumber(100000000)
   const portion2 = revenue.dividedBy(totalMarket).toNumber()

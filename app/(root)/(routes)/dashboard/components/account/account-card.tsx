@@ -47,7 +47,7 @@ export const AccountCard = (
       </p>
 
       <div className={`${index === 0 && "text-white"} flex items-end justify-between mt-2`}>
-        <div className={`flex items-center justify-center gap-1  rounded-2xl py-1 px-2 bg-zinc-300/30 dark:bg-zinc-300/15 ${index === 1 && "text-green-600 bg-green-600/10 dark:bg-green-600/10"} ${index === 2 && "text-red-600 bg-red-600/10 dark:bg-red-600/10"}`}>
+        <div className={`flex items-center justify-center gap-1  rounded-2xl py-1 px-2 bg-zinc-300/30 dark:bg-zinc-300/15 ${index === 1 && "text-green-600 bg-green-600/10 dark:bg-green-600/10"} ${index === 2 && "text-green-600 bg-green-600/10 dark:bg-red-600/10"}`}>
           <AiOutlineRise
             size={16}
           />

@@ -85,7 +85,8 @@ model Company {
   id String @id @default(uuid())
   symbol String @unique
   price Float 
-  yahooMarketV2Data Json
+  logoSrc String?
+  productSrc String?
   yahooStockV2Summary Json
   
   watchlists Watchlist_Company[]
@@ -110,13 +111,6 @@ model Ticker {
   symbol String @unique
 }
 
-
-model Product {
-  id String @id @default(uuid())
-  symbol String @unique
-  name String
-  imgSrc String
-}
 
 // Chatbot models
 model ChatBot {

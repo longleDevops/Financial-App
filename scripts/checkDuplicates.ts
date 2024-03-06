@@ -3,6 +3,7 @@ import { Company } from "@prisma/client";
 
 const compareArrays = (arr1: string[], arr2: string[]): boolean => {
   if (arr1.length !== arr2.length) {
+    console.log("not same length")
     return false;
 
   }
@@ -10,21 +11,28 @@ const compareArrays = (arr1: string[], arr2: string[]): boolean => {
 
 };
 
+const compareArrays2 = (arr1: string[], arr2: string[]): number[] => {
+  if (arr1.length !== arr2.length) {
+    console.log("not same length")
+    return [0];
+
+  }
+  const result = []
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      result.push(i)
+    }
+  }
+  return result;
+
+};
 export async function checkDuplicate() {
   const companies: Company[] = await db.company.findMany()
   const symbols = companies.map((item: Company) => item.symbol)
   const summary = companies.map((item) => item.yahooStockV2Summary.symbol)
-  const market = companies.map((item) => item.yahooMarketV2Data)
 
-
-  console.log(symbols === summary)
-  console.log(compareArrays(symbols, market))
-  console.log(compareArrays(market, summary))
-
-
-  console.log(symbols === market)
-
-
+  console.log(compareArrays(symbols, summary))
+  console.log(compareArrays2(symbols, summary))
 }
 
 checkDuplicate()
