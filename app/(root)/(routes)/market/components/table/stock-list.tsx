@@ -18,13 +18,12 @@ import {
   TableHeader,
   TableRow
 } from "@/components/shadcn-ui/table";
-import { Company, Product } from "@prisma/client";
+import { Company } from "@prisma/client";
 
 interface StockListProps {
   ticker: string
   setTicker: (ticker: string) => void
   companies: Company[]
-  products: Product[]
   animatedClick: () => void;
   searchSymbol: string
 }
@@ -50,7 +49,7 @@ const getChangeFormat = (percent: number) => {
   return '+' + percent.toFixed(2) + '%'
 }
 
-export const StockList = ({ ticker, setTicker, companies, products, animatedClick }: StockListProps) => {
+export const StockList = ({ ticker, setTicker, companies, animatedClick }: StockListProps) => {
 
 
   const handleClick = (company: Company) => {
