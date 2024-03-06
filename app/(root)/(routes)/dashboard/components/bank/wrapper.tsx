@@ -26,7 +26,7 @@ export const Wrapper = () => {
   })
   if (isLoading) return (
     <Skeleton
-      className="h-[100px] mx-4"
+      className="h-[150px] mx-4"
     />
   )
   console.log(data)

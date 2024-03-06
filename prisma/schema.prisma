@@ -49,7 +49,7 @@ model Watchlist {
 model Watchlist_Company {
   watchlist Watchlist @relation(fields: [watchlistId],references: [id])
   watchlistId String
-  company  Company @relation(fields: [companyId], references:[id])
+  company  Company @relation(fields: [companyId], references:[id],onDelete: Cascade)
   companyId String
   symbol String
   @@id([watchlistId,companyId])
@@ -73,7 +73,7 @@ model Card {
 model Portfolio_Company {
   portfolio Portfolio @relation(fields: [portfolioId],references: [id])
   portfolioId String
-  company  Company @relation(fields: [companyId], references:[id])
+  company  Company @relation(fields: [companyId], references:[id],onDelete:  Cascade)
   companyId String
   symbol String
   shares Float
@@ -137,8 +137,4 @@ model Message {
   chatBot  ChatBot @relation(fields: [id], references: [id])
 }
 
-model AllTicker {
-  id String @id @default(uuid())
-  symbol String @unique
-}
 

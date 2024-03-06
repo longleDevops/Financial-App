@@ -1,17 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { useAnimate } from "framer-motion"
+import { useEffect } from "react"
 
-import { Company, Product } from "@prisma/client"
-import { StockList } from "./table/stock-list"
-import { FeaturedProduct } from "./products/featured-product"
-import { CompanyProfile } from "./company-profile/company-profile"
-import TableContainer from "./table/table-container"
-import { useTicker } from "@/hooks/use-ticker"
 import { useAnimation } from "@/hooks/use-animation"
-import { useQueryClient } from "@tanstack/react-query"
-import { usePathname } from "next/navigation"
+import { useTicker } from "@/hooks/use-ticker"
+import { Company } from "@prisma/client"
+import { CompanyProfile } from "./company-profile/company-profile"
+import { FeaturedProduct } from "./products/featured-product"
+import TableContainer from "./table/table-container"
 export interface MarketContainerProps {
   companies: Company[]
 }
@@ -20,11 +17,9 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
   const { ticker } = useTicker()
   const foundCompany = companies.find((item: Company) => item.symbol === ticker)
   const updatedAt = new Date(foundCompany.yahooStockV2Summary.price.regularMarketTime).toLocaleTimeString()
-  console.log(updatedAt)
   const { animatedId, setAnimatedId, firstLoop, setFirstLoop } = useAnimation()
   const [frontElement, animate] = useAnimate();
   const [behindElement, animate1] = useAnimate();
-  const pathname = usePathname()
   // Animation
   useEffect(() => {
     if (firstLoop) {
@@ -45,9 +40,9 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
       animate1(behindElement.current, { scale: [1, .8], x: xValue }, { duration: .2 });
     }
   }, [animatedId, firstLoop])
-  useEffect(() => {
-    setAnimatedId(2)
-  }, [pathname])
+  // useEffect(() => {
+  //   setAnimatedId(2)
+  // }, [pathname])
   return (
     <div className="flex h-full">
       {/*Left Container*/}
@@ -63,7 +58,7 @@ const MarketContainer = ({ companies }: MarketContainerProps) => {
           ref={frontElement}
           className={`absolute pt-8 z-[1] w-full h-full flex flex-col overflow-y-auto ${animatedId === 1 && "opacity-0"}`}
         >
-          <div className="pb-6 px-8 text-lg font-semibold flex gap-4 justify-between items-end">
+          <div className="flex items-end justify-between gap-4 px-8 pb-6 text-lg font-semibold">
             <p>Companies</p>
             <div className="text-[11px] font-medium text-muted-foreground ">
               Updated {updatedAt}

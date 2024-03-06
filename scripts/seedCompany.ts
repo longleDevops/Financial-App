@@ -12,7 +12,7 @@ async function fetchMarketV2(symbols: String[]) {
       symbols: symbols.join(',')
     },
     headers: {
-      'X-RapidAPI-Key': '8f54d4c5c3msh2a085748e236832p1f8830jsndd3103bf567c',
+      'X-RapidAPI-Key': process.env.YAHOO_FINANCE_MARKET_QUOTES,
       'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
     }
   };
@@ -57,7 +57,7 @@ async function fetchStockV2Summary(symbol: string) {
       region: 'US'
     },
     headers: {
-      'X-RapidAPI-Key': '8f54d4c5c3msh2a085748e236832p1f8830jsndd3103bf567c',
+      'X-RapidAPI-Key': process.env.YAHOO_FINANCE_STOCK_SUMMARY,
       'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com'
     }
   };
@@ -87,9 +87,6 @@ async function seedCompanies() {
     const symbolList = await db.ticker.findMany({
       select: {
         symbol: true
-      },
-      orderBy: {
-        symbol: "asc"
       }
     })
     const companies: Company[] = await db.company.findMany()
@@ -98,8 +95,8 @@ async function seedCompanies() {
     const symbols = allSymbols.filter((symbol) => existingSymbols.indexOf(symbol) === -1);
 
     const start = 0;
-    const end = symbols.length < 10 ? symbols.length : 20;
-    const marketV2GetQuotes = await getMarketV2Quotes(symbols.slice(start, end))
+    const end = symbols.length < 10 ? symbols.length : 40;
+    const marketV2GetQuotes = await fetchMarketV2(symbols.slice(start, end + 1))
     const stockV2GetSummary = await getStockV2Summary(symbols.slice(start, end))
 
     console.log("total: " + symbols.length);
@@ -111,11 +108,7 @@ async function seedCompanies() {
         where: {
           symbol
         },
-        update: {
-          price: marketV2GetQuotes[index].regularMarketPrice,
-          yahooMarketV2Data: marketV2GetQuotes[index],
-          yahooStockV2Summary: stockV2GetSummary[index],
-        },
+        update: {},
         create: {
           symbol,
           price: marketV2GetQuotes[index].regularMarketPrice,

@@ -133,7 +133,7 @@ export function SellTransaction({ company }: TransactionProps) {
       />
       <SheetContent >
         <SheetHeader>
-          <SheetTitle>Buy Stock</SheetTitle>
+          <SheetTitle>Sell Stock</SheetTitle>
           <SheetDescription>
             Make stock transactions here
           </SheetDescription>

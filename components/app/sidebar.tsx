@@ -10,9 +10,11 @@ import { TbMessageBolt } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { GrBarChart } from "react-icons/gr";
+import { useTheme } from "next-themes";
 
 
 const Sidebar = () => {
+  const { theme } = useTheme()
   const pathName = usePathname()
   const router = useRouter()
   const sidebarItems = [
@@ -44,14 +46,14 @@ const Sidebar = () => {
   sidebarItems.map((item) => {
     router.prefetch(item.href)
   })
-
+  const src = theme === 'light' ? "/landing-page/logo.webp" : "/landing-page/logo2.png"
   return (
-    <div className="flex flex-col items-center w-full h-full pt-2 pb-8 border-r border-muted-foreground/30 ">
+    <div className="flex flex-col items-center w-full h-full pt-4 pb-8 border-r border-muted-foreground/30 ">
       <Image
-        src="/logos/dynamitetrade.webp"
+        src={src}
         alt="company logo"
-        width={60}
-        height={60}
+        width={33}
+        height={33}
       />
 
       <div className="space-y-4 text-xs font-medium mt-14">
@@ -60,8 +62,8 @@ const Sidebar = () => {
             prefetch={true}
             key={item.href}
             href={item.href}
-            className={cn("py-2 flex items-center justify-center p-3 group  rounded-lg text-muted-foreground hover:cursor-pointer hover:text-white",
-              item.isActive ? "bg-[#6149cd] text-white" : "hover:bg-[#6149cd]/30"
+            className={cn("py-2 flex items-center justify-center p-3 group  rounded-lg text-muted-foreground hover:cursor-pointer hover:text-white hover:bg-[#230f61] shadow-md dark:shadow-sm dark:shadow-purple-700",
+              item.isActive ? "bg-[#6149cd] text-white shadow-sm shadow-[#19033e]  " : "hover:bg-[#6149cd]/30"
             )}
           >
             <item.icon className="w-5 h-5" />
