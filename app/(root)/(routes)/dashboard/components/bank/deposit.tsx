@@ -79,17 +79,6 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     deposit(data)
   }
-  // const { data: cardLists, isLoading } = useQuery<CardModel[]>({
-  //   queryKey: ['getCard2'],
-  //   queryFn: async () => {
-  //     const result = await axios.get("/api/card")
-  //     return result.data;
-  //   }
-  // })
-  // if (isLoading) return (
-  //   <div>...Loading</div>
-  // )
-
 
   const queryClient = useQueryClient()
   const { mutate: deposit, isPending } = useMutation({
@@ -109,7 +98,7 @@ export const Deposit = ({ cardLists }: { cardLists: CardModel[] }) => {
       })
     },
     onSuccess: () => {
-      toast.success("Remove Card Successfully")
+      toast.success("Deposit Successfully")
       setIsOpen(!isOpen)
       queryClient.invalidateQueries({
         queryKey: ['getCard'],

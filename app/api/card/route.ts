@@ -17,6 +17,5 @@ export async function GET() {
   })
 
   console.log("card GET route runs")
-  console.log(result.cards)
   return NextResponse.json(result.cards, { status: 200 });
 }

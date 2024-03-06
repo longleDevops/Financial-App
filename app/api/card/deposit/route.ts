@@ -12,7 +12,9 @@ export async function PATCH(request: Request) {
 
     const { cardNum, value } = await request.json()
 
-    const foundCard = await prismadb.card.findFirst({ where: { cardDigits: cardNum } })
+    const foundCard = await prismadb.card.findFirst(
+      { where: { cardDigits: cardNum } }
+    )
     if (value > foundCard.value) {
       await prismadb.account.update({
         where: {
@@ -40,7 +42,7 @@ export async function PATCH(request: Request) {
       }
     })
 
-    const foundAccount = await prisma?.account.findFirst({ where: { id: userId } })
+    const foundAccount = await prismadb.account.findFirst({ where: { id: userId } })
     await prismadb.account.update({
       where: {
         id: userId
