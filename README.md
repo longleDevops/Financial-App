@@ -5,6 +5,8 @@ The project is written in JavaScript/TypeScript leveraging full stack framework 
 
 Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.vercel.app/)
 
+![](https://github.com/longleDevops/Financial-App/blob/main/public/landing-page/landing-animation.gif)
+
 # Architecture
 
 ## Tech Stack
