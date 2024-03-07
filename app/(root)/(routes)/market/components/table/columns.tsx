@@ -29,7 +29,7 @@ export const columns: ColumnDef<CompanyDef>[] = [
     cell: ({ row }) => {
 
       const data: string = row.getValue("symbol")
-      const imgPath = "/logos/dummy-logo.webp"
+      const imgPath = "/logos/" + data.toLowerCase() + ".svg";
       return (
         <div className="flex gap-3 items-center text-xs w-[70px]">
           <Image

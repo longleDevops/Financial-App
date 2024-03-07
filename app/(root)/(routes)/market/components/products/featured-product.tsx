@@ -38,8 +38,6 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
     setIsSwapped(!isSwapped)
     return () => clearTimeout(timeout2);
   }, [ticker])
-  const img = company.productSrc
-  console.log(img)
   return (
     <div className="flex flex-col justify-between h-full text-sm">
       <div className="flex justify-between">
@@ -62,7 +60,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
       <div className="relative flex items-center justify-center flex-1 w-[300px] h-[300px] mx-auto">
         <Image
           className={"object-contain  absolute w-auto h-auto"}
-          src={`/products/${img}`}
+          src={`/products/${ticker}.webp`}
           alt="Product Image"
           width={300}
           height={300}
@@ -71,7 +69,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
         />
         <Image
           className={"object-contain  absolute opacity-0 scale-[.2] translate-x-[150px] w-auto h-auto"}
-          src={`/products/${img}`}
+          src={`/products/${ticker}.webp`}
           alt="Product Image"
           width={300}
           height={300}

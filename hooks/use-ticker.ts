@@ -8,7 +8,7 @@ interface ITicker {
 }
 
 export const useTicker = create<ITicker>((set) => ({
-  ticker: 'BA',
+  ticker: 'MSFT',
   setTicker: (ticker) => set({ ticker }),
   isLiking: false,
   setIsLiking: (isLiking) => set({ isLiking })

@@ -38,7 +38,7 @@ async function getStockV2Summary(symbols: string[]) {
 // Seeds company data into the database
 async function seedCompanies() {
   try {
-    //await db.company.deleteMany()
+    await db.company.deleteMany()
     const symbolList = await db.ticker.findMany({
       select: {
         symbol: true

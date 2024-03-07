@@ -3,6 +3,7 @@
 import { Company } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 export const Watchlist = () => {
 
@@ -36,7 +37,7 @@ export const Watchlist = () => {
               <div className="flex items-center gap-2 w-[210px] ">
                 <Image
                   alt="stock img"
-                  src={`/logos/${company.logoSrc}`}
+                  src={`/logos/${company.symbol}.svg`}
                   width={20}
                   height={20}
                   className="object-contain rounded-full max-h-[20px]"
@@ -48,7 +49,9 @@ export const Watchlist = () => {
               </div>
               <div className="flex flex-col items-end">
                 <p className="">${company.price}</p>
-                <p className="text-muted-foreground">Buy</p>
+                <p className="text-muted-foreground">
+                  <Heart className="text-red-600 fill-red-600" width={20} height={20} />
+                </p>
               </div>
             </div>
           ))}

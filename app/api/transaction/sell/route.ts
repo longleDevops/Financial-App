@@ -59,6 +59,7 @@ export async function PATCH(request: Request) {
       }
     })
 
+
     await prismadb.portfolio_Company.update({
       where: {
         portfolioId_companyId: {
@@ -67,11 +68,11 @@ export async function PATCH(request: Request) {
         }
       },
       data: {
-        shares: portfolioShares - value / company.price
+        shares: portfolioShares.shares - value / company.price
       }
     })
 
-    if (portfolioShares - value / company.price <= 0.1) {
+    if (portfolioShares.shares - value / company.price <= 0.1) {
       await prismadb.portfolio_Company.delete({
         where: {
           portfolioId_companyId: {

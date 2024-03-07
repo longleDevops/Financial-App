@@ -14,7 +14,7 @@ import { TbMessageBolt } from "react-icons/tb";
 const Sidebar = () => {
   const { theme } = useTheme()
   const pathName = usePathname()
-
+  const { animatedId, setAnimatedId } = useAnimation()
   const sidebarItems = [
     {
       name: "Dashboard",
@@ -55,6 +55,7 @@ const Sidebar = () => {
             prefetch={true}
             key={item.href}
             href={item.href}
+            onClick={() => setAnimatedId(2)}
             className={cn("py-2 flex items-center justify-center p-3 group  rounded-lg text-muted-foreground hover:cursor-pointer hover:text-white hover:bg-[#230f61] shadow-md dark:shadow-sm dark:shadow-purple-700",
               item.isActive ? "bg-[#6149cd] text-white shadow-sm shadow-[#19033e]  " : "hover:bg-[#6149cd]/30"
             )}
