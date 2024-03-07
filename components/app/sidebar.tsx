@@ -12,7 +12,6 @@ import { IoStorefrontOutline } from "react-icons/io5";
 import { TbMessageBolt } from "react-icons/tb";
 
 const Sidebar = () => {
-  const { animatedId, setAnimatedId } = useAnimation()
   const { theme } = useTheme()
   const pathName = usePathname()
 

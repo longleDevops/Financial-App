@@ -31,6 +31,24 @@ export async function PATCH(request: Request) {
     ]
     const [portfolio, company, account] = await Promise.all(promises)
 
+    await prismadb.account.update({
+      where: {
+        id: userId
+      },
+      data: {
+        accountBalance: account.accountBalance + value,
+        accountValue: account.accountValue + value
+      }
+    })
+    await prismadb.portfolio.update({
+      where: {
+        accountId: userId
+      },
+      data: {
+        portfolioVal: portfolio.portfolioVal - value
+      }
+    })
+
     const portfolioShares = await prismadb.portfolio_Company.findFirst({
       where: {
         portfolioId: portfolio.id,
@@ -40,7 +58,6 @@ export async function PATCH(request: Request) {
         shares: true
       }
     })
-    console.log(portfolioShares)
 
     await prismadb.portfolio_Company.update({
       where: {
@@ -64,23 +81,7 @@ export async function PATCH(request: Request) {
         }
       })
     }
-    await prismadb.account.update({
-      where: {
-        id: userId
-      },
-      data: {
-        accountBalance: account.accountBalance + value,
-        accountValue: account.accountValue + value
-      }
-    })
-    await prismadb.portfolio.update({
-      where: {
-        accountId: userId
-      },
-      data: {
-        portfolioVal: portfolio.portfolioVal - value
-      }
-    })
+
 
 
 
