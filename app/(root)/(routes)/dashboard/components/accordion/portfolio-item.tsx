@@ -45,7 +45,7 @@ export const PortfolioItem = () => {
                 <div className="flex items-center gap-2 w-[150px]">
                   <Image
                     alt="stock img"
-                    src={`/logos/${company.symbol}.svg`}
+                    src={`/logos/${company.symbol.toLowerCase()}.svg`}
                     width={22}
                     height={22}
                     className="object-contain rounded-full p-[2px] dark:bg-slate-200"

@@ -60,7 +60,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
       <div className="relative flex items-center justify-center flex-1 w-[300px] h-[300px] mx-auto">
         <Image
           className={"object-contain  absolute w-auto h-auto"}
-          src={`/products/${ticker}.webp`}
+          src={`/products/${ticker.toLowerCase()}.webp`}
           alt="Product Image"
           width={300}
           height={300}
@@ -69,7 +69,7 @@ export const FeaturedProduct: React.FC<FeaturedProductProps> = ({ company }) => 
         />
         <Image
           className={"object-contain  absolute opacity-0 scale-[.2] translate-x-[150px] w-auto h-auto"}
-          src={`/products/${ticker}.webp`}
+          src={`/products/${ticker.toLowerCase()}.webp`}
           alt="Product Image"
           width={300}
           height={300}

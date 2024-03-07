@@ -58,7 +58,7 @@ export const CompanyProfile = ({ company }: CompanyProfile) => {
       <div className="flex justify-between">
         <div className="flex gap-4">
           <Image
-            src={`/logos/${company.symbol}.svg`}
+            src={`/logos/${company.symbol.toLowerCase()}.svg`}
             alt="company logo"
             width={35}
             height={35}
