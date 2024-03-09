@@ -11,6 +11,10 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 
 ![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg)
 
+## Classes
+
+![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/classes.svg)
+
 ## Tech Stack
 
 * Vercel
