@@ -1,0 +1,41 @@
+frontend: Frontend {
+  grid-rows: 2
+  pages: Pages {
+    login: Login Form
+    dashboard: Dashboard
+    company_view: Company View
+    chatbot: ChatBot
+  }
+  subsystems: Tech Stack {
+    nextjs: Next.JS
+    shadcnui: Shadcn-UI
+    chartjs: Chart.JS
+    clerk: Clerk
+  }
+}
+
+backend: Backend {
+  vercel: Vercel
+  nodejs: Node.js
+  prisma: Prisma
+}
+
+api_provider: API Provider {
+  yahoo: Yahoo Finance
+}
+
+database: Cloud Database {
+  supabase: Supabase (PostgreSQL) {
+    grid-rows: 2
+    account: Account
+    company: Company
+    ticker: Ticker
+    card: Card
+    chatbot: ChatBot
+    message: Message
+  }
+}
+
+frontend <-> backend
+backend <-> api_provider
+backend <-> database
