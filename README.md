@@ -19,6 +19,7 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 * Clerk
 * OpenAI API
 * Chart.JS
+* Aceternity-UI
 
 ## Project Layout
 
