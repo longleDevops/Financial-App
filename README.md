@@ -9,6 +9,8 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 
 # Architecture
 
+![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg)
+
 ## Tech Stack
 
 * Vercel
