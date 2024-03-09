@@ -1,0 +1,90 @@
+# Classes.
+
+account: Account {
+  shape: class
+
+  -firstName: string
+  -lastName: string
+  -cards: "[]Card"
+  -chatbot: ChatBot
+  getName(): (string, string)
+  setName(first, last string)
+  getCurCard(): Card
+  askQuestion(msg Message)
+}
+
+card: Card {
+  shape: class
+
+  -number: "[]uint"
+  -balance: int
+  -history: "[]Company"
+  getNumber(): "[]uint"
+  "setNumber(num []uint)"
+  getBalance(): int
+  purchaseStock(com Company): error
+}
+
+company: Company {
+  shape: class
+
+  -name: string
+  -stockPrices: "[]int"
+  getName(): string
+  getStockPrice(): int
+  addStockPrice(price: int)
+}
+
+chatbot: ChatBot {
+  shape: class
+
+  -msgs: "[]Message"
+  +askQuestion(msg Message)
+  +getMessages(): "[]Message"
+}
+
+message: Message {
+  shape: class
+
+  time: Time
+  content: string
+  isUser: bool
+}
+
+# Connections.
+
+chatbot -> account: {
+  source-arrowhead: *
+  target-arrowhead: 1 {
+    shape: diamond
+  }
+}
+
+account -- company: {
+  source-arrowhead: *
+  target-arrowhead: *
+}
+
+message -> chatbot: {
+  source-arrowhead: *
+  target-arrowhead: 1 {
+    shape: diamond
+  }
+}
+
+card -> account: {
+  source-arrowhead: *
+  target-arrowhead: 1 {
+    shape: diamond
+  }
+}
+
+account -- message: {
+  source-arrowhead: 1
+  target-arrowhead: *
+}
+
+company -- card: {
+  source-arrowhead: *
+  target-arrowhead: *
+}
