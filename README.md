@@ -7,14 +7,6 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 
 ![](https://github.com/longleDevops/Financial-App/blob/main/public/landing-page/landing-animation.gif)
 
-# Architecture
-
-![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg)
-
-## Classes
-
-![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/class.svg)
-
 ## Tech Stack
 
 * Vercel
@@ -80,6 +72,14 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
     ├──types/
     └──utils/
 ```
+
+# Architecture
+
+![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg)
+
+## Classes
+
+![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/class.svg)
 
 # Status
 
