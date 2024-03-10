@@ -10,8 +10,9 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 ## Tech Stack
 
 * Vercel
-* NextJS 14
+* NextJS 
 * Shadcn-UI
+* Tanstack Query
 * Supabass
 * PrismaORM
 * Clerk
@@ -75,11 +76,11 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 
 # Architecture
 
-![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg)
+<img src='https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg' width='600' >
 
 ## Classes
 
-![High-Level Architecture](https://github.com/longleDevops/Financial-App/blob/main/doc/class.svg)
+<img src='https://github.com/longleDevops/Financial-App/blob/main/doc/class.svg' width='600' >
 
 # Status
 
