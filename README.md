@@ -10,7 +10,7 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 ## Tech Stack
 
 * Vercel
-* NextJS
+* [![Next][Next.js]][Next-url]
 * Shadcn-UI
 * Supabass
 * PrismaORM
