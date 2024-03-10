@@ -20,6 +20,19 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 * Chart.JS
 * Aceternity-UI
 
+## Features
+
+- ChatGPT Bot 3.5 Turbo
+- Light/dark mode toggle
+- Buy/sell stocks 
+- Add/remove stocks from watchlist
+- View transaction records
+- Add/remove customizable cards
+- Deposit/withdraw from trading account
+- Authentication
+- Search stocks
+- View stock prices & company history
+
 ## Project Layout
 
 ```
@@ -73,6 +86,9 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
     ├──types/
     └──utils/
 ```
+# ER Diagram
+
+<img src='https://github.com/longleDevops/logo-images/blob/main/DynamiteTrade%20-%20Frame%201.jpg'  >
 
 # Architecture
 
