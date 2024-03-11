@@ -1,4 +1,4 @@
-# Introduction
+# :point_right: Introduction
 
 DynamiteTrade is an opensource financial project aiming to provide a clean and snappy user interface to view stock information of companies in (soft) real time.
 The project is written in JavaScript/TypeScript leveraging full stack framework NextJS and deploying on Vercel hosting platform.
@@ -7,7 +7,7 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 
 <img src='https://github.com/longleDevops/Financial-App/blob/main/public/landing-page/landingpage-animation2.gif'>
 
-## Tech Stack
+## :zap: Tech Stack
 
 <details open>
 <summary>Client</summary>
@@ -47,7 +47,7 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 
 </details>
 
-## Features
+## :pushpin: Features 
 
 - ChatGPT-3.5 Bot
 - Light/dark mode toggle
@@ -60,7 +60,7 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
 - Search stocks
 - View stock prices & company history
 
-## Environment Variables
+## :key: Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
@@ -82,7 +82,7 @@ To run this project, you will need to add the following environment variables to
 
 `DIRECT_URL`
 
-# Build
+# :hammer: Build
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -174,7 +174,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ```
 
 
-## API Reference
+## :green_book: API Reference
 
 #### Get account
 
