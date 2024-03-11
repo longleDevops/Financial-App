@@ -86,21 +86,90 @@ Here is the site: [https://dynamitetrade.vercel.app/](https://dynamitetrade.verc
     ├──types/
     └──utils/
 ```
-# ER Diagram
 
-<img src='https://github.com/longleDevops/logo-images/blob/main/DynamiteTrade%20-%20Frame%201.jpg'  >
+## Environment Variables
 
-# Architecture
+To run this project, you will need to add the following environment variables to your .env file
 
-<img src='https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg' width='600' >
+`YAHOO_FINANCE_STOCK_SUMMARY`
 
-## Classes
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
 
-<img src='https://github.com/longleDevops/Financial-App/blob/main/doc/class.svg' width='600' >
+`CLERK_SECRET_KEY`
 
-# Status
+`NEXT_PUBLIC_CLERK_SIGN_IN_URL`
 
-The project is still in active development. Major UI changes are expected.
+`NEXT_PUBLIC_CLERK_SIGN_UP_URL`
+
+`NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL`
+
+`NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL`
+
+`DATABASE_URL`
+
+`DIRECT_URL`
+
+## API Reference
+
+#### Get account
+
+```http
+  GET /api/account
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `N/A` | `Object` | **Get** user account from the database |
+
+#### Get portfolio
+
+```http
+  GET /api/portfolio
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `N/A` | `Object` | **Get** user portfolio from the database |
+
+#### Update portfolio
+
+```http
+  PATCH /api/portfolio
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `N/A`      | `void` | **Update** the value of user's portfolio|
+
+#### Get transaction
+
+```http
+  GET /api/transaction
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `N/A` | `Object[]` | **Get** a list of transactions from the database |
+
+#### Buy stock
+
+```http
+  POST /api/transaction/buy
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `N/A` | `void` | **Execute** the 'buy' function |
+
+#### Sell stock
+
+```http
+  POST /api/transaction/sell
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `N/A` | `void` | **Execute** the 'sell' function |
 
 # Build
 
@@ -138,3 +207,16 @@ To learn more about Next.js, take a look at the following resources:
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## ER Diagram
+
+<img src='https://github.com/longleDevops/logo-images/blob/main/DynamiteTrade%20-%20Frame%201.jpg'  >
+
+## Architecture
+
+<img src='https://github.com/longleDevops/Financial-App/blob/main/doc/architecture.svg' width='600' >
+
+## Classes
+
+<img src='https://github.com/longleDevops/Financial-App/blob/main/doc/class.svg' width='600' >
+
